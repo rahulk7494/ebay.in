@@ -1,1 +1,4 @@
-/struts.xml
+/action/
+/dao/
+/model/
+/service/
