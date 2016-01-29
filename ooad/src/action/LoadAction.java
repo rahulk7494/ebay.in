@@ -17,8 +17,9 @@ public class LoadAction extends ActionSupport implements ModelDriven<ArrayList<C
 	
 	public String execute() {
 		CategoryDAO cs = new CategoryDAOImplementation();
-		if(cs.getCategories(categories))
+		if(cs.getCategories(categories)) {
 			return SUCCESS;
+		}
 		return ERROR;
 	}
 	

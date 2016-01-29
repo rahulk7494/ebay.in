@@ -20,8 +20,8 @@
 	</package>
 	
 	<package name="item" namespace="/" extends="struts-default">
-		<action name="item" class="action.LoadAction">
-			<result name="success">/item.jsp</result>
+		<action name="addItemPage" class="action.LoadAction">
+			<result name="success">/addItem.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
 		
@@ -29,6 +29,7 @@
 			<result name="success">index</result>
 			<result name="error">/error.html</result>
 		</action>
+		
 		<action name="deleteItem" class="action.ItemAction" method="delete">
 			<result name="success">index</result>
 			<result name="error">/error.html</result>

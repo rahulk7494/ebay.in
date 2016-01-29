@@ -23,5 +23,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="E:/Software/System Software/eclipse-jee-mars-1-win32-x86_64/struts2-bootstrap-plugin-1.5.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

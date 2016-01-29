@@ -57,6 +57,19 @@ public class CategoryDAOImplementation implements CategoryDAO {
 					
 					prevCategoryName = categoryName;	
 				}
+				if(prevCategoryName.equals(categoryName)) {
+					if(j != 0) {
+						
+						category = new Category();
+						category.setCategoryId(++i);
+						category.setCategoryName(prevCategoryName);
+						category.setSubCategories(subCategories);
+						
+						categories.add(category);
+					}
+					subCategories = new ArrayList<>();
+					j = 0;
+				}
 				cs.disconnect();
 				return true;
 			}

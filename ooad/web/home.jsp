@@ -35,7 +35,13 @@
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-			        <li><a href="item">Item Management</a></li>
+			        <li class="dropdowm">
+			        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Item Management <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="addItemPage">Add Item</a></li>
+							<li><a href="deleteItem.jsp">Delete Item</a></li>
+						</ul>	
+		        	</li>
 		      	</ul>
    			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container -->
@@ -43,43 +49,43 @@
 
 	<div class="container">
 		<table class="table">
-							<tbody>
-								<tr>
-								<s:iterator>
-									<td>
-										<s:if test="categoryId < 4">
-										<h3><a href="#"><s:property value="categoryName"/></a></h3>
-										<ul>
-										  	<s:iterator value="subCategories">
-											  	<li><s:property value="subCategoryName"/></li>
-										  	</s:iterator>
-									  	</ul>	
-										</s:if>
-								  	</td>
-						  			<td>
-										<s:if test="categoryId >= 4 && categoryId < 7">
-										<h3><a href="#"><s:property value="categoryName"/></a></h3>
-										<ul>
-										  	<s:iterator value="subCategories">
-											  	<li><s:property value="subCategoryName"/></li>
-										  	</s:iterator>
-									  	</ul>	
-										</s:if>
-								  	</td>
-									<td>
-										<s:if test="categoryId >= 7">
-										<h3><a href="#"><s:property value="categoryName"/></a></h3>
-										<ul>
-										  	<s:iterator value="subCategories">
-											  	<li><s:property value="subCategoryName"/></li>
-										  	</s:iterator>
-									  	</ul>	
-										</s:if>
-								  	</td>
-								</s:iterator>
-								</tr>
-							</tbody>
-						</table>
+			<tbody>
+				<tr>
+				<s:iterator>
+					<td>
+						<s:if test="categoryId < 4">
+						<h3><a href="#"><s:property value="categoryName"/></a></h3>
+						<ul>
+						  	<s:iterator value="subCategories">
+							  	<li><s:property value="subCategoryName"/></li>
+						  	</s:iterator>
+					  	</ul>	
+						</s:if>
+				  	</td>
+		  			<td>
+						<s:if test="categoryId >= 4 && categoryId < 7">
+						<h3><a href="#"><s:property value="categoryName"/></a></h3>
+						<ul>
+						  	<s:iterator value="subCategories">
+							  	<li><s:property value="subCategoryName"/></li>
+						  	</s:iterator>
+					  	</ul>	
+						</s:if>
+				  	</td>
+					<td>
+						<s:if test="categoryId >= 7">
+						<h3><a href="#"><s:property value="categoryName"/></a></h3>
+						<ul>
+						  	<s:iterator value="subCategories">
+							  	<li><s:property value="subCategoryName"/></li>
+						  	</s:iterator>
+					  	</ul>	
+						</s:if>
+				  	</td>
+				</s:iterator>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 
 	<footer class="site-footer">
