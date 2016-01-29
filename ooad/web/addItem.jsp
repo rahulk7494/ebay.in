@@ -11,8 +11,7 @@
 	<link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-
-		<nav class="navbar navbar-inverse navbar-static-top">
+		<nav class="navbar navbar-default navbar-static-top">
   			<div class="container">
     		<!-- Brand and toggle get grouped for better mobile display -->
     			<div class="navbar-header">
@@ -23,29 +22,99 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 			      	</button>
-      				<a class="navbar-brand" href="index">eBay.in</a>
+      				<a class="navbar-brand active" href="index">eBay.in</a>
     			</div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			      	<ul class="nav navbar-nav">
-			        	<li><a href="register.html">Register</a></li>
+		      		<ul class="nav navbar-nav">
+		      			<li><a href="register.jsp">Register</a></li>
+				    	<li>
+				    		<a data-toggle="tab" href="#category">Shop By Category</a> 
+			    		</li>
+			    		<li>
+		    				<a data-toggle="tab" href="#empty">
+		    					<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+	    					</a>
+			    		</li>
+				   	</ul>
+				   	<ul class="nav navbar-nav navbar-right">
 				        <li class="dropdown">
-				      		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Shop By Category <b class="caret"></b></a>
-							
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-       						<li class="dropdown">
-					      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li><a href="#" class="active">Add Item</a></li>
-									<li><a href="deleteItem.jsp">Delete Item</a></li>
-								</ul>
-							</li>
-						</ul>
-    			</div><!-- /.navbar-collapse -->
+				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Add Item</a></li>
+								<li><a href="deleteItem.jsp">Delete Item</a></li>
+							</ul>
+						</li>					        
+			      	</ul>
+			  	  	<div class="tab-content">
+				    	<div id="empty" class="tab-pane-fade">
+				    	</div>
+					    <div id="category" class="tab-pane fade">
+					      	<table class="table">
+								<tbody>
+									<tr>
+									<s:iterator>
+										<s:if test="categoryId % 3 == 1">
+										<td>
+											<h4><s:property value="categoryName"/></h4>
+											<ul>
+											  	<s:iterator value="subCategories">
+												  	<li style="list-style-type: none;">
+												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
+												  			<s:property value="subCategoryName"/>
+											  			</a>
+										  			</li>
+											  	</s:iterator>
+										  	</ul>	
+									  	</td>
+									  	</s:if>
+									</s:iterator>
+									</tr>
+									<tr>	
+					  				<s:iterator>
+										<s:if test="categoryId % 3 == 2">
+										<td>
+											<h4><s:property value="categoryName"/></h4>
+											<ul>
+											  	<s:iterator value="subCategories">
+												  	<li style="list-style-type: none;">
+												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
+												  			<s:property value="subCategoryName"/>
+											  			</a>
+										  			</li>
+											  	</s:iterator>
+										  	</ul>	
+									  	</td>
+										</s:if>
+									</s:iterator>
+									</tr>
+									<tr>
+									<s:iterator>
+										<s:if test="categoryId % 3 == 0">
+											<td>
+											<h4><s:property value="categoryName"/></h4>
+											<ul>
+											  	<s:iterator value="subCategories">
+												  	<li style="list-style-type: none;">
+												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
+												  			<s:property value="subCategoryName"/>
+											  			</a>
+										  			</li>
+											  	</s:iterator>
+										  	</ul>	
+									  	</td>
+										</s:if>
+									</s:iterator>
+									</tr>
+								</tbody>
+							</table>
+					    </div>
+				    </div>
+			  	</div><!-- /.navbar-collapse -->
   			</div><!-- /.container -->
 		</nav>
+
 
 	<div class="container">
 		<div class="row">
@@ -58,14 +127,14 @@
   					<div class="panel-body">
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Seller Id</label>
-					    	<div class="col-sm-9">
+					    	<div class="col-sm-8">
 						    	<input type="text" class="form-control" id="sellerId" hidden="" name="sellerId" placeholder="Seller ID" onkeyup="verifySeller()">
 						    	<span id="err"> </span>
 						    </div>
 					  	</div>
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Category Name</label>
-					    	<div class="col-sm-9">
+					    	<div class="col-sm-8">
 						    	<select class="form-control" id="category" name="category" onchange="getSubCategory()">
 									<option value='0'>None</option>
 									<s:iterator>
@@ -76,7 +145,7 @@
 					  	</div>
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Sub-Category Name</label>
-					    	<div id="getSubCategory" class="col-sm-9">
+					    	<div id="getSubCategory" class="col-sm-8">
 					    		<select class="form-control" id="subCategory">
 									<option>None</option>
 								</select>
@@ -84,7 +153,7 @@
 					  	</div>
 					  	<div class="form-group">
    							<label for="id" class="col-sm-3 control-label">Item Id</label>
-   							<div class="col-sm-9">
+   							<div class="col-sm-8">
      								<div class="input-group">
 									  	<span class="input-group-addon" id="sId">SID</span>
 									  	<span class="input-group-addon" id="catId">CatId</span>
@@ -95,31 +164,31 @@
 						</div>
 					  	<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Item Name</label>
-					    	<div class="col-sm-9">
+					    	<div class="col-sm-8">
 						    	<input type="text" class="form-control" name="itemName" placeholder="Item Name">
 						    </div>
 					  	</div>
 					  	<div class="form-group">
 						    <label for="address" class="col-sm-3 control-label">Description</label>
-					    	<div class="col-sm-9">
-						          <textarea rows="2" style="width: 100%;" name="itemDescription"></textarea>
+					    	<div class="col-sm-8">
+						          <textarea rows="2" class="form-control" name="itemDescription"></textarea>
 						    </div>
 						</div>
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Picture</label>
-					    	<div class="col-sm-9">
+					    	<div class="col-sm-8">
 						    	<input type="file" name="itemPicture">
 						    </div>
 					  	</div>
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Price</label>
-					    	<div class="col-sm-9">
+					    	<div class="col-sm-8">
 						    	<input type="text" class="form-control" name="itemPrice" />
 						    </div>
 					  	</div>
 					  	<div class="form-group">
 					  		<label for="name" class="col-sm-3 control-label">Advertising Item</label>
-					    	<div class="col-sm-9">
+					    	<div class="col-sm-8">
 						    	<div class="radio">
 						  		 	<label>
 								    	<input type="radio" name="optionsRadios" id="optionsRadios2" value="Yes"> Yes
@@ -134,11 +203,12 @@
 					</div>
 					<div class="panel-footer">
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-11">
 								<div class="pull-right">
 								    <button type="submit" class="btn btn-success">Submit</button>
 								</div>
 							</div>
+							<div class="col-md-1"></div>
 						</div>
 					</div>
 				</s:form>

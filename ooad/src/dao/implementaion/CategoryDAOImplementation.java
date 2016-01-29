@@ -63,6 +63,7 @@ public class CategoryDAOImplementation implements CategoryDAO {
 					
 					prevCategoryName = categoryName;	
 					prevCategoryId = categoryId;
+					j ++;
 				}
 				if(prevCategoryName.equals(categoryName)) {
 					if(j != 0) {

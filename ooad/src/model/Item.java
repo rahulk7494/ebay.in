@@ -4,13 +4,17 @@ import java.io.File;
 
 public class Item {
 
+	private int surrogateItemId;
 	private String itemId;
 	private String itemName;
+	private String itemDescription;
 	private File itemPicture;
-	private String categoryName;
-	private String subCategoryName;
+	private Seller seller;
+	private int categoryId;
+	private int subCategoryId;
 	private String itemPictureContentType;
 	private String itemPictureFileName;
+	private double itemPrice;
 	
 	public String getItemId() {
 		return itemId;
@@ -52,19 +56,51 @@ public class Item {
 		this.itemPictureFileName = itemPictureFileName;
 	}
 
-	public String getCategoryName() {
-		return categoryName;
+	public int getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
-	public String getSubCategoryName() {
-		return subCategoryName;
+	public int getSubCategoryId() {
+		return subCategoryId;
 	}
 
-	public void setSubCategoryName(String subCategoryName) {
-		this.subCategoryName = subCategoryName;
+	public void setSubCategoryId(int subCategoryId) {
+		this.subCategoryId = subCategoryId;
+	}
+
+	public String getItemDescription() {
+		return itemDescription;
+	}
+
+	public void setItemDescription(String itemDescription) {
+		this.itemDescription = itemDescription;
+	}
+
+	public double getItemPrice() {
+		return itemPrice;
+	}
+
+	public void setItemPrice(double itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+
+	public int getSurrogateItemId() {
+		return surrogateItemId;
+	}
+
+	public void setSurrogateItemId(int surrogateItemId) {
+		this.surrogateItemId = surrogateItemId;
+	}
+
+	public Seller getSeller() {
+		return seller;
+	}
+
+	public void setSeller(Seller seller) {
+		this.seller = seller;
 	}
 }

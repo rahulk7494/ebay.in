@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="s" uri="/struts-tags" %>  
+
+<%@ taglib prefix="s" uri="/struts-tags" %> 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
+<meta charset="ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scaling=1.0">
-	<title>Delete Item</title>
+	<title>Register</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 </head>
@@ -29,7 +30,7 @@
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
-						<li><a href="register.jsp">Register</a></li>
+				    	<li><a href="#">Register</a></li>
 				    	<li>
 				    		<a data-toggle="tab" href="#category">Shop By Category</a> 
 			    		</li>
@@ -44,7 +45,7 @@
 				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="addItemPage">Add Item</a></li>
-								<li><a href="#">Delete Item</a></li>
+								<li><a href="deleteItem.jsp">Delete Item</a></li>
 							</ul>
 						</li>					        
 			      	</ul>
@@ -116,87 +117,100 @@
   			</div><!-- /.container -->
 		</nav>
 
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-primary">
 					<div class="panel-heading" style="text-align: center;">
-						Delete Item
+						Register
 					</div>
-				<form action="deleteItem" method="post" class="form-horizontal">
-  					<div class="panel-body">
-						<div class="form-group">
-   							<label for="id" class="col-sm-2 control-label">Item Id</label>
-   							<div class="col-sm-10">
-   								<input type="text" class="form-control" id="itemId" name="itemId" placeholder="Item ID" onkeyup="verifyItem()">
-   							</div>
- 							</div>
-					  	<div class="form-group">
-						    <label for="name" class="col-sm-2 control-label">Item Name</label>
-					    	<div class="col-sm-10">
-						    	<input type="text" id="itemName" class="form-control" name="itemName" disabled="disabled">
-						    </div>
-					  	</div>
-				  	</div>
-					<div class="panel-footer">
-					    <button type="submit" class="btn btn-success">Delete</button>
-					</div>
-				</form>
+					<form action="register" id="registerForm" method="post" class="form-horizontal">
+  						<div class="panel-body">
+							<div class="form-group">
+    							<label for="id" class="col-sm-3 control-label">Seller Id</label>
+    							<div class="col-sm-8">
+      								<input type="text" class="form-control" id="sellerId" name="sellerId" placeholder="Seller ID">
+		    					</div>
+  							</div>
+						  	<div class="form-group">
+							    <label for="name" class="col-sm-3 control-label">Seller Name</label>
+						    	<div class="col-sm-8">
+							    	<input type="text" class="form-control" id="sellerName" name="sellerName" placeholder="Seller Name">
+							    </div>
+						  	</div>
+						  	<div class="form-group">
+							    <label for="address" class="col-sm-3 control-label">Seller Address</label>
+						    	<div class="col-sm-8">
+							          <textarea rows="5" class="form-control" id="sellerAddress" name="sellerAddress"></textarea>
+							    </div>
+  							</div>
+						</div>
+						<div class="panel-footer">
+					    	<div class="row">
+								<div class="col-md-11">
+									<div class="pull-right">
+										<button type="button" id="registerBtn" class="btn btn-success">Register</button>
+									</div>
+								</div>
+								<div class="col-md-1">
+								</div>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+
+	<script>
 	
-	<script type="text/javascript">
-		
-		function ajax(urls, result)
+		function validateText(id)
 		{
-			var xmlhttp;
-			if (window.XMLHttpRequest)
-	 	 	{
-			  	xmlhttp=new XMLHttpRequest();
-		  	}
+			if($("#"+id).val() == null || $("#"+id).val() == "")
+			{
+				var div = $("#"+id).closest("div");
+				div.removeClass("has-success");
+				div.addClass("has-error has-feedback");
+				$("#glypcn"+id).remove();
+				div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-remove form-control-feedback"></span>');
+				return false;
+			}
 			else
-		  	{
-			  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		  	}
-			xmlhttp.onreadystatechange=function()
-		  	{
-				if (xmlhttp.readyState==4)
-		    	{
-					var response = xmlhttp.responseText; 
-				 	if(response != "")
-				 	{
-				 		document.getElementById(result).disabled = false;
-				 		document.getElementById(result).value = response;
-				 	}
-				 	else
-			 	 		document.getElementById(result).disabled = true;
-				}
-		  	}
-			xmlhttp.open("GET",urls,true);
-			xmlhttp.send();
+			{
+				var div = $("#"+id).closest("div");
+				$("#glypcn"+id).remove();
+				div.removeClass("has-error");
+				div.addClass("has-success has-feedback");
+				div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-ok form-control-feedback"></span>');
+				return true;
+			}
 		}
 		
-		function verifyItem()
-		{
-			var key = document.getElementById("itemId").value;
-			var urls = "ajax/verifyItem.jsp?itemId=" + key;
-			
-			ajax(urls, "itemName");
-		}
-	
-		function getSubCategory()
-		{
-			var x = document.getElementById("category").selectedIndex;
-		    var y = document.getElementById("category").options;
-			var key = y[x].index + 1;
-			var urls = "ajax/getSubCategories.jsp?categoryId=" + key
-	
-			ajax(urls, "subCategory");
-		}
+		$(document).ready(
+		
+				function()
+				{
+					$("#registerBtn").click(function()
+						{
+							if(!validateText("sellerId") )
+							{
+								return false;
+							}	
+							if(!validateText("sellerName"))
+							{
+								return false;
+							}
+							if(!validateText("sellerAddress"))
+							{
+								return false;
+							}
+							$("form#registerForm").submit();
+						});
+				}
+		);
 	</script>
 </body>
 </html>
