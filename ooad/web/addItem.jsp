@@ -59,7 +59,7 @@
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Seller Id</label>
 					    	<div class="col-sm-9">
-						    	<input type="text" class="form-control" id="sellerId" name="sellerId" placeholder="Seller ID" onkeyup="verifySeller()">
+						    	<input type="text" class="form-control" id="sellerId" hidden="" name="sellerId" placeholder="Seller ID" onkeyup="verifySeller()">
 						    	<span id="err"> </span>
 						    </div>
 					  	</div>
@@ -67,16 +67,17 @@
 						    <label for="name" class="col-sm-3 control-label">Category Name</label>
 					    	<div class="col-sm-9">
 						    	<select class="form-control" id="category" name="category" onchange="getSubCategory()">
+									<option value='0'>None</option>
 									<s:iterator>
-										<option><s:property value="categoryName"/></option>
+										<option value='<s:property value="categoryId"/>'><s:property value="categoryName"/></option>
 									</s:iterator>
 								</select>
 						    </div>
 					  	</div>
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Sub-Category Name</label>
-					    	<div id="subCategory" class="col-sm-9">
-					    		<select class="form-control">
+					    	<div id="getSubCategory" class="col-sm-9">
+					    		<select class="form-control" id="subCategory">
 									<option>None</option>
 								</select>
 						    </div>
@@ -85,9 +86,9 @@
    							<label for="id" class="col-sm-3 control-label">Item Id</label>
    							<div class="col-sm-9">
      								<div class="input-group">
-									  	<span class="input-group-addon" id="addon1">SID</span>
-									  	<span class="input-group-addon" id="addon2">CatId</span>
-									  	<span class="input-group-addon" id="addon3">SubCatID</span>
+									  	<span class="input-group-addon" id="sId">SID</span>
+									  	<span class="input-group-addon" id="catId">CatId</span>
+									  	<span class="input-group-addon" id="subCatId">SubCatID</span>
 									  	<input type="text" class="form-control" name="itemId" placeholder="Item ID">
 									</div>
 	    					</div>
@@ -145,6 +146,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
@@ -171,8 +173,8 @@
 		  	{
 			  	if (xmlhttp.readyState==4)
 		    	{
-			        document.getElementById(result).innerHTML=xmlhttp.responseText;
-			    }
+			  		document.getElementById(result).innerHTML=xmlhttp.responseText;
+			  	}
 		  	}
 			xmlhttp.open("GET",urls,true);
 			xmlhttp.send();
@@ -184,17 +186,38 @@
 			var urls = "ajax/verifySeller.jsp?sellerId=" + key;
 			
 			ajax(urls, "err");
+			
+			document.getElementById("sId").innerHTML = key;
 		}
 	
 		function getSubCategory()
 		{
+		/*
 			var x = document.getElementById("category").selectedIndex;
 		    var y = document.getElementById("category").options;
 			var key = y[x].index + 1;
+		*/	
+			var e = document.getElementById("category");
+			var key = e.options[e.selectedIndex].value;
+			
 			var urls = "ajax/getSubCategories.jsp?categoryId=" + key
-	
-			ajax(urls, "subCategory");
+			
+			ajax(urls, "getSubCategory");
+			
+			document.getElementById("catId").innerHTML = key;
+		
+			document.getElementById("subCategory").options[0].selected = 'selected';
+			fillDetails();
 		}
+		
+		function fillDetails()
+		{
+			var e = document.getElementById("subCategory");
+			var key = e.options[e.selectedIndex].value;
+			document.getElementById("subCatId").innerHTML = key;
+			
+		}
+		
 	</script>	
 </body>
 </html>

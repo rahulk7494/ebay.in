@@ -14,7 +14,7 @@
 		
 			DBConnection conn = new DBConnection();
 			
-			String sql =  "SELECT subcategory_name " 
+			String sql =  "SELECT * " 
 						+ "FROM item_subcategories "
 						+ "WHERE subcategory_id IN " 
 						+ "(SELECT item_subcat "
@@ -24,10 +24,12 @@
 			PreparedStatement ps = conn.connect().prepareStatement(sql);
 		    ResultSet rs = ps.executeQuery();
 		
-		    result = "<select class='form-control'>";
+		    result = "<select class='form-control' id='subCategory' onchange='fillDetails()'>"; 
+		    		
+		    
 		    while(rs.next())
 		    {
-		    	result = result + "<option>"+rs.getString(1)+"</option>";
+		    	result = result + "<option value='" + rs.getInt(1) + "'>" + rs.getString(2) + "</option>";
 		    }
 			result = result + "</select>";
 			rs.close();

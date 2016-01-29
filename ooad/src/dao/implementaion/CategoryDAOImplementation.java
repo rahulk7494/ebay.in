@@ -23,23 +23,29 @@ public class CategoryDAOImplementation implements CategoryDAO {
 			DBConnection cs = new DBConnection();
 			PreparedStatement ps = cs.connect().prepareStatement("SELECT * FROM " + tableName);
 			ResultSet rs = ps.executeQuery();
-			int i = 0;
 			int j = 0;
 			if(!rs.wasNull())
 			{
+				int categoryId = 0;
+				int prevCategoryId = 0;
 				String categoryName = "";
-				String subCategoryName = "";
 				String prevCategoryName = "";
+				
+				int subCategoryId = 0;
+				String subCategoryName = "";
+				
 				while (rs.next()) {
 					
-					categoryName = rs.getString(1);
-					subCategoryName = rs.getString(2);
+					categoryId = rs.getInt(1);
+					categoryName = rs.getString(2);
+					subCategoryId = rs.getInt(3);
+					subCategoryName = rs.getString(4);
 					
 					if(!prevCategoryName.equals(categoryName)) {
 						if(j != 0) {
 							
 							category = new Category();
-							category.setCategoryId(++i);
+							category.setCategoryId(prevCategoryId);
 							category.setCategoryName(prevCategoryName);
 							category.setSubCategories(subCategories);
 							
@@ -50,18 +56,19 @@ public class CategoryDAOImplementation implements CategoryDAO {
 					}
 					
 					subCategory = new SubCategory();
-					subCategory.setSubCategoryId(++j);
+					subCategory.setSubCategoryId(subCategoryId);
 					subCategory.setSubCategoryName(subCategoryName);
 					
 					subCategories.add(subCategory);
 					
 					prevCategoryName = categoryName;	
+					prevCategoryId = categoryId;
 				}
 				if(prevCategoryName.equals(categoryName)) {
 					if(j != 0) {
 						
 						category = new Category();
-						category.setCategoryId(++i);
+						category.setCategoryId(prevCategoryId);
 						category.setCategoryName(prevCategoryName);
 						category.setSubCategories(subCategories);
 						
