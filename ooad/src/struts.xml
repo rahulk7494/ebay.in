@@ -5,6 +5,8 @@
 	"http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+    <constant name="struts.multipart.saveDir" value="images/" />
+    
 	<package name="index" namespace="/" extends="struts-default">
 		<action name="index" class="action.LoadAction">
 			<result name="success">/home.jsp</result>
@@ -26,8 +28,15 @@
 		</action>
 		
 		<action name="addItem" class="action.ItemAction">
-			<result name="success">addItemPage</result>
-			<result name="error">/error.html</result>
+			<interceptor-ref name="fileUpload">
+		        <param name="maximumSize">2097152</param>
+		        <param name="allowedTypes">
+		            image/png,image/gif,image/jpeg,image/pjpeg
+		        </param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack"></interceptor-ref>
+		    <result name="success">/register.jsp</result>
+		    <result name="error">/error.html</result>
 		</action>
 		
 		<action name="deleteItem" class="action.ItemAction" method="delete">

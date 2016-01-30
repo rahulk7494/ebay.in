@@ -13,7 +13,7 @@ public class RegisterDAOImplementation implements RegisterDAO {
 		
 		try {
 			
-			PreparedStatement ps = cs.connect().prepareStatement("INSERT INTO seller (id, name, address) VALUES (?, ?, ?)");
+			PreparedStatement ps = cs.connect().prepareStatement("INSERT INTO seller VALUES (?, ?, ?)");
 			ps.setString(1, seller.getSellerId());
 			ps.setString(2, seller.getSellerName());
 			ps.setString(3, seller.getSellerAddress());

@@ -30,7 +30,7 @@
 		      		<ul class="nav navbar-nav">
 		      			<li><a href="register.jsp">Register</a></li>
 				    	<li>
-				    		<a data-toggle="tab" href="#category">Shop By Category</a> 
+				    		<a data-toggle="tab" href="#shopByCategory">Shop By Category</a> 
 			    		</li>
 			    		<li>
 		    				<a data-toggle="tab" href="#empty">
@@ -50,7 +50,7 @@
 			  	  	<div class="tab-content">
 				    	<div id="empty" class="tab-pane-fade">
 				    	</div>
-					    <div id="category" class="tab-pane fade">
+					    <div id="shopByCategory" class="tab-pane fade">
 					      	<table class="table">
 								<tbody>
 									<tr>
@@ -128,7 +128,7 @@
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Seller Id</label>
 					    	<div class="col-sm-8">
-						    	<input type="text" class="form-control" id="sellerId" hidden="" name="sellerId" placeholder="Seller ID" onkeyup="verifySeller()">
+						    	<input type="text" class="form-control" id="sellerId" hidden="" name="seller.sellerId" placeholder="Seller ID" onkeyup="verifySeller()">
 						    	<span id="err"> </span>
 						    </div>
 					  	</div>

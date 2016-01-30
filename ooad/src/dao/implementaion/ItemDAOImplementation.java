@@ -34,12 +34,48 @@ public class ItemDAOImplementation implements ItemDAO {
 			ImageIO.write(bi, "png", saveFile);
             
             DBConnection cs = new DBConnection();
-			PreparedStatement ps = cs.connect().prepareStatement("INSERT INTO item(id, name, picture) VALUES (?, ?, ?)");
-			ps.setString(1, item.getItemId());
-			ps.setString(2, item.getItemName());
-			ps.setString(3, item.getItemPictureFileName());
-			if(!ps.execute())
+			PreparedStatement ps1 = cs.connect().prepareStatement("INSERT INTO item(item_id, item_name, item_picture) VALUES (?, ?, ?)");
+			ps1.setString(1, item.getItemId());
+			ps1.setString(2, item.getItemName());
+			ps1.setString(3, item.getItemPictureFileName());
+			if(!ps1.execute())
+			{
 				cs.disconnect();
+				
+//				System.out.println("First");
+				PreparedStatement ps = cs.connect().prepareStatement("SELECT id FROM item WHERE item_id = ?");
+				ps.setString(1, item.getItemId());
+				ResultSet rs = ps.executeQuery();
+				if(rs.next())
+					item.setSurrogateItemId(rs.getInt(1));
+				cs.disconnect();
+				ps.close();
+				rs.close();
+				
+//				System.out.println("Second " + item.getSurrogateItemId());
+				ps = cs.connect().prepareStatement("SELECT id FROM seller WHERE seller_id = ?");
+				ps.setString(1, item.getSeller().getSellerId());
+				rs = ps.executeQuery();
+				Seller seller = new Seller();
+				if(rs.next())
+				{
+					seller.setSurrogateSellerId(rs.getInt(1));
+				}
+				cs.disconnect();
+				ps.close();
+				rs.close();
+				
+//				System.out.println("Third " + item.getSurrogateItemId() + " " + seller.getSurrogateSellerId());
+				ps = cs.connect().prepareStatement("INSERT INTO item_seller VALUES (?, ?)");
+				ps.setInt(1, item.getSurrogateItemId());
+				ps.setInt(2, seller.getSurrogateSellerId());
+				ps.execute();
+				cs.disconnect();
+				ps.close();
+				
+			}
+			
+			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -56,7 +92,7 @@ public class ItemDAOImplementation implements ItemDAO {
 		    DBConnection cs = new DBConnection();
 		    String sql =  "DELETE "
 						+ "FROM item "
-						+ "WHERE id = ? and name = ?";
+						+ "WHERE item_id = ? and item_name = ?";
 			PreparedStatement ps = cs.connect().prepareStatement(sql);
 			ps.setString(1, item.getItemId());
 			ps.setString(2, item.getItemName());

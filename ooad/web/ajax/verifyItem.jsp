@@ -11,7 +11,7 @@
 		String itemId = request.getParameter("itemId");
         try {
 			DBConnection conn = new DBConnection();
-            PreparedStatement ps = conn.connect().prepareStatement("SELECT name FROM item WHERE id = ?");
+            PreparedStatement ps = conn.connect().prepareStatement("SELECT item_name FROM item WHERE item_id = ?");
             ps.setString(1, itemId);
             ResultSet rs = ps.executeQuery();
             if(rs.next())
