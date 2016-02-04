@@ -26,7 +26,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 			      	</button>
-      				<a class="navbar-brand active" href="index">eBay.in</a>
+      				<a class="navbar-brand active" href="index1">eBay.in</a>
     			</div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -138,7 +138,8 @@
 	%>
 						<div class="col-sm-6 col-md-4">
 							<div class="thumbnail">
-								<img alt="" src="showPicture.jsp?image=<s:property value='itemPicture'/>" class="img-responsive">
+								<img alt="" src="showPicture.jsp?image=<%=item.getItemPictureString() %>" class="img-responsive">
+								<!-- <img alt="" src="images/Desert.jpg" class="img-responsive"> -->
 								<div class="caption">
 									<input type="hidden" name="productId" value="<%=item.getItemId() %>"> 
 									<h3 style="color: purple;"><%=item.getItemName() %></h3>
@@ -147,7 +148,7 @@
 									</div>
 									<div class="row">
 										<div class="col-sm-6">
-											<h5><%=item.getSeller().getSellerName() %></h5>
+											<h5></h5>
 										</div>
 										<div class="col-sm-6">
 											<h4 class="pull-right"><strong>$ <%=item.getItemPrice() %>&emsp;</strong></h4>

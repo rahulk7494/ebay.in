@@ -15,11 +15,11 @@
 			DBConnection conn = new DBConnection();
 			
 			String sql =  "SELECT * " 
-						+ "FROM item_subcategories "
+						+ "FROM subcategories "
 						+ "WHERE subcategory_id IN " 
-						+ "(SELECT item_subcat "
-						+ "FROM item_options "
-						+ "WHERE item_cat = " + categoryId + ")";
+						+ "(SELECT subcat_id "
+						+ "FROM categories_subcategories "
+						+ "WHERE cat_id = " + categoryId + ")";
 		    
 			PreparedStatement ps = conn.connect().prepareStatement(sql);
 		    ResultSet rs = ps.executeQuery();

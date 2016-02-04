@@ -11,7 +11,7 @@
 		String sellerId = request.getParameter("sellerId");
         try {
 			DBConnection conn = new DBConnection();
-            PreparedStatement ps = conn.connect().prepareStatement("SELECT * FROM seller WHERE seller_id = ?");
+            PreparedStatement ps = conn.connect().prepareStatement("SELECT * FROM users WHERE user_id = ? and (user_type = 2 or user_type = 3)");
             ps.setString(1, sellerId);
             ResultSet rs = ps.executeQuery();
             if(rs.next())

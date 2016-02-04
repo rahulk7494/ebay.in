@@ -21,6 +21,7 @@ public class ItemDAOImplementation implements ItemDAO {
 			
 			String workingDir = System.getProperty("user.dir");		// get current working directory
 			System.out.println(workingDir);
+			System.out.println(item.getItemPictureString());
 			
 			/*
 			 *	File currentDirFile = new File(".");
@@ -28,22 +29,38 @@ public class ItemDAOImplementation implements ItemDAO {
 			 *	String currentDir = helper.substring(0, helper.length - currentDirFile.getCanonicalPath().length); 
 			 *
 			 */
+		
+			String fileName = "";
+			DBConnection cs = new DBConnection();
+			PreparedStatement ps1 = cs.connect().prepareStatement("SELECT MAX(item_images_id) FROM item_images");
+			ResultSet rs1 = ps1.executeQuery();
+			
+			if(rs1.next()) {
+				fileName = (rs1.getInt(1) + 1) + "";
+			}
+			
+			cs.disconnect();
+			ps1.close();
+			rs1.close();
 			
 			BufferedImage bi = ImageIO.read(item.getItemPicture());
-			File saveFile = new File(workingDir + item.getItemPictureFileName());
+			File saveFile = new File(workingDir + fileName + ".png");
 			ImageIO.write(bi, "png", saveFile);
-            
-            DBConnection cs = new DBConnection();
-			PreparedStatement ps1 = cs.connect().prepareStatement("INSERT INTO item(item_id, item_name, item_picture) VALUES (?, ?, ?)");
+			
+			item.setItemPictureString("eclipse" + fileName + ".png");
+			
+			System.out.println("new " + item.getItemPictureString());
+			
+            cs = new DBConnection();
+			ps1 = cs.connect().prepareStatement("INSERT INTO items(item_id, item_name) VALUES (?, ?)");
 			ps1.setString(1, item.getItemId());
 			ps1.setString(2, item.getItemName());
-			ps1.setString(3, item.getItemPictureFileName());
 			if(!ps1.execute())
 			{
 				cs.disconnect();
 				
-//				System.out.println("First");
-				PreparedStatement ps = cs.connect().prepareStatement("SELECT id FROM item WHERE item_id = ?");
+				System.out.println("First");
+				PreparedStatement ps = cs.connect().prepareStatement("SELECT items_id FROM items WHERE item_id = ?");
 				ps.setString(1, item.getItemId());
 				ResultSet rs = ps.executeQuery();
 				if(rs.next())
@@ -52,8 +69,16 @@ public class ItemDAOImplementation implements ItemDAO {
 				ps.close();
 				rs.close();
 				
-//				System.out.println("Second " + item.getSurrogateItemId());
-				ps = cs.connect().prepareStatement("SELECT id FROM seller WHERE seller_id = ?");
+				System.out.println("First first");
+				ps = cs.connect().prepareStatement("INSERT INTO item_images(item_id, item_image) VALUES(?, ?)");
+				ps.setInt(1, item.getSurrogateItemId());
+				ps.setString(2, item.getItemPictureString());
+				ps.execute();
+				cs.disconnect();
+				ps.close();
+				
+				System.out.println("Second " + item.getSurrogateItemId());
+				ps = cs.connect().prepareStatement("SELECT users_id FROM users WHERE user_id = ?");
 				ps.setString(1, item.getSeller().getSellerId());
 				rs = ps.executeQuery();
 				Seller seller = new Seller();
@@ -65,8 +90,8 @@ public class ItemDAOImplementation implements ItemDAO {
 				ps.close();
 				rs.close();
 				
-//				System.out.println("Third " + item.getSurrogateItemId() + " " + seller.getSurrogateSellerId());
-				ps = cs.connect().prepareStatement("INSERT INTO item_seller VALUES (?, ?)");
+				System.out.println("Third " + item.getSurrogateItemId() + " " + seller.getSurrogateSellerId());
+				ps = cs.connect().prepareStatement("INSERT INTO item_sellers(item_id, seller_id) VALUES (?, ?)");
 				ps.setInt(1, item.getSurrogateItemId());
 				ps.setInt(2, seller.getSurrogateSellerId());
 				ps.execute();
@@ -90,7 +115,7 @@ public class ItemDAOImplementation implements ItemDAO {
 		try {
 			
 		    DBConnection cs = new DBConnection();
-			PreparedStatement ps = cs.connect().prepareStatement("DELETE FROM item_seller WHERE item_id = ?");
+			PreparedStatement ps = cs.connect().prepareStatement("DELETE FROM item_sellers WHERE item_id = ?");
 			ps.setString(1, item.getItemId());
 			ps.execute();
 			cs.disconnect();
@@ -98,7 +123,7 @@ public class ItemDAOImplementation implements ItemDAO {
 			
 			System.out.println("Hello");
 		    String sql =  "DELETE "
-						+ "FROM item "
+						+ "FROM items "
 						+ "WHERE item_id = ?";
 			ps = cs.connect().prepareStatement(sql);
 			ps.setString(1, item.getItemId());
@@ -119,7 +144,7 @@ public class ItemDAOImplementation implements ItemDAO {
 		try {
 			
 			Item item;
-			Seller seller;
+//			Seller seller;
 		    DBConnection dbConnection = new DBConnection();
 		    String sql =  "SELECT * "
 						+ "FROM items "
@@ -130,17 +155,24 @@ public class ItemDAOImplementation implements ItemDAO {
 			{
 				item = new Item();
 //				seller = new Seller();
+				item.setSurrogateItemId(rs.getInt(1));
 				item.setItemId(rs.getString(2));
 				item.setItemName(rs.getString(3));
 				item.setItemDescription(rs.getString(4));
 				item.setItemPrice(rs.getDouble(5));
 //				seller.setSellerName(rs.getString(7));
 //				item.setSeller(seller);
-				items.add(item);
+				
 				String sql1 = "SELECT item_image FROM item_images WHERE item_id = ?";
 				DBConnection dbConnection2 = new DBConnection();
 				PreparedStatement ps1 = dbConnection2.connect().prepareStatement(sql1);
-//				ps1.setInt(1, item.getItemId());
+				ps1.setInt(1, item.getSurrogateItemId());
+				ResultSet rs1 = ps1.executeQuery();
+				while(rs1.next()) {
+					item.setItemPictureString(rs1.getString(1));
+					System.out.println("---------" + item.getItemPictureString());
+				}
+				items.add(item);
 			}
 			
 			dbConnection.disconnect();

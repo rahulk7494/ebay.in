@@ -14,7 +14,6 @@ public class Item {
 	private int categoryId;
 	private int subCategoryId;
 	private String itemPictureContentType;
-	private String itemPictureFileName;
 	private double itemPrice;
 	
 	public String getItemId() {
@@ -49,14 +48,14 @@ public class Item {
 		this.itemPictureContentType = itemPictureContentType;
 	}
 
-	public String getItemPictureFileName() {
+	/*public String getItemPictureFileName() {
 		return itemPictureFileName;
 	}
 
 	public void setItemPictureFileName(String itemPictureFileName) {
 		this.itemPictureFileName = itemPictureFileName;
 	}
-
+*/
 	public int getCategoryId() {
 		return categoryId;
 	}
@@ -110,6 +109,6 @@ public class Item {
 	}
 
 	public void setItemPictureString(String itemPictureString) {
-		this.itemPictureString = this.itemPicture.getName();
+		this.itemPictureString = itemPictureString;
 	}
 }

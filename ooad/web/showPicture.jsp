@@ -2,12 +2,14 @@
 <%@page import="java.io.File"%>
 <%@page import="javax.imageio.ImageIO"%>
 <%@page import="java.awt.image.BufferedImage"%>
+<%@page trimDirectiveWhitespaces="true" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%
 	try {
 		String dbImageName = request.getParameter("image");
-		File imageFile = new File("E:\\Software\\System Software\\eclipse-jee-mars-1-win32-x86_64\\eclipse" + dbImageName);
+		System.out.println("========" + dbImageName);
+		File imageFile = new File("E:\\Software\\System Software\\eclipse-jee-mars-1-win32-x86_64\\" + dbImageName);
 		BufferedImage bi = ImageIO.read(imageFile);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ImageIO.write(bi, "jpg", baos);

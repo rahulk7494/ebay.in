@@ -7,8 +7,8 @@
 <struts>
     <constant name="struts.multipart.saveDir" value="images/" />
     
-	<package name="index" namespace="/" extends="struts-default">
-		<action name="index" class="action.LoadAction">
+	<package name="index1" namespace="/" extends="struts-default">
+		<action name="index1" class="action.LoadAction">
 			<result name="success">/home.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
