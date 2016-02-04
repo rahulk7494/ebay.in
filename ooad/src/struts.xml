@@ -16,7 +16,7 @@
 	
 	<package name="register" namespace="/" extends="struts-default">
 		<action name="register" class="action.RegisterAction">
-			<result name="success">index</result>
+			<result name="success">/register.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
 	</package>

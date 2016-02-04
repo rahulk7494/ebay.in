@@ -138,7 +138,7 @@
 	%>
 						<div class="col-sm-6 col-md-4">
 							<div class="thumbnail">
-								<img alt="" src="images/Desert.jpg" class="img-responsive">
+								<img alt="" src="showPicture.jsp?image=<s:property value='itemPicture'/>" class="img-responsive">
 								<div class="caption">
 									<input type="hidden" name="productId" value="<%=item.getItemId() %>"> 
 									<h3 style="color: purple;"><%=item.getItemName() %></h3>

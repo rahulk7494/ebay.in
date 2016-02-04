@@ -9,6 +9,7 @@ public class Item {
 	private String itemName;
 	private String itemDescription;
 	private File itemPicture;
+	private String itemPictureString;
 	private Seller seller;
 	private int categoryId;
 	private int subCategoryId;
@@ -102,5 +103,13 @@ public class Item {
 
 	public void setSeller(Seller seller) {
 		this.seller = seller;
+	}
+
+	public String getItemPictureString() {
+		return itemPictureString;
+	}
+
+	public void setItemPictureString(String itemPictureString) {
+		this.itemPictureString = this.itemPicture.getName();
 	}
 }

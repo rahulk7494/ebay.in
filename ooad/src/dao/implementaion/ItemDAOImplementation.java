@@ -90,14 +90,21 @@ public class ItemDAOImplementation implements ItemDAO {
 		try {
 			
 		    DBConnection cs = new DBConnection();
+			PreparedStatement ps = cs.connect().prepareStatement("DELETE FROM item_seller WHERE item_id = ?");
+			ps.setString(1, item.getItemId());
+			ps.execute();
+			cs.disconnect();
+			ps.close();
+			
+			System.out.println("Hello");
 		    String sql =  "DELETE "
 						+ "FROM item "
-						+ "WHERE item_id = ? and item_name = ?";
-			PreparedStatement ps = cs.connect().prepareStatement(sql);
+						+ "WHERE item_id = ?";
+			ps = cs.connect().prepareStatement(sql);
 			ps.setString(1, item.getItemId());
-			ps.setString(2, item.getItemName());
 			if(!ps.execute())
 				cs.disconnect();
+			ps.close();
 		}
 		catch(Exception e) {
 			System.out.println("SQL Error");
@@ -115,22 +122,27 @@ public class ItemDAOImplementation implements ItemDAO {
 			Seller seller;
 		    DBConnection dbConnection = new DBConnection();
 		    String sql =  "SELECT * "
-						+ "FROM item_info "
+						+ "FROM items "
 						+ "WHERE item_subcat_id = " + subCategoryId;
 			PreparedStatement ps = dbConnection.connect().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
 				item = new Item();
-				seller = new Seller();
+//				seller = new Seller();
 				item.setItemId(rs.getString(2));
 				item.setItemName(rs.getString(3));
 				item.setItemDescription(rs.getString(4));
-				item.setItemPrice(rs.getDouble(6));
-				seller.setSellerName(rs.getString(7));
-				item.setSeller(seller);
+				item.setItemPrice(rs.getDouble(5));
+//				seller.setSellerName(rs.getString(7));
+//				item.setSeller(seller);
 				items.add(item);
+				String sql1 = "SELECT item_image FROM item_images WHERE item_id = ?";
+				DBConnection dbConnection2 = new DBConnection();
+				PreparedStatement ps1 = dbConnection2.connect().prepareStatement(sql1);
+//				ps1.setInt(1, item.getItemId());
 			}
+			
 			dbConnection.disconnect();
 		}
 		catch(Exception e) {

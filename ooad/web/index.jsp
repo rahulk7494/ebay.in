@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-<% response.sendRedirect("index"); %>
+<%-- <% response.sendRedirect("index"); %> --%>
     
 <!DOCTYPE html>
 <html>
@@ -10,5 +10,6 @@
 	<title>ebay.in</title>
 </head>
 <body>
+	<img alt="" src="showPicture.jsp?image=out">
 </body>
 </html>

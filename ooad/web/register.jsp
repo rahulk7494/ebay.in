@@ -130,7 +130,8 @@
 							<div class="form-group">
     							<label for="id" class="col-sm-3 control-label">Seller Id</label>
     							<div class="col-sm-8">
-      								<input type="text" class="form-control" id="sellerId" name="sellerId" placeholder="Seller ID">
+      								<input type="text" class="form-control" id="sellerId" name="sellerId" placeholder="Seller ID"  onkeyup="verifySeller()">
+									<span id="err"> </span>
 		    					</div>
   							</div>
 						  	<div class="form-group">
@@ -211,6 +212,40 @@
 						});
 				}
 		);
+	</script>
+	
+	<script type="text/javascript">
+		
+		function ajax(urls, result)
+		{
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+	 	 	{
+			  	xmlhttp=new XMLHttpRequest();
+		  	}
+			else
+		  	{
+			  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  	}
+			xmlhttp.onreadystatechange=function()
+		  	{
+			  	if (xmlhttp.readyState==4)
+		    	{
+			  		document.getElementById(result).innerHTML=xmlhttp.responseText;
+			  	}
+		  	}
+			xmlhttp.open("GET",urls,true);
+			xmlhttp.send();
+		}
+		
+		function verifySeller()
+		{
+			var key = document.getElementById("sellerId").value;
+			var urls = "ajax/verifySeller.jsp?sellerId=" + key;
+			
+			ajax(urls, "err");
+		}
+		
 	</script>
 </body>
 </html>
