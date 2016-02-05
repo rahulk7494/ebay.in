@@ -14,105 +14,13 @@
 		<nav class="navbar navbar-default navbar-static-top">
   			<div class="container">
     		<!-- Brand and toggle get grouped for better mobile display -->
-    			<div class="navbar-header">
-     				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
-      						data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				        <span class="sr-only">Toggle navigation</span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-			      	</button>
-      				<a class="navbar-brand active" href="index1">eBay.in</a>
+    			<div class="navbar-header pull-right col-md-7">
+     				
+      		    <a class="navbar-brand active" href="index1"><img src="images/logo.png" alt="Your Logo"></a>
+    			</div>
     			</div>
 
-			    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      		<ul class="nav navbar-nav">
-		      			<li><a href="register.jsp">Register</a></li>
-				    	<li>
-				    		<a data-toggle="tab" href="#shopByCategory">Shop By Category</a> 
-			    		</li>
-			    		<li>
-		    				<a data-toggle="tab" href="#empty">
-		    					<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-	    					</a>
-			    		</li>
-				   	</ul>
-				   	<ul class="nav navbar-nav navbar-right">
-				        <li class="dropdown">
-				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Add Item</a></li>
-								<li><a href="deleteItem.jsp">Delete Item</a></li>
-							</ul>
-						</li>					        
-			      	</ul>
-			  	  	<div class="tab-content">
-				    	<div id="empty" class="tab-pane-fade">
-				    	</div>
-					    <div id="shopByCategory" class="tab-pane fade">
-					      	<table class="table">
-								<tbody>
-									<tr>
-									<s:iterator>
-										<s:if test="categoryId % 3 == 1">
-										<td>
-											<h4><s:property value="categoryName"/></h4>
-											<ul>
-											  	<s:iterator value="subCategories">
-												  	<li style="list-style-type: none;">
-												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
-												  			<s:property value="subCategoryName"/>
-											  			</a>
-										  			</li>
-											  	</s:iterator>
-										  	</ul>	
-									  	</td>
-									  	</s:if>
-									</s:iterator>
-									</tr>
-									<tr>	
-					  				<s:iterator>
-										<s:if test="categoryId % 3 == 2">
-										<td>
-											<h4><s:property value="categoryName"/></h4>
-											<ul>
-											  	<s:iterator value="subCategories">
-												  	<li style="list-style-type: none;">
-												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
-												  			<s:property value="subCategoryName"/>
-											  			</a>
-										  			</li>
-											  	</s:iterator>
-										  	</ul>	
-									  	</td>
-										</s:if>
-									</s:iterator>
-									</tr>
-									<tr>
-									<s:iterator>
-										<s:if test="categoryId % 3 == 0">
-											<td>
-											<h4><s:property value="categoryName"/></h4>
-											<ul>
-											  	<s:iterator value="subCategories">
-												  	<li style="list-style-type: none;">
-												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
-												  			<s:property value="subCategoryName"/>
-											  			</a>
-										  			</li>
-											  	</s:iterator>
-										  	</ul>	
-									  	</td>
-										</s:if>
-									</s:iterator>
-									</tr>
-								</tbody>
-							</table>
-					    </div>
-				    </div>
-			  	</div><!-- /.navbar-collapse -->
-  			</div><!-- /.container -->
+			   
 		</nav>
 
 
@@ -202,15 +110,21 @@
 					  	</div>
 					</div>
 					<div class="panel-footer">
-						<div class="row">
-							<div class="col-md-11">
-								<div class="pull-right">
-								    <button type="submit" class="btn btn-success">Submit</button>
+				  	
+					<div class="row">
+								<div class="col-md-12">
+								<a href="index.jsp" class="btn btn-large btn-primary pull-left">Prev</a>		
+								<a href="index.jsp" class="btn btn-large btn-primary pull-right">Home</a>						
+									<div class="pull-right col-md-6">
+										<button type="submit" class="btn btn-success">Submit</button>
+									</div>
+									
+									
+								</div>
+								<div class="col-md-1">
 								</div>
 							</div>
-							<div class="col-md-1"></div>
-						</div>
-					</div>
+					</div>		
 				</s:form>
 				</div>
 			</div>

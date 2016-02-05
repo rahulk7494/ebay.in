@@ -11,7 +11,7 @@ public class DBConnection {
     private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/ebay";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "";
     private static final String MAX_POOL = "250";
 
     // init connection object

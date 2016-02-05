@@ -24,7 +24,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 			      	</button>
-      				<a class="navbar-brand active" href="index1">eBay.in</a>
+      				<a class="navbar-brand active" href="index1"><img src="images/logo.png" alt="Your Logo"></a>
     			</div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -131,38 +131,32 @@
 	  	<!-- Wrapper for slides -->
 	  	<div class="carousel-inner" role="listbox">
 	    	<div class="item active">
-		      	<img src="images/876x402_RPD_LavaIrisV5_270116.jpg" class="img-responsive" alt="first">
+		      	<img src="images/img1.jpg" class="img-responsive" alt="first">
 		      	<div class="carousel-caption">
-		        	<h3>Item Name</h3>&emsp;<h6>$299</h6>
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		        	
 	     	 	</div>
 		    </div>
 		    <div class="item">
-		      	<img src="images/876x402_Fragrance_161115.jpg" class="img-responsive" alt="second">
+		      	<img src="images/img2.jpg" class="img-responsive" alt="second">
 		      	<div class="carousel-caption">
-		        	<h3>Item Name</h3>&emsp;<h6>$299</h6>
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		        	
 	     	 	</div>
 		    </div>
 	  	    <div class="item">
-		      	<img src="images/876x402_KitchenDining_161111.jpg" class="img-responsive" alt="third">
+		      	<img src="images/img3.jpg" class="img-responsive" alt="third">
 		      	<div class="carousel-caption">
-		        	<h3>Item Name</h3>&emsp;<h6>$299</h6>
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		        		     	 	</div>
+		    </div>
+	  	    <div class="item">
+		      	<img src="images/img4.jpg" class="img-responsive" alt="fourth">
+		      	<div class="carousel-caption">
+		        	
 	     	 	</div>
 		    </div>
 	  	    <div class="item">
-		      	<img src="images/876x402_Television_161115.jpg" class="img-responsive" alt="fourth">
+		      	<img src="images/img5.jpg" class="img-responsive" alt="fifth">
 		      	<div class="carousel-caption">
-		        	<h3>Item Name</h3>&emsp;<h6>$299</h6>
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-	     	 	</div>
-		    </div>
-	  	    <div class="item">
-		      	<img src="images/876x402_Laptops_161115.jpg" class="img-responsive" alt="fifth">
-		      	<div class="carousel-caption">
-		        	<h3>Item Name</h3>&emsp;<h6>$299</h6>
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		        	
 	     	 	</div>
 		    </div>
 	  	</div>
