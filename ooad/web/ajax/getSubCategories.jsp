@@ -6,6 +6,7 @@
 
 <%
 	String result = "";
+System.out.println("test in ajaxgetsub:"+request.getParameter("categoryId"));
 	if(!request.getParameter("categoryId").isEmpty())
 	{
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
@@ -24,7 +25,7 @@
 			PreparedStatement ps = conn.connect().prepareStatement(sql);
 		    ResultSet rs = ps.executeQuery();
 		
-		    result = "<select class='form-control' id='subCategory' onchange='fillDetails()'>"; 
+		    result = "<select class='form-control' id='subCategory' name='subCategoryId' onchange='fillDetails()'>"; 
 		    		
 		    
 		    while(rs.next())

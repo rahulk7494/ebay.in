@@ -30,14 +30,14 @@
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
 						<li><a href="register.jsp">Register</a></li>
-				    	<li>
+				    	<%-- <li>
 				    		<a data-toggle="tab" href="#category">Shop By Category</a> 
 			    		</li>
 			    		<li>
 		    				<a data-toggle="tab" href="#empty">
 		    					<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
 	    					</a>
-			    		</li>
+			    		</li> --%>
 				   	</ul>
 				   	<ul class="nav navbar-nav navbar-right">
 				        <li class="dropdown">
@@ -115,6 +115,13 @@
 			  	</div><!-- /.navbar-collapse -->
   			</div><!-- /.container -->
 		</nav>
+
+	<nav>
+		<ul class="pager pull-left" style="margin: 0px; padding-left: 20px;">
+			<li><a href="index1">Back</a></li>
+			<!--  <li><a href="#">Next</a></li> -->
+		</ul>
+	</nav>
 
 	<div class="container">
 		<div class="row">

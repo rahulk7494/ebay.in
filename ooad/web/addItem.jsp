@@ -29,7 +29,7 @@
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
 		      			<li><a href="register.jsp">Register</a></li>
-				    	<li>
+				    	<%-- <li>
 				    		<a data-toggle="tab" href="#shopByCategory">Shop By Category</a> 
 			    		</li>
 			    		<li>
@@ -37,7 +37,7 @@
 		    					<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
 	    					</a>
 			    		</li>
-				   	</ul>
+ --%>				   	</ul>
 				   	<ul class="nav navbar-nav navbar-right">
 				        <li class="dropdown">
 				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
@@ -115,6 +115,13 @@
   			</div><!-- /.container -->
 		</nav>
 
+	<nav>
+		<ul class="pager pull-left" style="margin: 0px; padding-left: 20px;">
+			<li><a href="index1">Back</a></li>
+			<!--  <li><a href="#">Next</a></li> -->
+		</ul>
+	</nav>
+
 
 	<div class="container">
 		<div class="row">
@@ -135,7 +142,7 @@
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Category Name</label>
 					    	<div class="col-sm-8">
-						    	<select class="form-control" id="category" name="category" onchange="getSubCategory()">
+						    	<select class="form-control" id="category" name="categoryId" onchange="getSubCategory()">
 									<option value='0'>None</option>
 									<s:iterator>
 										<option value='<s:property value="categoryId"/>'><s:property value="categoryName"/></option>

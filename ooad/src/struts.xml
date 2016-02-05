@@ -19,6 +19,12 @@
 			<result name="success">/register.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
+		
+		<action name="registerPage" class="action.LoadAction">
+			<result name="success">/register.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		
 	</package>
 	
 	<package name="item" namespace="/" extends="struts-default">
@@ -43,5 +49,17 @@
 			<result name="success">/deleteItem.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
+		
+		<action name="deleteItemPage" class="action.LoadAction">
+			<result name="success">/deleteItem.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		
+		<action name="listItemPage" class="action.LoadAction">
+			<result name="success">/listItem.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		
+		
 	</package>
 </struts>
