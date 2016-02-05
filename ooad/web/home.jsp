@@ -8,7 +8,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scaling=1.0">
-	<title>ebay.in</title>
+	<title>raps.in</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 </head>
@@ -24,7 +24,10 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 			      	</button>
-      				<a class="navbar-brand active" href="index1">eBay.in</a>
+      				<a class="navbar-brand active" href="index1">RApS.in</a>
+      				<!--  <a class="navbar-brand" href="#">
+                <img src="http://placehold.it/150x50&text=Logo" alt="">
+            </a> -->
     			</div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->

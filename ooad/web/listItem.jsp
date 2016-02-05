@@ -10,7 +10,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scaling=1.0">
-	<title>ebay.in</title>
+	<title>raps.in</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 </head>
@@ -26,7 +26,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 			      	</button>
-      				<a class="navbar-brand active" href="index1">eBay.in</a>
+      				<a class="navbar-brand active" href="index1">RApS.in</a>
     			</div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -167,7 +167,7 @@
 									<hr>
 									<div class="row">
 										<div class="col-md-6">
-											<button type="submit" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#myModal"  >Add To Cart</button>
+											<button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#myModal"  >Add To Cart</button>
 										</div>
 										<div class="col-md-6">
 											<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal">Save For Later</button>

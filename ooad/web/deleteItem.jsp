@@ -23,7 +23,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 			      	</button>
-      				<a class="navbar-brand active" href="index1">eBay.in</a>
+      				<a class="navbar-brand active" href="index1">RApS.in</a>
     			</div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
