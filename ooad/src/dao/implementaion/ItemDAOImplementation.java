@@ -52,9 +52,14 @@ public class ItemDAOImplementation implements ItemDAO {
 			System.out.println("new " + item.getItemPictureString());
 			
             cs = new DBConnection();
-			ps1 = cs.connect().prepareStatement("INSERT INTO items(item_id, item_name) VALUES (?, ?)");
+			ps1 = cs.connect().prepareStatement("INSERT INTO items(item_id, item_name, item_cat_id, item_subcat_id, item_price,item_desc) VALUES (?, ?,?,?,?,?)");
 			ps1.setString(1, item.getItemId());
 			ps1.setString(2, item.getItemName());
+			ps1.setInt(3, item.getCategoryId());
+			ps1.setInt(4, item.getSubCategoryId());
+			ps1.setDouble(5,item.getItemPrice());
+			ps1.setString(6,item.getItemDescription());
+			System.out.println("Rohit:"+item.getCategoryId()+" "+item.getSubCategoryId());
 			if(!ps1.execute())
 			{
 				cs.disconnect();

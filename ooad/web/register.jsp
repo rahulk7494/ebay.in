@@ -24,21 +24,21 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 			      	</button>
-      				<a class="navbar-brand active" href="index1">eBay.in</a>
+      				<a class="navbar-brand active" href="index1">RApS.in</a>
     			</div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
 				    	<li><a href="#">Register</a></li>
-				    	<li>
+				    	<!-- <li>
 				    		<a data-toggle="tab" href="#category">Shop By Category</a> 
 			    		</li>
-			    		<li>
+ -->			    		<%-- <li>
 		    				<a data-toggle="tab" href="#empty">
 		    					<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
 	    					</a>
-			    		</li>
+			    		</li> --%>
 				   	</ul>
 				   	<ul class="nav navbar-nav navbar-right">
 				        <li class="dropdown">
@@ -46,6 +46,8 @@
 							<ul class="dropdown-menu">
 								<li><a href="addItemPage">Add Item</a></li>
 								<li><a href="deleteItem.jsp">Delete Item</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">Add Category</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">Delete Category</a></li>
 							</ul>
 						</li>					        
 			      	</ul>
@@ -117,6 +119,13 @@
   			</div><!-- /.container -->
 		</nav>
 
+	<nav>
+		<ul class="pager pull-left" style="margin: 0px; padding-left: 20px;">
+			<li><a href="index1">Back</a></li>
+			<!--  <li><a href="#">Next</a></li> -->
+		</ul>
+	</nav>
+
 
 	<div class="container">
 		<div class="row">
@@ -163,6 +172,25 @@
 			</div>
 		</div>
 	</div>
+	<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">404 Not Found</h4>
+        </div>
+        <div class="modal-body">
+          <p>Site Under Construction..!!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      </div>
+    </div>
 	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 

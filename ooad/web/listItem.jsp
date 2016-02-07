@@ -10,7 +10,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scaling=1.0">
-	<title>ebay.in</title>
+	<title>raps.in</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 </head>
@@ -26,14 +26,14 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 			      	</button>
-      				<a class="navbar-brand active" href="index1">eBay.in</a>
+      				<a class="navbar-brand active" href="index1">RApS.in</a>
     			</div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
 				    	<li><a href="register.jsp">Register</a></li>
-				    	<li>
+<%-- 				    	<li>
 				    		<a data-toggle="tab" href="#category">Shop By Category</a> 
 			    		</li>
 			    		<li>
@@ -41,13 +41,15 @@
 		    					<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
 	    					</a>
 			    		</li>
-				   	</ul>
+ --%>				   	</ul>
 				   	<ul class="nav navbar-nav navbar-right">
 				        <li class="dropdown">
 				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="addItemPage">Add Item</a></li>
 								<li><a href="deleteItem.jsp">Delete Item</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">Add Category</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">Delete Category</a></li>
 							</ul>
 						</li>					        
 			      	</ul>
@@ -119,6 +121,16 @@
   			</div><!-- /.container -->
 		</nav>
 	
+	<!-- Back Button -->
+
+	<nav>
+		<ul class="pager pull-left" style="margin: 0px; padding-left: 20px;">
+			<li><a href="index1">Back</a></li>
+			<!--  <li><a href="#">Next</a></li> -->
+		</ul>
+	</nav>
+
+
 	<%
 		int subCategoryId = Integer.parseInt(request.getParameter("subCategoryId"));
 		
@@ -157,10 +169,10 @@
 									<hr>
 									<div class="row">
 										<div class="col-md-6">
-											<button type="submit" class="btn btn-primary btn-block" >Add To Cart</button>
+											<button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#myModal"  >Add To Cart</button>
 										</div>
 										<div class="col-md-6">
-											<button type="button" class="btn btn-default btn-block">Save For Later</button>
+											<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal">Save For Later</button>
 										</div>
 									</div>
 								</div>
@@ -173,5 +185,41 @@
 			</s:iterator>
 		</div>
 	</div>
+	<div class="container"><!-- 
+  <h2>Modal Example</h2>
+  Trigger the modal with a button
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+ -->
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">404 Not Found</h4>
+        </div>
+        <div class="modal-body">
+          <p>Site Under Construction..!!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  
+  
+</div>
+	<script>
+function siteUnderConstructionFunction() {
+    alert("Site is Under Construction..!");
+}
+</script>
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>   
+
+
 </body>
 </html>

@@ -9,7 +9,7 @@
 	try {
 		String dbImageName = request.getParameter("image");
 		System.out.println("========" + dbImageName);
-		File imageFile = new File("E:\\Software\\System Software\\eclipse-jee-mars-1-win32-x86_64\\" + dbImageName);
+		File imageFile = new File("E:\\EclipseWork\\" + dbImageName);
 		BufferedImage bi = ImageIO.read(imageFile);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ImageIO.write(bi, "jpg", baos);

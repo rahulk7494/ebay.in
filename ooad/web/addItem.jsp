@@ -22,14 +22,14 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 			      	</button>
-      				<a class="navbar-brand active" href="index1">eBay.in</a>
+      				<a class="navbar-brand active" href="index1">RApS.in</a>
     			</div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
 		      			<li><a href="register.jsp">Register</a></li>
-				    	<li>
+				    	<%-- <li>
 				    		<a data-toggle="tab" href="#shopByCategory">Shop By Category</a> 
 			    		</li>
 			    		<li>
@@ -37,13 +37,15 @@
 		    					<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
 	    					</a>
 			    		</li>
-				   	</ul>
+ --%>				   	</ul>
 				   	<ul class="nav navbar-nav navbar-right">
 				        <li class="dropdown">
 				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">Add Item</a></li>
 								<li><a href="deleteItem.jsp">Delete Item</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">Add Category</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">Delete Category</a></li>
 							</ul>
 						</li>					        
 			      	</ul>
@@ -115,6 +117,13 @@
   			</div><!-- /.container -->
 		</nav>
 
+	<nav>
+		<ul class="pager pull-left" style="margin: 0px; padding-left: 20px;">
+			<li><a href="index1">Back</a></li>
+			<!--  <li><a href="#">Next</a></li> -->
+		</ul>
+	</nav>
+
 
 	<div class="container">
 		<div class="row">
@@ -135,7 +144,7 @@
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Category Name</label>
 					    	<div class="col-sm-8">
-						    	<select class="form-control" id="category" name="category" onchange="getSubCategory()">
+						    	<select class="form-control" id="category" name="categoryId" onchange="getSubCategory()">
 									<option value='0'>None</option>
 									<s:iterator>
 										<option value='<s:property value="categoryId"/>'><s:property value="categoryName"/></option>
@@ -158,32 +167,32 @@
 									  	<span class="input-group-addon" id="sId">SID</span>
 									  	<span class="input-group-addon" id="catId">CatId</span>
 									  	<span class="input-group-addon" id="subCatId">SubCatID</span>
-									  	<input type="text" class="form-control" name="itemId" placeholder="Item ID">
+									  	<input type="text" class="form-control" id="itemId" name="itemId" placeholder="Item ID">
 									</div>
 	    					</div>
 						</div>
 					  	<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Item Name</label>
 					    	<div class="col-sm-8">
-						    	<input type="text" class="form-control" name="itemName" placeholder="Item Name">
+						    	<input type="text" class="form-control" id="itemName" name="itemName" placeholder="Item Name">
 						    </div>
 					  	</div>
 					  	<div class="form-group">
 						    <label for="address" class="col-sm-3 control-label">Description</label>
 					    	<div class="col-sm-8">
-						          <textarea rows="2" class="form-control" name="itemDescription"></textarea>
+						          <textarea rows="2" class="form-control" id="itemDescription" name="itemDescription"></textarea>
 						    </div>
 						</div>
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Picture</label>
 					    	<div class="col-sm-8">
-						    	<input type="file" name="itemPicture">
+						    	<input type="file" name="itemPicture" id="itemPicture" >
 						    </div>
 					  	</div>
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Price</label>
 					    	<div class="col-sm-8">
-						    	<input type="text" class="form-control" name="itemPrice" />
+						    	<input type="text" class="form-control" id="itemPrice" name="itemPrice" />
 						    </div>
 					  	</div>
 					  	<div class="form-group">
@@ -205,7 +214,7 @@
 						<div class="row">
 							<div class="col-md-11">
 								<div class="pull-right">
-								    <button type="submit" class="btn btn-success">Submit</button>
+								    <button type="submit" id="addItemButton" class="btn btn-success">Submit</button>
 								</div>
 							</div>
 							<div class="col-md-1"></div>
@@ -217,13 +226,99 @@
 		</div>
 	</div>
 	
+	<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">404 Not Found</h4>
+        </div>
+        <div class="modal-body">
+          <p>Site Under Construction..!!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      </div>
+    </div>
+	
 	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
-	<script>
+		<script>
+	
+		function validateText(id)
+		{
+			if($("#"+id).val() == null || $("#"+id).val() == "")
+			{
+				var div = $("#"+id).closest("div");
+				div.removeClass("has-success");
+				div.addClass("has-error has-feedback");
+				$("#glypcn"+id).remove();
+				div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-remove form-control-feedback"></span>');
+				return false;
+			}
+			else
+			{
+				var div = $("#"+id).closest("div");
+				$("#glypcn"+id).remove();
+				div.removeClass("has-error");
+				div.addClass("has-success has-feedback");
+				div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-ok form-control-feedback"></span>');
+				return true;
+			}
+		}
 		
+		$(document).ready(
 		
+				function()
+				{
+					$("#addItemButton").click(function()
+						{
+							if(!validateText("sellerId") )
+							{
+								return false;
+							}	
+							
+							if(!validateText("itemId"))
+							{
+								return false;
+							}
+						
+										
+							if(!validateText("itemName"))
+							{
+								return false;
+							}
+							if(!validateText("itemDescription"))
+							{
+								return false;
+							}
+							if(!validateText("itemPicture"))
+							{
+								return false;
+							}
+
+						
+							
+							if(!validateText("itemPrice"))
+							{
+								return false;
+							}
+							
+							if(!validateText("optionsRadios2"))
+							{
+								return false;
+							}	$("form#itemForm").submit();
+						});
+				}
+		);
 	</script>
+
 
 	<!-- Fetch the data from db onchange  -->
 	<script type="text/javascript">
@@ -253,7 +348,7 @@
 		function verifySeller()
 		{
 			var key = document.getElementById("sellerId").value;
-			var urls = "ajax/verifySeller.jsp?sellerId=" + key;
+			var urls = "ajax/verifySeller2.jsp?sellerId=" + key;
 			
 			ajax(urls, "err");
 			
