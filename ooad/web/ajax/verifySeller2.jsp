@@ -16,11 +16,13 @@
             ResultSet rs = ps.executeQuery();
             if(rs.next())
 			{
-            	result = "<font color=red>Seller Id NOT Available</font>";
+            	result = "<font color=green>Correct Seller Id </font>";
+            	/* result = "<font color=red>Invalid Seller Id </font>"; */
 			}
             else
             {
-            	result = "<font color=green>Seller Id Available</font>";
+            	/* result = "<font color=green>Correct Seller Id </font>"; */
+            	result = "<font color=red>Invalid Seller Id </font>";
             }
             rs.close();
             ps.close();

@@ -16,7 +16,7 @@
 	
 	<package name="register" namespace="/" extends="struts-default">
 		<action name="register" class="action.RegisterAction">
-			<result name="success">/register.jsp</result>
+			<result name="success">/registrationSuccess.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
 		
@@ -41,12 +41,12 @@
 		        </param>
 		    </interceptor-ref>
 		    <interceptor-ref name="defaultStack"></interceptor-ref>
-		    <result name="success">/register.jsp</result>
+		    <result name="success">/addSuccess.jsp</result>
 		    <result name="error">/error.html</result>
 		</action>
 		
 		<action name="deleteItem" class="action.ItemAction" method="delete">
-			<result name="success">/deleteItem.jsp</result>
+			<result name="success">/deleteSuccess.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
 		

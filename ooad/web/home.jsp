@@ -49,6 +49,8 @@
 							<ul class="dropdown-menu">
 								<li><a href="addItemPage">Add Item</a></li>
 								<li><a href="deleteItem.jsp">Delete Item</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">Add Category</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">Delete Category</a></li>
 							</ul>
 						</li>					        
 			      	</ul>
@@ -125,49 +127,26 @@
  	 	<!-- Indicators -->
 	  	<ol class="carousel-indicators">
 		    <li data-target="#carousel" data-slide-to="0" class="active"></li>
-		    <li data-target="#carousel" data-slide-to="1"></li>
+		    <!-- <li data-target="#carousel" data-slide-to="1"></li>
 		    <li data-target="#carousel" data-slide-to="2"></li>
 	  	    <li data-target="#carousel" data-slide-to="3"></li>
-		    <li data-target="#carousel" data-slide-to="4"></li>
+		    <li data-target="#carousel" data-slide-to="4"></li> -->
 	  	</ol>
 		
 	  	<!-- Wrapper for slides -->
 	  	<div class="carousel-inner" role="listbox">
 	    	<div class="item active">
-		      	<img src="images/876x402_RPD_LavaIrisV5_270116.jpg" class="img-responsive" alt="first">
-		      	<div class="carousel-caption">
-		        	<h3>Item Name</h3>&emsp;<h6>$299</h6>
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-	     	 	</div>
+		      	<img src="images/img2.jpg" class="img-responsive" alt="first">
 		    </div>
-		    <div class="item">
-		      	<img src="images/876x402_Fragrance_161115.jpg" class="img-responsive" alt="second">
-		      	<div class="carousel-caption">
-		        	<h3>Item Name</h3>&emsp;<h6>$299</h6>
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-	     	 	</div>
-		    </div>
+		    <!-- <div class="item">
+		      	<img src="images/img3.jpg" class="img-responsive" alt="third">
+		   	</div> -->
+	  	   <!--  <div class="item">
+		      	<img src="images/img4.jpg" class="img-responsive" alt="fourth">
+	     	</div>
 	  	    <div class="item">
-		      	<img src="images/876x402_KitchenDining_161111.jpg" class="img-responsive" alt="third">
-		      	<div class="carousel-caption">
-		        	<h3>Item Name</h3>&emsp;<h6>$299</h6>
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-	     	 	</div>
-		    </div>
-	  	    <div class="item">
-		      	<img src="images/876x402_Television_161115.jpg" class="img-responsive" alt="fourth">
-		      	<div class="carousel-caption">
-		        	<h3>Item Name</h3>&emsp;<h6>$299</h6>
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-	     	 	</div>
-		    </div>
-	  	    <div class="item">
-		      	<img src="images/876x402_Laptops_161115.jpg" class="img-responsive" alt="fifth">
-		      	<div class="carousel-caption">
-		        	<h3>Item Name</h3>&emsp;<h6>$299</h6>
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-	     	 	</div>
-		    </div>
+		      	<img src="images/img5.jpg" class="img-responsive" alt="fifth">
+		    </div> -->
 	  	</div>
 		
 		  <!-- Controls -->
@@ -183,6 +162,25 @@
 	
 </div>
 
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">404 Not Found</h4>
+        </div>
+        <div class="modal-body">
+          <p>Site Under Construction..!!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      </div>
+    </div>
 	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
