@@ -13,6 +13,7 @@
 	<title>raps.in</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
+	<script src="js/jquery-2.1.1.min.js"></script>
 </head>
 <body>
 		<nav class="navbar navbar-default navbar-static-top">
@@ -168,14 +169,11 @@
 									</div>
 									<hr>
 									<div class="row">
-										<div class="col-md-4">
+										<div class="col-md-6">
 											<button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#myModal"  >Add To Cart</button>
 										</div>
-										<div class="col-md-4">
+										<div class="col-md-6">
 											<button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#myModal"  >Buy Now</button>
-										</div>
-										<div class="col-md-4">
-											<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal">Save For Later</button>
 										</div>
 									</div>
 								</div>
@@ -219,7 +217,6 @@ function siteUnderConstructionFunction() {
     alert("Site is Under Construction..!");
 }
 </script>
-<script src="js/jquery-2.1.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>   
 
 

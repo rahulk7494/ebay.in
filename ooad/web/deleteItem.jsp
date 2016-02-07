@@ -134,6 +134,8 @@
 							<ul class="dropdown-menu">
 								<li><a href="addItemPage">Add Item</a></li>
 								<li><a href="#">Delete Item</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">Add Category</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">Delete Category</a></li>
 							</ul>
 						</li>					        
 			      	</ul>

@@ -58,7 +58,5 @@
 			<result name="success">/listItem.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
-		
-		
 	</package>
 </struts>
