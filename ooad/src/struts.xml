@@ -46,13 +46,12 @@
 		</action>
 		
 		<action name="deleteItem" class="action.ItemAction" method="delete">
-			<result name="success">/deleteSuccess.jsp</result>
-			<result name="error">/error.html</result>
+			<result name="success">/deleteItem.jsp?success=true</result>
+			<result name="error">/deleteItem.jsp?success=false</result>
 		</action>
 		
-		<action name="deleteItemPage" class="action.LoadAction">
-			<result name="success">/deleteItem.jsp</result>
-			<result name="error">/error.html</result>
+		<action name="deleteItemPage">
+			<result>/deleteItem.jsp?success=none</result>
 		</action>
 		
 		<action name="listItemPage" class="action.LoadAction">

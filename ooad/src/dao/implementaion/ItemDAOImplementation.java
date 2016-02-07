@@ -103,6 +103,13 @@ public class ItemDAOImplementation implements ItemDAO {
 				cs.disconnect();
 				ps.close();
 				
+				System.out.println("Fourth " + item.getSurrogateItemId() + " " + seller.getSurrogateSellerId());
+				String logMessage = "Item with ID : " + item.getSurrogateItemId() + " is added";
+				ps = cs.connect().prepareStatement("INSERT INTO logs(log_message) VALUES (?)");
+				ps.setString(1, logMessage);
+				ps.execute();
+				cs.disconnect();
+				ps.close();
 			}
 			
 			
@@ -119,9 +126,17 @@ public class ItemDAOImplementation implements ItemDAO {
 	public boolean deleteItem(Item item) {
 		try {
 			
+			int surrogateItemId = 0;
+			
 		    DBConnection cs = new DBConnection();
-			PreparedStatement ps = cs.connect().prepareStatement("DELETE FROM item_sellers WHERE item_id = ?");
+			PreparedStatement ps = cs.connect().prepareStatement("SELECT items_id FROM items WHERE item_id = ?");
 			ps.setString(1, item.getItemId());
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+				surrogateItemId = rs.getInt(1);
+			
+			ps = cs.connect().prepareStatement("DELETE FROM item_sellers WHERE item_id = ?");
+			ps.setInt(1, surrogateItemId);
 			ps.execute();
 			cs.disconnect();
 			ps.close();
@@ -129,11 +144,18 @@ public class ItemDAOImplementation implements ItemDAO {
 			System.out.println("Hello");
 		    String sql =  "DELETE "
 						+ "FROM items "
-						+ "WHERE item_id = ?";
-			ps = cs.connect().prepareStatement(sql);
-			ps.setString(1, item.getItemId());
-			if(!ps.execute())
-				cs.disconnect();
+						+ "WHERE items_id = ?";
+		    ps = cs.connect().prepareStatement(sql);
+			ps.setInt(1, surrogateItemId);
+			ps.execute();
+			cs.disconnect();
+			ps.close();
+
+			String message = "Item with ID : " + item.getItemId() + " is deleted";
+			ps = cs.connect().prepareStatement("INSERT INTO logs(log_message) VALUES(?)");
+			ps.setString(1, message);
+			ps.execute();
+			cs.disconnect();
 			ps.close();
 		}
 		catch(Exception e) {

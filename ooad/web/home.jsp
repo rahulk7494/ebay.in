@@ -1,3 +1,6 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="dao.DBConnection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -10,7 +13,60 @@
 	<meta name="viewport" content="width=device-width, initial-scaling=1.0">
 	<title>raps.in</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
+	<link href="owl-carousel/owl.carousel.css" rel="stylesheet">
+ 	<link href="owl-carousel/owl.theme.css" rel="stylesheet">
+	<link href="owl-carousel/owl.transitions.css" rel="stylesheet">
+ 	<script src="js/jquery-2.1.1.min.js"></script>
+	<script src="owl-carousel/owl.carousel.min.js"></script>
+	
+	<style type="text/css">
+	    #owl-demo .item{
+	      margin: 3px;
+	    }
+
+	    #owl-demo .item img{
+	      display: block;
+	      width: 100%;
+	      height: auto;
+	    }
+	</style>
+
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	     
+    		var owl = $("#owl-demo");
+	    	
+	      	owl.owlCarousel({
+	     
+	          autoPlay: 3000, //Set AutoPlay to 3 seconds
+	     
+	          /* items : 3,
+	          itemsDesktop : [1199,3],
+	          itemsDesktopSmall : [979,3] */
+	      
+		      items : 3, //10 items above 1000px browser width
+		      itemsDesktop : [1000,3], //5 items between 1000px and 901px
+		      itemsDesktopSmall : [900,3], // betweem 900px and 601px
+		      itemsTablet: [600,2], //2 items between 600 and 0
+		      itemsMobile : false, // itemsMobile disabled - inherit from itemsTablet option
+		      
+		      navigation:true,
+		      navigationText: [
+		        "<i class='icon-chevron-left icon-white'>Previous</i>",
+		        "<i class='icon-chevron-right icon-white'>Next</i>"
+		        ],
+		 
+	      });
+	     
+	      $(".next").click(function(){
+	    	    owl.trigger('owl.next');
+    	  })
+    	  
+    	  $(".prev").click(function(){
+    	    	owl.trigger('owl.prev');
+    	  })
+	    });
+	</script>
 </head>
 <body>
 		<nav class="navbar navbar-default navbar-static-top">
@@ -48,7 +104,7 @@
 				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="addItemPage">Add Item</a></li>
-								<li><a href="deleteItem.jsp">Delete Item</a></li>
+								<li><a href="deleteItemPage">Delete Item</a></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">Add Category</a></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">Delete Category</a></li>
 							</ul>
@@ -122,44 +178,57 @@
   			</div><!-- /.container -->
 		</nav>
 
-<div class="container">
-		<div id="carousel" class="carousel slide" data-ride="carousel">
- 	 	<!-- Indicators -->
-	  	<ol class="carousel-indicators">
-		    <li data-target="#carousel" data-slide-to="0" class="active"></li>
-		    <!-- <li data-target="#carousel" data-slide-to="1"></li>
-		    <li data-target="#carousel" data-slide-to="2"></li>
-	  	    <li data-target="#carousel" data-slide-to="3"></li>
-		    <li data-target="#carousel" data-slide-to="4"></li> -->
-	  	</ol>
-		
-	  	<!-- Wrapper for slides -->
-	  	<div class="carousel-inner" role="listbox">
-	    	<div class="item active">
-		      	<img src="images/img2.jpg" class="img-responsive" alt="first">
-		    </div>
-		    <!-- <div class="item">
-		      	<img src="images/img3.jpg" class="img-responsive" alt="third">
-		   	</div> -->
-	  	   <!--  <div class="item">
-		      	<img src="images/img4.jpg" class="img-responsive" alt="fourth">
-	     	</div>
-	  	    <div class="item">
-		      	<img src="images/img5.jpg" class="img-responsive" alt="fifth">
-		    </div> -->
-	  	</div>
-		
-		  <!-- Controls -->
-		  <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
-		    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-		    <span class="sr-only">Previous</span>
-		  </a>
-		  <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-		    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-		    <span class="sr-only">Next</span>
-		  </a>
-		</div>
+<%
+
+	try {
+				   
+		DBConnection dbConnection = new DBConnection();
+		PreparedStatement ps = dbConnection.connect().prepareStatement("SELECT * FROM item_advertisement");
+		ResultSet rs = ps.executeQuery();
+%>
+
+<div class="row">
+	<div class="col-md-2">
 	
+	</div>
+    <div class="col-md-8">
+		<div id="owl-demo" class="owl-carousal">
+<%		while(rs.next()) {
+%>
+	      	<div class="item">
+				<div class="thumbnail">
+		 		 	<img src="showPicture.jsp?image=<%=rs.getString(4) %>" class="img-responsive">
+      				<div class="caption">
+						<table class="table" style="border-width : 0px; border-top-style: none;">
+	    				<tr>
+	    					<td>ID</td>
+	    					<td><strong><%=rs.getString(1) %></strong></td>
+	    				</tr>
+						<tr>
+							<td>NAME</td>
+							<td><strong><%=rs.getString(2) %></strong></td>
+						</tr>
+						<tr>
+							<td>Price</td>
+							<td><strong>$ <%=rs.getDouble(3) %></strong></td>
+						</tr>
+						<tr class="success">
+							<td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary" role="button">Buy Now</a></td>
+	    				</table>
+      				</div>
+				</div>
+		 	</div>
+<%		}
+	} catch(Exception e) {
+		e.printStackTrace();
+	}
+%>
+		</div>
+	</div>
+    <div class="col-md-2">
+	
+	</div>
+    
 </div>
 
 <!-- Modal -->
@@ -170,7 +239,6 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">404 Not Found</h4>
         </div>
         <div class="modal-body">
           <p>Site Under Construction..!!</p>
@@ -181,7 +249,6 @@
       </div>
       </div>
     </div>
-	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
 </body>

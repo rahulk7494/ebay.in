@@ -1,3 +1,7 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="dao.DBConnection"%>
+<%@page import="com.sun.net.httpserver.Authenticator.Success"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>  
@@ -9,9 +13,94 @@
 	<title>Delete Item</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
+	<script src="js/jquery-2.1.1.min.js"></script>
+	
 </head>
 <body>
-
+<%! 
+	String log = "";
+ %>
+<%
+	String result = request.getParameter("success");
+	
+	try {
+		DBConnection dbConnection = new DBConnection();
+		PreparedStatement ps = dbConnection.connect().prepareStatement("SELECT log_message FROM logs WHERE logs_id = (SELECT MAX(logs_id) FROM logs)");
+		ResultSet rs = ps.executeQuery();
+		if(rs.next())
+			log = rs.getString(1);
+		System.out.println(" --------- " + log);
+	}
+	catch(Exception e) {
+		
+	}
+%>
+	<div class="modal fade" id="success" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+<%
+	if(result.equals("true")) {	
+%>
+				<div class="modal-header modal-header-success">
+<%
+	} else if(result.equals("true")) {	
+%>
+				<div class="modal-header modal-header-danger">
+<%		
+	}
+%>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h3>
+						<i class="glyphicon glyphicon-thumbs-up"></i> <%=log %>
+					</h3>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+    
+<%-- 			<!-- Modal -->
+				<div class="modal fade" id="success" role="dialog">
+					<div class="modal-dialog modal-sm">
+						
+						<!-- Modal content-->
+						<div class="modal-content">
+<%
+	if(result.equals("true")) {	
+%>
+							<button type="button" class="btn btn-success" data-dismiss="modal"><%=log %></button>
+<%
+	} else if(result.equals("false")){
+%>		
+							<button type="button" class="btn btn-danger" data-dismiss="modal"><%=log %></button>
+<%		
+	}
+%>
+						</div>
+					</div>
+				</div>
+ --%>
+<script type="text/javascript">
+		
+				$(document).ready(function() {
+					
+<%
+	if(result.equals("true") || result.equals("false")) {	
+%>
+					$("#success").modal('show');
+<%
+	} else {
+%>		
+					$("#success").modal('hide');
+<%		
+	}
+%>
+				});
+			</script>
+		
 		<nav class="navbar navbar-default navbar-static-top">
   			<div class="container">
     		<!-- Brand and toggle get grouped for better mobile display -->
@@ -45,8 +134,6 @@
 							<ul class="dropdown-menu">
 								<li><a href="addItemPage">Add Item</a></li>
 								<li><a href="#">Delete Item</a></li>
-								<li><a href="#" data-toggle="modal" data-target="#myModal">Add Category</a></li>
-								<li><a href="#" data-toggle="modal" data-target="#myModal">Delete Category</a></li>
 							</ul>
 						</li>					        
 			      	</ul>
@@ -163,7 +250,6 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">404 Not Found</h4>
         </div>
         <div class="modal-body">
           <p>Site Under Construction..!!</p>
@@ -174,7 +260,6 @@
       </div>
       </div>
     </div>
-	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	
 	<script type="text/javascript">

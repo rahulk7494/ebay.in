@@ -168,10 +168,13 @@
 									</div>
 									<hr>
 									<div class="row">
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#myModal"  >Add To Cart</button>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
+											<button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#myModal"  >Buy Now</button>
+										</div>
+										<div class="col-md-4">
 											<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal">Save For Later</button>
 										</div>
 									</div>
@@ -198,7 +201,6 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">404 Not Found</h4>
         </div>
         <div class="modal-body">
           <p>Site Under Construction..!!</p>

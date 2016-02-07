@@ -1,111 +1,28 @@
 @CHARSET "ISO-8859-1";
 
-.thumbnail-height {
-	height: 70px;
+
+.modal-header-success {
+    color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #5cb85c;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
 }
-.header	{
-	font-size: 12px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-}
-.height-50 {
-	height: 50px;
-}	
-.no-margin {
-	margin: 0px;
-}	
-.font-size-12 {
-	font-size: 12px;
-}
-.text-dec-none > button:hover {
-	text-decoration: none;	
-}
-.text-dec-none > button {
-	text-decoration: none;	
-}
-.border {
-	border: 1px solid #bbb;
-}
-.border-right {
-	border-right: 1px solid #d3d3d3;
-}
-.border-bottom {
-	border-bottom: 1px solid #b2b2b2;
-}
-/* ---  padding  ---  */
-.no-padding {
-	padding: 0px;
-}
-.no-padding-right {
-	padding-right: 0px;
-}
-.padding-top-5 {
-	padding-top: 5px;
-}
-.padding-top-10 {
-	padding-top: 10px;
-}
-.padding-top-20 {
-	padding-top: 20px;
-}
-.padding-bottom-5 {
-	padding-bottom: 5px;
-}
-.padding-bottom-10 {
-	padding-bottom: 10px;
-}
-.padding-bottom-20 {
-	padding-bottom: 20px;
-}
-/* --- padding ---  */
-.no-decoration a {
-	text-decoration: none;
-}
-.center-text {
-	text-align: center;
-}
-.body-image {
-	border-top: 1px solid #b2b2b2;
-	padding: 10px 0px; 
-}
-.body-image ul {
-	margin-bottom: 0px;
-	padding: 5px 0px;
-}
-.body-image ul > li {
-	list-style: none;
-	height: 134px;
-}
-.body-image ul > li > img {
-	display: block;
-}
-.site-footer {
-	background-color: #222;
-	color: #fff;
-	margin-top: 30px;
-	padding-top: 30px;
-}
-.bottom-footer {
-	border-top: 1px solid #b2b2b2;
-	margin-top: 10px;
-	padding-top: 10px;
-	color: #b2b2b2;
-}
-.footer-nav li {
-	display: inline;	
-}
-.footer-nav {
-	text-align: right;
-	list-style: none;
-}
-.footer-nav li:not(:FIRST-CHILD):BEFORE {
-	content: '|';
-	padding: 0px 10px;
-}
-.footer-nav a {
-	color: #b2b2b2;	
-}
-.footer-nav a:HOVER {
-	color: #fff;
-	text-decoration: none;
+
+.modal-header-danger {
+	color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #d9534f;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
 }
