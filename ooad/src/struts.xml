@@ -64,7 +64,10 @@
 			<result name="success">/listSubCategory.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
-		
+		<action name="deleteSubCategoryPage" class="action.LoadAction">
+			<result name="success">/deleteSubCategory.jsp?subCategoryId=0</result>
+			<result name="error">/error.html</result>
+		</action>
 		<!-- Sub-Category End -->
 		
 		<!-- Action Events Start -->
