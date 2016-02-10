@@ -13,6 +13,8 @@
 	<title>Register</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
+	<script src="js/jquery-2.1.1.min.js"></script>
+	
 </head>
 <body>
 <%! 
@@ -21,14 +23,13 @@
 <%
 	String result = request.getParameter("success");
 	
-	if(!result.equals("none")) {
 	try {
 		DBConnection dbConnection = new DBConnection();
 		PreparedStatement ps = dbConnection.connect().prepareStatement("SELECT log_message FROM logs WHERE logs_id = (SELECT MAX(logs_id) FROM logs)");
 		ResultSet rs = ps.executeQuery();
 		if(rs.next())
 			log = rs.getString(1);
-		
+		System.out.println("register --------- " + log);
 	}
 	catch(Exception e) {
 		
@@ -74,11 +75,10 @@
 					$("#success").modal('hide');
 <%		
 	}
-				}
 %>
 				});
 			</script>
-
+		
 		<nav class="navbar navbar-default navbar-static-top">
   			<div class="container">
     		<!-- Brand and toggle get grouped for better mobile display -->
@@ -96,7 +96,7 @@
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
-				    	<li><a href="#">Register</a></li>
+				    	<li class="active"><a href="registerPage1">Register</a></li>
 				   	</ul>
 				   	<ul class="nav navbar-nav navbar-right">
 				        <li class="dropdown">
@@ -104,10 +104,10 @@
 							<ul class="dropdown-menu">
 								<li><a href="addItemPage">Add Item</a></li>
 								<li><a href="deleteItem.jsp">Delete Item</a></li>
-								<li><a href="login.html">Login</a></li>
 							</ul>
 						</li>					        
-			      	</ul>
+		      			<li><a href="login.html">Login</a></li>
+					</ul>
 			  	</div><!-- /.navbar-collapse -->
   			</div><!-- /.container -->
 		</nav>
@@ -183,8 +183,6 @@
       </div>
       </div>
     </div>
-	<script src="js/jquery-2.1.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
 
 	<script>
 	
@@ -228,6 +226,10 @@
 							{
 								return false;
 							}
+							if(!validateText("res")) 
+							{
+								return false;
+							}
 							$("form#registerForm").submit();
 						});
 				}
@@ -267,5 +269,8 @@
 		}
 		
 	</script>
+	
+	<script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>

@@ -16,11 +16,11 @@
             ResultSet rs = ps.executeQuery();
             if(rs.next())
 			{
-            	result = "<font color=red>Seller Id NOT Available</font>";
+            	result = "<font color=red>Seller Id NOT Available</font><input type='hidden' id='res' value='' >";
 			}
             else
             {
-            	result = "<font color=green>Seller Id Available</font>";
+            	result = "<font color=green>Seller Id Available</font><input type='hidden' id='res' value='Valid' >";
             }
             rs.close();
             ps.close();

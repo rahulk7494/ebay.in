@@ -16,13 +16,11 @@
             ResultSet rs = ps.executeQuery();
             if(rs.next())
 			{
-            	result = "<font color=green>Correct Seller Id </font>";
-            	/* result = "<font color=red>Invalid Seller Id </font>"; */
-			}
+            	result = "<font color=green>Correct Seller Id </font><input type='hidden' id='res1' value='Valid' >";
+            }
             else
             {
-            	/* result = "<font color=green>Correct Seller Id </font>"; */
-            	result = "<font color=red>Invalid Seller Id </font>";
+            	result = "<font color=red>Invalid Seller Id </font><input type='hidden' id='res1' value='' >";
             }
             rs.close();
             ps.close();

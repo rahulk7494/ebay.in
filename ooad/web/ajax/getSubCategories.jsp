@@ -26,7 +26,7 @@ System.out.println("test in ajaxgetsub:"+request.getParameter("categoryId"));
 		    ResultSet rs = ps.executeQuery();
 		
 		    result = "<select class='form-control' id='subCategory' name='subCategoryId' onchange='fillDetails()'>"; 
-		    		
+		    result = result + "<option value='0'>None</option>";
 		    
 		    while(rs.next())
 		    {

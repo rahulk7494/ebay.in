@@ -12,6 +12,8 @@
 	<title>Add Item</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
+	<script src="js/jquery-2.1.1.min.js"></script>
+	
 </head>
 <body>
 <%! 
@@ -26,7 +28,7 @@
 		ResultSet rs = ps.executeQuery();
 		if(rs.next())
 			log = rs.getString(1);
-		System.out.println("delete Item --------- " + log);
+		System.out.println("add Item --------- " + log);
 	}
 	catch(Exception e) {
 		
@@ -93,14 +95,14 @@
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
-		      			<li><a href="registerPage">Register</a></li>
+		      			<li><a href="registerPage1">Register</a></li>
 			    	</ul>
 				   	<ul class="nav navbar-nav navbar-right">
-				        <li class="dropdown">
+				        <li class="dropdown active">
 				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Add Item</a></li>
-								<li><a href="deleteItem.jsp">Delete Item</a></li>
+								<li><a href="addItemPage">Add Item</a></li>
+								<li><a href="deleteItemPage">Delete Item</a></li>
 							</ul>
 						</li>					        
 			    		<li><a href="login.html">Login</a></li>
@@ -302,7 +304,6 @@
       </div>
     </div>
 	
-	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
 		<script>
@@ -335,19 +336,19 @@
 				{
 					$("#addItemButton").click(function()
 						{
-							var str = '<font color=red>Invalid Seller Id </font>',
-							string = $("#err").html();
-							
-							//alert($("#err").html());
 							if(!validateText("sellerId")) {
 								return false;
 							}
-							if((String(string) == String(str))) {
-								alert($("#err").html());
-								return false;
+							if(!validateText("res1"))
+							{
+								return false;		
 							}
 							if(!validateText("itemId"))	{
 								return false;
+							}
+							if(!validateText("res2"))
+							{
+								return false;		
 							}
 							if(!validateText("itemName")) {
 								return false;

@@ -19,7 +19,7 @@
 			<result name="success">/register.jsp?success=true</result>
 			<result name="error">/error.html</result>
 		</action>
-		<action name="registerPage">
+		<action name="registerPage1">
 			<result>/register.jsp?success=none</result>
 		</action>
 	</package>
@@ -44,7 +44,7 @@
 		
 		<action name="deleteItem" class="action.ItemAction" method="delete">
 			<result name="success">/deleteItem.jsp?success=true</result>
-			<result name="error">/deleteItem.jsp?success=false</result>
+			<result name="error">/error.html</result>
 		</action>
 		
 		<action name="deleteItemPage">

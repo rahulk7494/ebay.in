@@ -96,7 +96,7 @@
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
-						<li><a href="registerPage">Register</a></li>
+						<li><a href="registerPage1">Register</a></li>
 				    	<%-- <li>
 				    		<a data-toggle="tab" href="#category">Shop By Category</a> 
 			    		</li>
@@ -107,15 +107,14 @@
 			    		</li> --%>
 				   	</ul>
 				   	<ul class="nav navbar-nav navbar-right">
-				        <li class="dropdown">
+				        <li class="dropdown active">
 				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="addItemPage">Add Item</a></li>
-								<li><a href="#">Delete Item</a></li>
-								<li><a href="#" data-toggle="modal" data-target="#myModal">Add Category</a></li>
-								<li><a href="#" data-toggle="modal" data-target="#myModal">Delete Category</a></li>
+								<li><a href="deleteItemPage">Delete Item</a></li>
 							</ul>
-						</li>					        
+						</li>			
+						<li><a href="login.html">Login</a></li>		        
 			      	</ul>
 			  	  	<div class="tab-content">
 				    	<div id="empty" class="tab-pane-fade">
