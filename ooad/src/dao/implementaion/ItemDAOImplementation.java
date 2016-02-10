@@ -22,7 +22,6 @@ public class ItemDAOImplementation implements ItemDAO {
 			String workingDir = System.getProperty("user.dir");		// get current working directory
 			System.out.println(workingDir);
 			System.out.println(item.getItemPictureString());
-			
 			/*
 			 *	File currentDirFile = new File(".");
 			 *	String helper = currentDirFile.getAbsolutePath();
@@ -52,13 +51,24 @@ public class ItemDAOImplementation implements ItemDAO {
 			System.out.println("new " + item.getItemPictureString());
 			
             cs = new DBConnection();
-			ps1 = cs.connect().prepareStatement("INSERT INTO items(item_id, item_name, item_cat_id, item_subcat_id, item_price,item_desc) VALUES (?, ?,?,?,?,?)");
+			ps1 = cs.connect().prepareStatement("INSERT INTO items(item_id, item_name, item_cat_id, item_subcat_id, item_price, item_desc, item_adv) VALUES (?, ?, ?, ?, ?, ?, ?)");
 			ps1.setString(1, item.getItemId());
 			ps1.setString(2, item.getItemName());
 			ps1.setInt(3, item.getCategoryId());
 			ps1.setInt(4, item.getSubCategoryId());
 			ps1.setDouble(5,item.getItemPrice());
 			ps1.setString(6,item.getItemDescription());
+
+			if(item.getItemAdvertisement().equals("Yes")){
+				boolean b=true;
+				ps1.setBoolean(7,b);
+			}
+			
+			else if(item.getItemAdvertisement().equals("No")){
+				boolean b=false;
+				ps1.setBoolean(7,b);
+			}
+			
 			System.out.println("Rohit:"+item.getCategoryId()+" "+item.getSubCategoryId());
 			if(!ps1.execute())
 			{

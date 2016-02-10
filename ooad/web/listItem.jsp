@@ -147,15 +147,43 @@
 					<form action="" method="post">
 						
 	<%
+			int i = 0;
 			for(Item item : items) {
+				i ++;
 	%>
 						<div class="col-sm-6 col-md-4">
 							<div class="thumbnail">
-								<img alt="" src="showPicture.jsp?image=<%=item.getItemPictureString() %>" class="img-responsive">
-								<!-- <img alt="" src="images/Desert.jpg" class="img-responsive"> -->
+								<img alt="image<%=i %>" src="showPicture.jsp?image=<%=item.getItemPictureString() %>" class="img-responsive" width="500px;">
 								<div class="caption">
-									<input type="hidden" name="productId" value="<%=item.getItemId() %>"> 
-									<h3 style="color: purple;"><%=item.getItemName() %></h3>
+								<table class="table" style="border-width : 0px; border-top-style: none;">
+				    				<tr>
+				    					<td>ID</td>
+				    					<td><strong><%=item.getItemId() %></strong></td>
+				    				</tr>
+									<tr>
+										<td>Name</td>
+										<td><strong><%=item.getItemName() %></strong></td>
+									</tr>
+									<tr>
+										<td>Desc</td>
+										<td><strong><%=item.getItemDescription() %></strong></td>
+									</tr>
+									<tr>
+										<td>Price</td>
+										<td><strong>$ <%=item.getItemPrice() %></strong></td>
+									</tr>
+									<tr class="success">
+										<td class="text-right">
+											<a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-success" role="button">Buy Now</a>
+										</td>
+										<td class="text-right">
+											<a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-default" role="button">Add to Cart</a>
+										</td>
+									</tr>
+			    				</table>
+			    				<%-- 
+			    					<input type="hidden" name="productId" value=""> 
+									<h3 style="color: purple;"></h3>
 									<div class="thumbnail-height">
 										<p class="text-justify"><%=item.getItemDescription() %></p>
 									</div>
@@ -175,7 +203,7 @@
 										<div class="col-md-6">
 											<button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#myModal"  >Buy Now</button>
 										</div>
-									</div>
+									</div> --%>
 								</div>
 							</div>
 						</div>

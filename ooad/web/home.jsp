@@ -13,6 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scaling=1.0">
 	<title>raps.in</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
 	<link href="owl-carousel/owl.carousel.css" rel="stylesheet">
  	<link href="owl-carousel/owl.theme.css" rel="stylesheet">
 	<link href="owl-carousel/owl.transitions.css" rel="stylesheet">
@@ -106,8 +107,9 @@
 								<li><a href="addItemPage">Add Item</a></li>
 								<li><a href="deleteItemPage">Delete Item</a></li>
 							</ul>
-						</li>					        
-			      	</ul>
+						</li>
+						<li><a href="login.html">Login</a></li>
+				   	</ul>
 			  	  	<div class="tab-content">
 				    	<div id="empty" class="tab-pane-fade">
 				    	</div>
@@ -226,6 +228,35 @@
 	</div>
     
 </div>
+
+<footer class="site-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5">
+				<h2>Contact Address</h2>
+				<address>
+				    <b>RApS</b><br/>
+					#26/c, IIIT Bangalore,Electronic City	<br>
+					Bangalore,<br>
+					India.
+				</address>
+			</div>
+		</div>
+		<div class="bottom-footer">
+			<div class="col-md-5">
+				<p align="left"><a href="acknowledgement.jsp">Acknowledgement and References</a></p>
+			</div>
+			<div class="col-md-7">
+				<ul class="footer-nav">
+					<li><a href="home.jsp">Home</a></li>
+					<li><a href="" data-toggle="modal" data-target="#myModal" >Contact</a></li>
+					<!-- <li><a href="#">Blog</a></li>
+					<li><a href="#">Link</a></li> -->
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
 
 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">

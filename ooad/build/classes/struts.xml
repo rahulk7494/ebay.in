@@ -14,6 +14,13 @@
 		</action>
 	</package>
 	
+	<package name="login" namespace="/" extends="struts-default">
+		<action name="login" class="action.LoginAction">
+			<result name="success">/adminPage.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+	</package>
+	
 	<package name="register" namespace="/" extends="struts-default">
 		<action name="register" class="action.RegisterAction">
 			<result name="success">/registrationSuccess.jsp</result>
@@ -25,6 +32,67 @@
 			<result name="error">/error.html</result>
 		</action>
 		
+	</package>
+	
+	<package name="admin" namespace="/" extends="struts-default">
+		<action name="admin" class="action.LoadAction">
+			<result name="success">/admin.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		
+		<!-- Category Start -->
+		<action name="editCategoryPage" class="action.LoadAction">
+			<result name="success">/editCategory.jsp?categoryId=0</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="deleteCategoryPage" class="action.LoadAction">
+			<result name="success">/deleteCategory.jsp?categoryId=0</result>
+			<result name="error">/error.html</result>
+		</action>
+		<!-- Category End -->
+		
+		<!-- Sub-Category Start -->
+		<action name="addSubCategoryPage" class="action.LoadAction">
+			<result name="success">/addSubCategory.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="editSubCategoryPage" class="action.LoadAction">
+			<result name="success">/editSubCategory.jsp?subCategoryId=0</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="listSubCategoryPage" class="action.LoadAction">
+			<result name="success">/listSubCategory.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		
+		<!-- Sub-Category End -->
+		
+		<!-- Action Events Start -->
+		<action name="addCategory" class="action.AdminAction">
+			<result name="success">/adminPage.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="addSubCategory" class="action.AdminAction" method="addSubCategory">
+			<result name="success">/adminPage.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="editCategory" class="action.AdminAction" method="editCategory">
+			<result name="success">/adminPage.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="editSubCategory" class="action.AdminAction" method="editSubCategory">
+			<result name="success">/adminPage.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="deleteCategory" class="action.AdminAction" method="deleteCategory">
+			<result name="success">/adminPage.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="deleteSubCategory" class="action.AdminAction" method="deleteSubCategory">
+			<result name="success">/adminPage.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		<!-- Action Event End -->
 	</package>
 	
 	<package name="item" namespace="/" extends="struts-default">

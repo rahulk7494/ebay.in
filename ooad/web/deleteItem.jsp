@@ -44,7 +44,7 @@
 %>
 				<div class="modal-header modal-header-success">
 <%
-	} else if(result.equals("true")) {	
+	} else if(result.equals("false")) {	
 %>
 				<div class="modal-header modal-header-danger">
 <%		
@@ -61,28 +61,6 @@
 		<!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal -->
-    
-<%-- 			<!-- Modal -->
-				<div class="modal fade" id="success" role="dialog">
-					<div class="modal-dialog modal-sm">
-						
-						<!-- Modal content-->
-						<div class="modal-content">
-<%
-	if(result.equals("true")) {	
-%>
-							<button type="button" class="btn btn-success" data-dismiss="modal"><%=log %></button>
-<%
-	} else if(result.equals("false")){
-%>		
-							<button type="button" class="btn btn-danger" data-dismiss="modal"><%=log %></button>
-<%		
-	}
-%>
-						</div>
-					</div>
-				</div>
- --%>
 <script type="text/javascript">
 		
 				$(document).ready(function() {

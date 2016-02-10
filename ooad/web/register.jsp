@@ -139,7 +139,7 @@
 							<div class="form-group">
     							<label for="id" class="col-sm-3 control-label">Seller Id</label>
     							<div class="col-sm-8">
-      								<input type="text" class="form-control" id="sellerId" name="sellerId" placeholder="Seller ID"  onkeyup="verifySeller()">
+      								<input type="text" class="form-control" id="sellerId" name="sellerId" placeholder="Seller ID" onkeyup="verifySeller()">
 									<span id="err"> </span>
 		    					</div>
   							</div>

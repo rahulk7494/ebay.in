@@ -29,15 +29,7 @@
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
 		      			<li><a href="register.jsp">Register</a></li>
-				    	<%-- <li>
-				    		<a data-toggle="tab" href="#shopByCategory">Shop By Category</a> 
-			    		</li>
-			    		<li>
-		    				<a data-toggle="tab" href="#empty">
-		    					<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-	    					</a>
-			    		</li>
- --%>				   	</ul>
+			    	</ul>
 				   	<ul class="nav navbar-nav navbar-right">
 				        <li class="dropdown">
 				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
@@ -167,9 +159,10 @@
 									  	<span class="input-group-addon" id="sId">SID</span>
 									  	<span class="input-group-addon" id="catId">CatId</span>
 									  	<span class="input-group-addon" id="subCatId">SubCatID</span>
-									  	<input type="text" class="form-control" id="itemId" name="itemId" placeholder="Item ID">
+									  	<input type="text" class="form-control" id="itemId" name="itemId" placeholder="Item ID"  onkeyup="verifyItem()">
 									</div>
-	    					</div>
+									<span id="err1"></span>
+							</div>
 						</div>
 					  	<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Item Name</label>
@@ -200,11 +193,11 @@
 					    	<div class="col-sm-8">
 						    	<div class="radio">
 						  		 	<label>
-								    	<input type="radio" name="optionsRadios" id="optionsRadios2" value="Yes"> Yes
+								    	<input type="radio" name="itemAdvertisement" id="itemAdvertisement" value="Yes"> Yes
 								  	</label>
 								  	&emsp;
 							  	 	<label>
-								    	<input type="radio" name="optionsRadios" id="optionsRadios2" value="No"> No
+								    	<input type="radio" name="itemAdvertisement" id="itemAdvertisement" value="No"> No
 								  	</label>
 							  	</div>
 						    </div>
@@ -278,41 +271,36 @@
 				{
 					$("#addItemButton").click(function()
 						{
-							if(!validateText("sellerId") )
-							{
+							var str = '<font color=red>Invalid Seller Id </font>',
+							string = $("#err").html();
+							
+							//alert($("#err").html());
+							if(!validateText("sellerId")) {
+								return false;
+							}
+							if((String(string) == String(str))) {
+								alert($("#err").html());
+								return false;
+							}
+							if(!validateText("itemId"))	{
+								return false;
+							}
+							if(!validateText("itemName")) {
+								return false;
+							}
+							if(!validateText("itemDescription")) {
+								return false;
+							}
+							if(!validateText("itemPicture")) {
+								return false;
+							}
+							if(!validateText("itemPrice")) {
+								return false;
+							}
+							if(!validateText("itemAdvertisement")) {
 								return false;
 							}	
-							
-							if(!validateText("itemId"))
-							{
-								return false;
-							}
-						
-										
-							if(!validateText("itemName"))
-							{
-								return false;
-							}
-							if(!validateText("itemDescription"))
-							{
-								return false;
-							}
-							if(!validateText("itemPicture"))
-							{
-								return false;
-							}
-
-						
-							
-							if(!validateText("itemPrice"))
-							{
-								return false;
-							}
-							
-							if(!validateText("optionsRadios2"))
-							{
-								return false;
-							}	$("form#itemForm").submit();
+							$("form#itemForm").submit();
 						});
 				}
 		);
@@ -354,6 +342,16 @@
 			document.getElementById("sId").innerHTML = key;
 		}
 	
+		function verifyItem()
+		{
+			var key = document.getElementById("itemId").value;
+			var urls = "ajax/verifyItem2.jsp?itemId=" + key;
+			
+			ajax(urls, "err1");
+			
+			/* document.getElementById("sId").innerHTML = key; */
+		}
+		
 		function getSubCategory()
 		{
 		/*
