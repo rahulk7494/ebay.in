@@ -16,8 +16,15 @@ public class RegisterDAOImplementation implements RegisterDAO {
 			PreparedStatement ps = cs.connect().prepareStatement("INSERT INTO users(user_id, user_fname) VALUES (?, ?)");
 			ps.setString(1, seller.getSellerId());
 			ps.setString(2, seller.getSellerName());
-//			ps.setString(3, seller.getSellerAddress());
 			ps.execute();
+			
+			String message = "User with ID : " + seller.getSellerId() + " is registered";
+			ps = cs.connect().prepareStatement("INSERT INTO logs(log_message) VALUES(?)");
+			ps.setString(1, message);
+			ps.execute();
+			cs.disconnect();
+			ps.close();
+			
 		}
 		catch(Exception e) {
 			e.printStackTrace();

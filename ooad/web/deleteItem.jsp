@@ -29,7 +29,7 @@
 		ResultSet rs = ps.executeQuery();
 		if(rs.next())
 			log = rs.getString(1);
-		System.out.println(" --------- " + log);
+		System.out.println("delete Item --------- " + log);
 	}
 	catch(Exception e) {
 		
@@ -96,7 +96,7 @@
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
-						<li><a href="register.jsp">Register</a></li>
+						<li><a href="registerPage">Register</a></li>
 				    	<%-- <li>
 				    		<a data-toggle="tab" href="#category">Shop By Category</a> 
 			    		</li>

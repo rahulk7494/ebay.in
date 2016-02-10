@@ -14,6 +14,49 @@
 		</action>
 	</package>
 	
+	<package name="register" namespace="/" extends="struts-default">
+		<action name="register" class="action.RegisterAction">
+			<result name="success">/register.jsp?success=true</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="registerPage">
+			<result>/register.jsp?success=none</result>
+		</action>
+	</package>
+	
+	<package name="item" namespace="/" extends="struts-default">
+		<action name="addItemPage" class="action.LoadAction">
+			<result name="success">/addItem.jsp?success=none</result>
+			<result name="error">/error.html</result>
+		</action>
+		
+		<action name="addItem" class="action.ItemAction">
+			<interceptor-ref name="fileUpload">
+		        <param name="maximumSize">2097152</param>
+		        <param name="allowedTypes">
+		            image/png,image/gif,image/jpeg,image/pjpeg
+		        </param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack"></interceptor-ref>
+		    <result name="success">/addItem.jsp?success=true</result>
+		    <result name="error">/error.html</result>
+		</action>
+		
+		<action name="deleteItem" class="action.ItemAction" method="delete">
+			<result name="success">/deleteItem.jsp?success=true</result>
+			<result name="error">/deleteItem.jsp?success=false</result>
+		</action>
+		
+		<action name="deleteItemPage">
+			<result>/deleteItem.jsp?success=none</result>
+		</action>
+		
+		<action name="listItemPage" class="action.LoadAction">
+			<result name="success">/listItem.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+	</package>
+	
 	<package name="login" namespace="/" extends="struts-default">
 		<action name="login" class="action.LoginAction">
 			<result name="success">/adminPage.jsp</result>
@@ -21,22 +64,23 @@
 		</action>
 	</package>
 	
-	<package name="register" namespace="/" extends="struts-default">
-		<action name="register" class="action.RegisterAction">
-			<result name="success">/registrationSuccess.jsp</result>
-			<result name="error">/error.html</result>
-		</action>
-		
-		<action name="registerPage" class="action.LoadAction">
-			<result name="success">/register.jsp</result>
-			<result name="error">/error.html</result>
-		</action>
-		
-	</package>
 	
 	<package name="admin" namespace="/" extends="struts-default">
 		<action name="admin" class="action.LoadAction">
-			<result name="success">/admin.jsp</result>
+			<result name="success">/admin.jsp?success=none</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="adminSuccess" class="action.LoadAction">
+			<result name="success">/admin.jsp?success=true</result>
+			<result name="error">/error.html</result>
+		</action>
+		
+		<action name="listSubCategory" class="action.LoadAction">
+			<result name="success">/listSubCategory.jsp?success=none</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="listSubCategorySuccess" class="action.LoadAction">
+			<result name="success">/listSubCategory.jsp?success=true</result>
 			<result name="error">/error.html</result>
 		</action>
 		
@@ -72,62 +116,31 @@
 		
 		<!-- Action Events Start -->
 		<action name="addCategory" class="action.AdminAction">
-			<result name="success">/adminPage.jsp</result>
+			<result name="success">/adminSuccessPage.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
 		<action name="addSubCategory" class="action.AdminAction" method="addSubCategory">
-			<result name="success">/adminPage.jsp</result>
+			<result name="success">/adminSuccessPage.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
 		<action name="editCategory" class="action.AdminAction" method="editCategory">
-			<result name="success">/adminPage.jsp</result>
+			<result name="success">/adminSuccessPage.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
 		<action name="editSubCategory" class="action.AdminAction" method="editSubCategory">
-			<result name="success">/adminPage.jsp</result>
+			<result name="success">/adminSuccessPage.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
 		<action name="deleteCategory" class="action.AdminAction" method="deleteCategory">
-			<result name="success">/adminPage.jsp</result>
+			<result name="success">/adminSuccessPage.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
 		<action name="deleteSubCategory" class="action.AdminAction" method="deleteSubCategory">
-			<result name="success">/adminPage.jsp</result>
+			<result name="success">/adminSuccessPage.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
 		<!-- Action Event End -->
 	</package>
 	
-	<package name="item" namespace="/" extends="struts-default">
-		<action name="addItemPage" class="action.LoadAction">
-			<result name="success">/addItem.jsp</result>
-			<result name="error">/error.html</result>
-		</action>
-		
-		<action name="addItem" class="action.ItemAction">
-			<interceptor-ref name="fileUpload">
-		        <param name="maximumSize">2097152</param>
-		        <param name="allowedTypes">
-		            image/png,image/gif,image/jpeg,image/pjpeg
-		        </param>
-		    </interceptor-ref>
-		    <interceptor-ref name="defaultStack"></interceptor-ref>
-		    <result name="success">/addSuccess.jsp</result>
-		    <result name="error">/error.html</result>
-		</action>
-		
-		<action name="deleteItem" class="action.ItemAction" method="delete">
-			<result name="success">/deleteItem.jsp?success=true</result>
-			<result name="error">/deleteItem.jsp?success=false</result>
-		</action>
-		
-		<action name="deleteItemPage">
-			<result>/deleteItem.jsp?success=none</result>
-		</action>
-		
-		<action name="listItemPage" class="action.LoadAction">
-			<result name="success">/listItem.jsp</result>
-			<result name="error">/error.html</result>
-		</action>
-	</package>
+	
 </struts>

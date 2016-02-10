@@ -1,3 +1,6 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="dao.DBConnection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>  
@@ -11,6 +14,68 @@
 	<link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+<%! 
+	String log = "";
+ %>
+<%
+	String result = request.getParameter("success");
+	
+	try {
+		DBConnection dbConnection = new DBConnection();
+		PreparedStatement ps = dbConnection.connect().prepareStatement("SELECT log_message FROM logs WHERE logs_id = (SELECT MAX(logs_id) FROM logs)");
+		ResultSet rs = ps.executeQuery();
+		if(rs.next())
+			log = rs.getString(1);
+		System.out.println("delete Item --------- " + log);
+	}
+	catch(Exception e) {
+		
+	}
+%>
+	<div class="modal fade" id="success" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+<%
+	if(result.equals("true")) {	
+%>
+				<div class="modal-header modal-header-success">
+<%
+	} else if(result.equals("false")) {	
+%>
+				<div class="modal-header modal-header-danger">
+<%		
+	}
+%>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h3>
+						<i class="glyphicon glyphicon-thumbs-up"></i> <%=log %>
+					</h3>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+<script type="text/javascript">
+		
+				$(document).ready(function() {
+					
+<%
+	if(result.equals("true") || result.equals("false")) {	
+%>
+					$("#success").modal('show');
+<%
+	} else {
+%>		
+					$("#success").modal('hide');
+<%		
+	}
+%>
+				});
+			</script>
+
 		<nav class="navbar navbar-default navbar-static-top">
   			<div class="container">
     		<!-- Brand and toggle get grouped for better mobile display -->
@@ -28,7 +93,7 @@
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
-		      			<li><a href="register.jsp">Register</a></li>
+		      			<li><a href="registerPage">Register</a></li>
 			    	</ul>
 				   	<ul class="nav navbar-nav navbar-right">
 				        <li class="dropdown">
@@ -36,11 +101,10 @@
 							<ul class="dropdown-menu">
 								<li><a href="#">Add Item</a></li>
 								<li><a href="deleteItem.jsp">Delete Item</a></li>
-								<li><a href="#" data-toggle="modal" data-target="#myModal">Add Category</a></li>
-								<li><a href="#" data-toggle="modal" data-target="#myModal">Delete Category</a></li>
 							</ul>
 						</li>					        
-			      	</ul>
+			    		<li><a href="login.html">Login</a></li>
+			   	  	</ul>
 			  	  	<div class="tab-content">
 				    	<div id="empty" class="tab-pane-fade">
 				    	</div>
