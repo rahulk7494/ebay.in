@@ -103,7 +103,7 @@
 				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="addItemPage">Add Item</a></li>
-								<li><a href="deleteItem.jsp">Delete Item</a></li>
+								<li><a href="deleteItemPage">Delete Item</a></li>
 							</ul>
 						</li>					        
 		      			<li><a href="login.html">Login</a></li>

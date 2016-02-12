@@ -90,7 +90,7 @@
       <% while(rs1.next()){
     	  %>
        <div class="panel-body"><b><%=rs1.getString(3) %></b> </div>
-      <div class="panel-body"><%=rs1.getString(2) %> </div>
+      <div class="panel-body"><a href="<%=rs1.getString(2) %>"><%=rs1.getString(2) %></a> </div>
       <%		}
 	} catch(Exception e) {
 		e.printStackTrace();

@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="dao.DBConnection"%>
@@ -18,6 +20,7 @@
  	<link href="owl-carousel/owl.theme.css" rel="stylesheet">
 	<link href="owl-carousel/owl.transitions.css" rel="stylesheet">
  	<script src="js/jquery-2.1.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 	<script src="owl-carousel/owl.carousel.min.js"></script>
 	
 	<style type="text/css">
@@ -183,6 +186,13 @@
 		DBConnection dbConnection = new DBConnection();
 		PreparedStatement ps = dbConnection.connect().prepareStatement("SELECT * FROM item_advertisement");
 		ResultSet rs = ps.executeQuery();
+		ArrayList<String> itemId = new ArrayList<String>();
+		ArrayList<String> itemName = new ArrayList<String>();
+		ArrayList<String> itemDesc = new ArrayList<String>();
+		ArrayList<Double> itemPrice = new ArrayList<Double>();
+		ArrayList<String> itemImage = new ArrayList<String>();
+		ArrayList<String> itemSeller = new ArrayList<String>();
+		
 %>
 
 <div class="row">
@@ -190,12 +200,24 @@
 	
 	</div>
     <div class="col-md-8">
+		<div class="well text-center">
+			<h3>Advertisements</h3>
+		</div>
 		<div id="owl-demo" class="owl-carousal">
-<%		while(rs.next()) {
+<%		
+		while(rs.next()) {
+			
+			itemId.add(rs.getString(1));
+			itemName.add(rs.getString(2));
+			itemPrice.add(rs.getDouble(3));
+			itemImage.add(rs.getString(4));
+			itemDesc.add(rs.getString(5));
+			itemSeller.add(rs.getString(6));
+			
 %>
 	      	<div class="item">
 				<div class="thumbnail">
-		 		 	<img src="showPicture.jsp?image=<%=rs.getString(4) %>" class="img-responsive">
+		 		 	<a data-toggle="modal" data-target="#myModal<%=rs.getString(1) %>"><img src="showPicture.jsp?image=<%=rs.getString(4) %>" class="img-responsive"></a>
       				<div class="caption">
 						<table class="table" style="border-width : 0px; border-top-style: none;">
 	    				<tr>
@@ -212,14 +234,14 @@
 						</tr>
 						<tr class="success">
 							<td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary" role="button">Buy Now</a></td>
+						</tr>
 	    				</table>
       				</div>
 				</div>
 		 	</div>
+
+			
 <%		}
-	} catch(Exception e) {
-		e.printStackTrace();
-	}
 %>
 		</div>
 	</div>
@@ -228,6 +250,115 @@
 	</div>
     
 </div>
+<%
+
+		for(int i = 0; i < itemId.size(); i ++ ) {
+	
+%>		
+			<div class="modal fade" id="myModal<%=itemId.get(i) %>" tabindex="-1" role="dialog">
+				<div class="modal-dialog modal-lg">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4><%=itemName.get(i) %></h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-6">
+									<img src="showPicture.jsp?image=<%=itemImage.get(i) %>" class="img-responsive">		
+								</div>
+								<div class="col-md-6">
+									<table class="table" style="border-width : 0px; border-top-style: none;">
+					    				<tr>
+					    					<td>ID</td>
+					    					<td><strong><%=itemId.get(i) %></strong></td>
+					    				</tr>
+										<tr>
+											<td>Name</td>
+											<td><strong><%=itemName.get(i) %></strong></td>
+										</tr>
+										<tr>
+											<td>Description</td>
+											<td><strong><%=itemDesc.get(i) %></strong></td>
+										</tr>
+										<tr>
+											<td>Seller Name</td>
+											<td><strong><%=itemSeller.get(i) %></strong></td>
+										</tr>
+										<tr>
+											<td>Price</td>
+											<td><strong>$ <%=itemPrice.get(i) %></strong></td>
+										</tr>
+										<tr class="success">
+											<td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary" role="button">Buy Now</a></td>
+										</tr>
+				    				</table>	
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+<%
+		}
+	} catch(Exception e) {
+		e.printStackTrace();
+	}
+%>	
+ 		<!-- Display individual item -->
+		<%-- 	<div class="modal fade" id="myModalItem" role="dialog">
+				<div class="modal-dialog modal-lg">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4><%=rs.getString(2) %></h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-6">
+									<img src="showPicture.jsp?image=<%=rs.getString(4) %>" class="img-responsive">		
+								</div>
+								<div class="col-md-6">
+									<table class="table" style="border-width : 0px; border-top-style: none;">
+					    				<tr>
+					    					<td>ID</td>
+					    					<td><strong><%=rs.getString(1) %></strong></td>
+					    				</tr>
+										<tr>
+											<td>Name</td>
+											<td><strong><%=rs.getString(2) %></strong></td>
+										</tr>
+										<tr>
+											<td>Description</td>
+											<td><strong><%=rs.getString(5) %></strong></td>
+										</tr>
+										<tr>
+											<td>Seller Name</td>
+											<td><strong><%=rs.getString(6) %></strong></td>
+										</tr>
+										<tr>
+											<td>Price</td>
+											<td><strong>$ <%=rs.getDouble(3) %></strong></td>
+										</tr>
+										<tr class="success">
+											<td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary" role="button">Buy Now</a></td>
+										</tr>
+				    				</table>	
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	 --%>
 
 <footer class="site-footer">
 	<div class="container">
@@ -248,8 +379,8 @@
 			</div>
 			<div class="col-md-7">
 				<ul class="footer-nav">
-					<li><a href="home.jsp">Home</a></li>
-					<li><a href="" data-toggle="modal" data-target="#myModal" >Contact</a></li>
+					<li><a href="index1">Home</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#myModal" >Contact</a></li>
 					<!-- <li><a href="#">Blog</a></li>
 					<li><a href="#">Link</a></li> -->
 				</ul>
@@ -258,25 +389,24 @@
 	</div>
 </footer>
 
-<!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p>Site Under Construction..!!</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      </div>
-    </div>
-	<script src="js/bootstrap.min.js"></script>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Site Under Construction..!!</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
