@@ -286,7 +286,9 @@ SET character_set_client = utf8;
  1 AS `item_id`,
  1 AS `item_name`,
  1 AS `item_price`,
- 1 AS `item_image`*/;
+ 1 AS `item_image`,
+ 1 AS `item_desc`,
+ 1 AS `seller_name`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -303,7 +305,7 @@ CREATE TABLE `item_images` (
   PRIMARY KEY (`item_images_id`),
   KEY `image_item_fk_idx` (`item_id`),
   CONSTRAINT `image_item_fk` FOREIGN KEY (`item_id`) REFERENCES `items` (`items_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,9 +314,25 @@ CREATE TABLE `item_images` (
 
 LOCK TABLES `item_images` WRITE;
 /*!40000 ALTER TABLE `item_images` DISABLE KEYS */;
-INSERT INTO `item_images` VALUES (2,2,'eclipse10.png'),(4,4,'eclipse12.png'),(10,10,'eclipse23.png'),(19,49,'eclipse19.png'),(20,11,'eclipse20.png'),(21,50,'eclipse21.png'),(22,51,'eclipse22.png'),(23,3,'eclipse11.png'),(24,5,'eclipse26.png'),(26,52,'eclipse27.png'),(27,6,'eclipse13.png'),(28,7,'eclipse14.png'),(29,8,'eclipse15.png'),(30,9,'eclipse16.png'),(31,53,'eclipse31.png'),(32,55,'eclipse32.png'),(33,56,'eclipse33.png'),(34,57,'eclipse34.png'),(37,60,'eclipse35.png'),(38,61,'eclipse38.png');
+INSERT INTO `item_images` VALUES (2,2,'eclipse10.png'),(4,4,'eclipse12.png'),(10,10,'eclipse23.png'),(19,49,'eclipse19.png'),(20,11,'eclipse20.png'),(21,50,'eclipse21.png'),(22,51,'eclipse22.png'),(23,3,'eclipse11.png'),(24,5,'eclipse26.png'),(26,52,'eclipse27.png'),(27,6,'eclipse13.png'),(28,7,'eclipse14.png'),(29,8,'eclipse15.png'),(30,9,'eclipse16.png'),(31,53,'eclipse31.png'),(32,55,'eclipse32.png'),(33,56,'eclipse33.png'),(34,57,'eclipse34.png'),(37,60,'eclipse35.png'),(38,61,'eclipse38.png'),(40,63,'eclipse39.png');
 /*!40000 ALTER TABLE `item_images` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `item_list`
+--
+
+DROP TABLE IF EXISTS `item_list`;
+/*!50001 DROP VIEW IF EXISTS `item_list`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `item_list` AS SELECT 
+ 1 AS `item_id`,
+ 1 AS `seller_id`,
+ 1 AS `item_price`,
+ 1 AS `item_image`,
+ 1 AS `item_adv`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `item_sellers`
@@ -332,7 +350,7 @@ CREATE TABLE `item_sellers` (
   KEY `seller_fk_idx` (`seller_id`),
   CONSTRAINT `item_fk` FOREIGN KEY (`item_id`) REFERENCES `items` (`items_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `seller_fk` FOREIGN KEY (`seller_id`) REFERENCES `users` (`users_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -341,7 +359,7 @@ CREATE TABLE `item_sellers` (
 
 LOCK TABLES `item_sellers` WRITE;
 /*!40000 ALTER TABLE `item_sellers` DISABLE KEYS */;
-INSERT INTO `item_sellers` VALUES (1,3,1),(2,2,1),(3,3,2),(4,4,2),(5,5,2),(6,6,3),(7,7,3),(8,8,4),(9,9,4),(10,10,2),(11,11,3),(27,49,7),(28,50,7),(29,51,7),(30,49,7),(31,53,7),(32,55,7),(33,56,7),(37,60,4),(38,61,18);
+INSERT INTO `item_sellers` VALUES (1,3,1),(2,2,1),(3,3,2),(4,4,2),(5,5,2),(6,6,3),(7,7,3),(8,8,4),(9,9,4),(10,10,2),(11,11,3),(27,49,7),(28,50,7),(29,51,7),(31,53,7),(32,55,7),(33,56,7),(37,60,4),(38,61,18),(40,63,7);
 /*!40000 ALTER TABLE `item_sellers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +389,7 @@ CREATE TABLE `items` (
   KEY `item_subcategory_fk_idx` (`item_subcat_id`),
   CONSTRAINT `item_category_fk` FOREIGN KEY (`item_cat_id`) REFERENCES `categories` (`category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `item_subcategory_fk` FOREIGN KEY (`item_subcat_id`) REFERENCES `subcategories` (`subcategory_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -380,7 +398,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (2,'I102','Sony Bravia KLV','BRAND NEW! SONY 22\" KLV-22P402C FULL HD LED TV With SONY INDIA Warranty',959,1,1,1,NULL,NULL,NULL,0),(3,'I103','SONY 22\" KLV-22P402C','New LG 32\" LED HD 32LF515A TV USB Movie LG LED TV 1 Yr LG India Warranty',1000,0,1,1,NULL,'',NULL,0),(4,'I201','XBOX ONE 500GB','BRAND NEW SEALED XBOX ONE 500GB CONSOLE FIFA 16 BUNDLE OFFICIAL INDIAN STOCK',1250,1,1,2,NULL,NULL,NULL,0),(5,'I202','SONY PSP PlayStation','SONY PSP PlayStation Portable E1004 CB Black or white Gaming Console 1game free',1575,1,1,2,NULL,NULL,NULL,0),(6,'I301','Philips Volcano SPA7000B','Philips Volcano SPA7000B/94 USB/SD/FM/Bluetooth (5.1CH Speaker System)',420,0,1,3,NULL,NULL,NULL,0),(7,'I401','Portable Bluetooth MP3','New Portable Bluetooth MP3+FM+SD+Mini Stereo Rechargable Speaker Device - BE-13.',23,0,1,4,NULL,NULL,NULL,0),(8,'I501','Sony SLT-A58','Sony SLT-A58 18-135mm Lens',740,0,2,0,NULL,NULL,NULL,0),(9,'I601','Camera Video Tripod Stand','SIMPEX 222 CAMERA VIDEO TRIPOD STAND FOR SLR DSLR',15,0,2,6,NULL,NULL,NULL,0),(10,'I104','Micromax 20B2','Micromax 20B22HD 20\'\' LED Television',250,1,1,1,NULL,NULL,NULL,0),(11,'I1201','Men\'s Leather Jacker','MEN\'S LEATHER JACKET 100% PURE BLACK LEATHER JACKET #MJ06',110,1,4,12,NULL,NULL,NULL,0),(49,'145','Edjoe Men\'s Shirt','Edjoe Men\'s Mauve Stripes Slim Fit Casual/Party Wear shirt, BLEDMS0033\r\nSize Available: S, M, L, Easy Return/Exchange',20,1,4,12,NULL,NULL,NULL,NULL),(50,'101','Reebok Shoes','Light Weight',89,1,4,14,NULL,NULL,NULL,NULL),(51,'201','Puma Shoes','Running Shoes',79,1,4,14,NULL,NULL,NULL,NULL),(52,'146','BABY POOL BATH ','INFLATABLE BABY POOL BATH WATER TUB FOR KIDS\r\nGeniue quality Fast Shipping Also On COD Available\r\n',25,1,9,34,NULL,NULL,NULL,NULL),(53,'212',' Apple Watch 42mm ','Deal 08: New Imported Apple Watch 42mm Space Gray Case Black Sport Band MJ3T2\r\n6 months International Warranty',300,1,4,13,NULL,NULL,NULL,NULL),(55,'455','Blackberry Z3','Blackberry Z3 - 8 GB - Black - Smartphone',300,0,7,23,NULL,NULL,NULL,NULL),(56,'1056','Pen drive','sdbsdkbjkgjk',84655,0,3,10,NULL,NULL,NULL,NULL),(57,'1235','nskjbfjk','ndnjknd',512,0,2,35,NULL,NULL,NULL,NULL),(60,'11152','hdshkfh','kjdsklfjflks',125,0,3,10,NULL,NULL,NULL,NULL),(61,'22','rahiul','sss',22,0,9,34,NULL,NULL,NULL,NULL);
+INSERT INTO `items` VALUES (2,'I102','Sony Bravia KLV','BRAND NEW! SONY 22\" KLV-22P402C FULL HD LED TV With SONY INDIA Warranty',959,1,1,1,NULL,NULL,NULL,0),(3,'I103','SONY 22\" KLV-22P402C','New LG 32\" LED HD 32LF515A TV USB Movie LG LED TV 1 Yr LG India Warranty',1000,0,1,1,NULL,'',NULL,0),(4,'I201','XBOX ONE 500GB','BRAND NEW SEALED XBOX ONE 500GB CONSOLE FIFA 16 BUNDLE OFFICIAL INDIAN STOCK',1250,1,1,2,NULL,NULL,NULL,0),(5,'I202','SONY PSP PlayStation','SONY PSP PlayStation Portable E1004 CB Black or white Gaming Console 1game free',1575,1,1,2,NULL,NULL,NULL,0),(6,'I301','Philips Volcano SPA7000B','Philips Volcano SPA7000B/94 USB/SD/FM/Bluetooth (5.1CH Speaker System)',420,0,1,3,NULL,NULL,NULL,0),(7,'I401','Portable Bluetooth MP3','New Portable Bluetooth MP3+FM+SD+Mini Stereo Rechargable Speaker Device - BE-13.',23,0,1,4,NULL,NULL,NULL,0),(8,'I501','Sony SLT-A58','Sony SLT-A58 18-135mm Lens',740,0,2,0,NULL,NULL,NULL,0),(9,'I601','Camera Video Tripod Stand','SIMPEX 222 CAMERA VIDEO TRIPOD STAND FOR SLR DSLR',15,0,2,6,NULL,NULL,NULL,0),(10,'I104','Micromax 20B2','Micromax 20B22HD 20\'\' LED Television',250,1,1,1,NULL,NULL,NULL,0),(11,'I1201','Men\'s Leather Jacket','MEN\'S LEATHER JACKET 100% PURE BLACK LEATHER JACKET #MJ06',110,1,4,12,NULL,NULL,NULL,0),(49,'145','Edjoe Men\'s Shirt','Edjoe Men\'s Mauve Stripes Slim Fit Casual/Party Wear shirt, BLEDMS0033\r\nSize Available: S, M, L, Easy Return/Exchange',20,1,4,12,NULL,NULL,NULL,NULL),(50,'101','Reebok Shoes','Light Weight',89,1,4,14,NULL,NULL,NULL,NULL),(51,'201','Puma Shoes','Running Shoes',79,1,4,14,NULL,NULL,NULL,NULL),(52,'146','BABY POOL BATH ','INFLATABLE BABY POOL BATH WATER TUB FOR KIDS\r\nGeniue quality Fast Shipping Also On COD Available\r\n',25,1,9,34,NULL,NULL,NULL,NULL),(53,'212','Apple Watch 42mm ','Deal 08: New Imported Apple Watch 42mm Space Gray Case Black Sport Band MJ3T2\r\n6 months International Warranty',300,1,4,13,NULL,NULL,NULL,NULL),(55,'455','Blackberry Z3','Blackberry Z3 - 8 GB - Black - Smartphone',300,0,7,23,NULL,NULL,NULL,NULL),(56,'1056','Pen drive','sdbsdkbjkgjk',84655,0,3,10,NULL,NULL,NULL,NULL),(57,'1235','nskjbfjk','ndnjknd',512,0,2,35,NULL,NULL,NULL,NULL),(60,'11152','hdshkfh','kjdsklfjflks',125,0,3,10,NULL,NULL,NULL,NULL),(61,'22','rahiul','sss',22,0,9,34,NULL,NULL,NULL,NULL),(63,'I1250','Reebok Running Sport Shoes','Reebok Shoes',523,0,4,14,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -395,7 +413,7 @@ CREATE TABLE `logs` (
   `logs_id` int(11) NOT NULL AUTO_INCREMENT,
   `log_message` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`logs_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -404,7 +422,7 @@ CREATE TABLE `logs` (
 
 LOCK TABLES `logs` WRITE;
 /*!40000 ALTER TABLE `logs` DISABLE KEYS */;
-INSERT INTO `logs` VALUES (1,'Item with ID : I1204 is deleted'),(7,'Item with ID : I505 is deleted'),(8,'Item with ID : I205 is deleted'),(9,'Item with ID : I105 is deleted'),(10,'Item with ID : I105 is deleted'),(11,'Item with ID : 45 is deleted'),(12,'Item with ID : 89 is deleted'),(13,'Item with ID : 56 is added'),(14,'Item with ID : 58 is added'),(15,'Category with ID : 10 is deleted'),(16,'Category with ID : 10 is deleted'),(17,'Category with ID : 10 is deleted'),(18,'Item with ID : I10 is deleted'),(19,'Category with ID : 10 is deleted'),(20,'Category with ID : 10 is edited successfully'),(21,'Subcategory jsdbkbkdskjgwith ID40  is added successfully'),(22,'User with ID : S107 is registered'),(23,'User with ID : s109 is registered'),(24,'User with ID : s109 is registered'),(25,'User with ID : S111 is registered'),(26,'User with ID : S114 is registered'),(27,'User with ID : s1115 is registered'),(28,'User with ID : s115 is registered'),(29,'Item with ID : 59 is added'),(30,'Item with ID : 110 is deleted'),(31,'User with ID : s116 is registered'),(32,'Item with ID : 60 is added'),(33,'SubCategory with ID : 40 is Edited'),(34,'User with ID : s222 is registered'),(35,'Category with ID : 11 is Added'),(36,'Category with ID : 11 is Deleted'),(37,'Subcategory jwelwith ID : 41  is Added'),(38,'SubCategory with ID : 41 is Deleted'),(39,'Item with ID : 61 is added'),(40,'Category with ID : 11 is Added'),(41,'Category with ID : 12 is Added'),(42,'Category with ID : 13 is Added'),(43,'Category with ID : 10 is Added'),(44,'Subcategory Sharmawith ID : 41  is Added'),(45,'Category with ID : 10 is Deleted'),(46,'SubCategory with ID : 41 is Deleted'),(47,'Category with ID : 10 is Added'),(48,'Subcategory Bookswith ID : 41  is Added');
+INSERT INTO `logs` VALUES (1,'Item with ID : I1204 is deleted'),(7,'Item with ID : I505 is deleted'),(8,'Item with ID : I205 is deleted'),(9,'Item with ID : I105 is deleted'),(10,'Item with ID : I105 is deleted'),(11,'Item with ID : 45 is deleted'),(12,'Item with ID : 89 is deleted'),(13,'Item with ID : 56 is added'),(14,'Item with ID : 58 is added'),(15,'Category with ID : 10 is deleted'),(16,'Category with ID : 10 is deleted'),(17,'Category with ID : 10 is deleted'),(18,'Item with ID : I10 is deleted'),(19,'Category with ID : 10 is deleted'),(20,'Category with ID : 10 is edited successfully'),(21,'Subcategory jsdbkbkdskjgwith ID40  is added successfully'),(22,'User with ID : S107 is registered'),(23,'User with ID : s109 is registered'),(24,'User with ID : s109 is registered'),(25,'User with ID : S111 is registered'),(26,'User with ID : S114 is registered'),(27,'User with ID : s1115 is registered'),(28,'User with ID : s115 is registered'),(29,'Item with ID : 59 is added'),(30,'Item with ID : 110 is deleted'),(31,'User with ID : s116 is registered'),(32,'Item with ID : 60 is added'),(33,'SubCategory with ID : 40 is Edited'),(34,'User with ID : s222 is registered'),(35,'Category with ID : 11 is Added'),(36,'Category with ID : 11 is Deleted'),(37,'Subcategory jwelwith ID : 41  is Added'),(38,'SubCategory with ID : 41 is Deleted'),(39,'Item with ID : 61 is added'),(40,'Category with ID : 11 is Added'),(41,'Category with ID : 12 is Added'),(42,'Category with ID : 13 is Added'),(43,'Category with ID : 10 is Added'),(44,'Subcategory Sharmawith ID : 41  is Added'),(45,'Category with ID : 10 is Deleted'),(46,'SubCategory with ID : 41 is Deleted'),(47,'Category with ID : 10 is Added'),(48,'Subcategory Bookswith ID : 41  is Added'),(49,'Item with ID : 62 is added'),(50,'User with ID : S1056 is registered'),(51,'Item with ID : 1200 is deleted'),(52,'Item with ID : 63 is added');
 /*!40000 ALTER TABLE `logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -647,13 +665,12 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `users_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` varchar(45) NOT NULL,
-  `user_fname` varchar(20) NOT NULL,
-  `user_lname` varchar(45) DEFAULT NULL,
+  `user_name` varchar(20) NOT NULL,
   `user_email` varchar(45) DEFAULT NULL,
   `user_password` varchar(45) DEFAULT NULL,
   `user_type` int(11) DEFAULT NULL,
   PRIMARY KEY (`users_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -662,7 +679,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'S101','Jane','Doe','jane.doe@gmail.com','janedoe',2),(2,'S102','Ezra','Carrel','ezra.carral@gmail.com','ezra',2),(3,'S103','Tom','Maines','tom.maines@gmail.com','tom',2),(4,'S104','Eddie','Bruton','eddie.bruton@gmail.com','eddie',2),(5,'S106','Anubhav Sharma',NULL,NULL,NULL,NULL),(7,'s105','rohit',NULL,NULL,NULL,NULL),(8,'s106','anubhav',NULL,NULL,NULL,NULL),(9,'S108','sanjeev',NULL,NULL,NULL,NULL),(10,'S107','Sanchit Pande',NULL,NULL,NULL,NULL),(11,'s109','Aditya Tiwari',NULL,NULL,NULL,NULL),(12,'s109','Aditya Tiwari',NULL,NULL,NULL,NULL),(13,'S111','dskjfdjk',NULL,NULL,NULL,NULL),(14,'S114','bsdjkjsdnk',NULL,NULL,NULL,NULL),(15,'s1115','fdfkfdkjk',NULL,NULL,NULL,NULL),(16,'s115','sdbjjsk',NULL,NULL,NULL,NULL),(17,'s116','Rahul Kumar',NULL,NULL,NULL,NULL),(18,'s222','Test',NULL,NULL,NULL,NULL);
+INSERT INTO `users` VALUES (1,'S101','Jane Doe','jane.doe@gmail.com','janedoe',2),(2,'S102','Ezra Carrel','ezra.carral@gmail.com','ezra',2),(3,'S103','Tom Maines','tom.maines@gmail.com','tom',2),(4,'S104','Eddie Brutton','eddie.bruton@gmail.com','eddie',2),(5,'S106','Anubhav Sharma',NULL,NULL,NULL),(7,'s105','rohit',NULL,NULL,NULL),(8,'s106','anubhav',NULL,NULL,NULL),(9,'S108','sanjeev',NULL,NULL,NULL),(10,'S107','Sanchit Pande',NULL,NULL,NULL),(11,'s109','Aditya Tiwari',NULL,NULL,NULL),(12,'s109','Aditya Tiwari',NULL,NULL,NULL),(13,'S111','dskjfdjk',NULL,NULL,NULL),(14,'S114','bsdjkjsdnk',NULL,NULL,NULL),(15,'s1115','fdfkfdkjk',NULL,NULL,NULL),(16,'s115','sdbjjsk',NULL,NULL,NULL),(17,'s116','Rahul Kumar',NULL,NULL,NULL),(18,'s222','Test',NULL,NULL,NULL),(19,'S1056','rahul Kumar',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -697,7 +714,25 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `item_advertisement` AS select `i`.`item_id` AS `item_id`,`i`.`item_name` AS `item_name`,`i`.`item_price` AS `item_price`,`ii`.`item_image` AS `item_image` from (`items` `i` join `item_images` `ii`) where ((`i`.`items_id` = `ii`.`item_id`) and (`i`.`item_adv` = 1)) */;
+/*!50001 VIEW `item_advertisement` AS select `i`.`item_id` AS `item_id`,`i`.`item_name` AS `item_name`,`i`.`item_price` AS `item_price`,`ii`.`item_image` AS `item_image`,`i`.`item_desc` AS `item_desc`,`s`.`user_name` AS `seller_name` from (((`items` `i` join `item_images` `ii`) join `users` `s`) join `item_sellers` `is`) where ((`i`.`items_id` = `ii`.`item_id`) and (`i`.`items_id` = `is`.`item_id`) and (`is`.`seller_id` = `s`.`users_id`) and (`i`.`item_adv` = 1)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `item_list`
+--
+
+/*!50001 DROP VIEW IF EXISTS `item_list`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `item_list` AS select `i`.`item_id` AS `item_id`,`s`.`user_id` AS `seller_id`,`i`.`item_price` AS `item_price`,`ii`.`item_image` AS `item_image`,`i`.`item_adv` AS `item_adv` from (((`items` `i` join `item_images` `ii`) join `users` `s`) join `item_sellers` `is`) where ((`i`.`items_id` = `ii`.`item_id`) and (`i`.`items_id` = `is`.`item_id`) and (`is`.`seller_id` = `s`.`users_id`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -711,4 +746,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-10 19:06:28
+-- Dump completed on 2016-02-29 23:31:05
