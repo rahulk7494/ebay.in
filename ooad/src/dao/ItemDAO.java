@@ -11,4 +11,6 @@ public interface ItemDAO {
 	public boolean deleteItem(Item item);
 	
 	public boolean getItems(ArrayList<Item> items, int subCategory);
+	
+	public boolean getItemsInRange(ArrayList<Item> items, double from, double to);
 }

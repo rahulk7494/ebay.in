@@ -30,6 +30,11 @@
 			<result name="error">/error.html</result>
 		</action>
 		
+		<action name="listItems" class="action.ItemAction" method="getItemsInRange">
+			<result name="success">/listItemInPriceRange.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		
 		<action name="addItem" class="action.ItemAction">
 			<interceptor-ref name="fileUpload">
 		        <param name="maximumSize">2097152</param>

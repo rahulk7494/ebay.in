@@ -15,6 +15,19 @@ public class ItemAction extends ActionSupport implements ModelDriven<Item>{
 	Item item = new Item();
 	ArrayList<Item> items = new ArrayList<>();
 	
+	private double from;
+	
+	private double to;
+
+	public double getFrom() {
+		return from;
+	}
+
+	public void setFrom(double from) {
+		this.from = from;
+	}
+
+	
 	public String execute() {
 		
 		ItemDAO itemDAO = new ItemDAOImplementation();
@@ -36,10 +49,30 @@ public class ItemAction extends ActionSupport implements ModelDriven<Item>{
 			return items;
 		return null;
 	}
+
+	public ArrayList<Item> getItemsInRange(double from, double to) {
+		ItemDAO itemDAO = new ItemDAOImplementation();
+		if(itemDAO.getItemsInRange(items, from, to))
+		{
+			for (Item item : items) {
+				System.out.println(item.getItemId() + " --- " + item.getItemPictureString());
+			}
+			return items;
+		}
+		return null;
+	}
 	
 	@Override
 	public Item getModel() {
 		return item;
+	}
+
+	public double getTo() {
+		return to;
+	}
+
+	public void setTo(double to) {
+		this.to = to;
 	}
 
 	

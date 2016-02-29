@@ -222,4 +222,41 @@ public class ItemDAOImplementation implements ItemDAO {
 		return true;
 	}
 
+	@Override
+	public boolean getItemsInRange(ArrayList<Item> items, double from, double to) {
+		try {
+			
+			Item item;
+		    DBConnection dbConnection = new DBConnection();
+		    String sql =  "SELECT * "
+						+ "FROM item_list "
+						+ "WHERE item_price >= " + from + " "
+						+ "AND item_price <= " + to;
+						
+			PreparedStatement ps = dbConnection.connect().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				item = new Item();
+				item.setItemId(rs.getString(1));
+				item.setSellerID(rs.getString(2));
+				item.setItemPrice(rs.getDouble(3));
+				item.setItemPictureString(rs.getString(4));
+				if(rs.getInt(5) == 1)
+					item.setItemAdvertisement("YES");
+				else
+					item.setItemAdvertisement("NO");
+				items.add(item);
+			}
+			
+			dbConnection.disconnect();
+		}
+		catch(Exception e) {
+			System.out.println("SQL Error");
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
 }

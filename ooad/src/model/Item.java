@@ -16,6 +16,7 @@ public class Item {
 	private String itemPictureContentType;
 	private double itemPrice;
 	private String itemAdvertisement;
+	private String sellerID;
 	
 	public String getItemId() {
 		return itemId;
@@ -119,5 +120,13 @@ public class Item {
 
 	public void setItemAdvertisement(String itemAdvertisement) {
 		this.itemAdvertisement = itemAdvertisement;
+	}
+
+	public String getSellerID() {
+		return sellerID;
+	}
+
+	public void setSellerID(String sellerID) {
+		this.sellerID = sellerID;
 	}
 }

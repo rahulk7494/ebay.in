@@ -31,7 +31,7 @@
 	    #owl-demo .item img{
 	      display: block;
 	      width: 100%;
-	      height: auto;
+	      height: 300px;
 	    }
 	</style>
 
@@ -94,6 +94,7 @@
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      		<ul class="nav navbar-nav">
 						<li><a href="registerPage1">Register</a></li>
+				    	<li><a href="listItemInPriceRange.jsp?from=0&to=0">Exam-01</a></li>
 				    	<li>
 				    		<a data-toggle="tab" href="#category">Shop By Category</a> 
 			    		</li>
