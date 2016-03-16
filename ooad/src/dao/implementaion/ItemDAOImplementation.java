@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 import dao.DBConnection;
 import dao.ItemDAO;
 import model.Item;
-import model.Seller;
+//import model.Seller;
 
 public class ItemDAOImplementation implements ItemDAO {
 
@@ -31,9 +31,9 @@ public class ItemDAOImplementation implements ItemDAO {
 		
 			String fileName = "";
 			DBConnection cs = new DBConnection();
-			PreparedStatement ps1 = cs.connect().prepareStatement("SELECT MAX(item_images_id) FROM item_images");
-			ResultSet rs1 = ps1.executeQuery();
-			
+			PreparedStatement ps1;	// = cs.connect().prepareStatement("SELECT MAX(item_images_id) FROM item_images");
+			//ResultSet rs1;	// = ps1.executeQuery();
+			/*
 			if(rs1.next()) {
 				fileName = (rs1.getInt(1) + 1) + "";
 			}
@@ -41,24 +41,26 @@ public class ItemDAOImplementation implements ItemDAO {
 			cs.disconnect();
 			ps1.close();
 			rs1.close();
-			
+			*/
 			BufferedImage bi = ImageIO.read(item.getItemPicture());
-			File saveFile = new File(workingDir + fileName + ".png");
+			File saveFile = new File(workingDir + item.getItemId() + ".png");
 			ImageIO.write(bi, "png", saveFile);
 			
-			item.setItemPictureString("eclipse" + fileName + ".png");
+			item.setItemPictureString("eclipse" + item.getItemId() + ".png");
 			
 			System.out.println("new " + item.getItemPictureString());
 			
             cs = new DBConnection();
-			ps1 = cs.connect().prepareStatement("INSERT INTO items(item_id, item_name, item_cat_id, item_subcat_id, item_price, item_desc, item_adv) VALUES (?, ?, ?, ?, ?, ?, ?)");
+			ps1 = cs.connect().prepareStatement("INSERT INTO items(item_id, item_name, item_cat_id, item_subcat_id, item_price, item_desc, item_adv, item_picture, item_seller_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			ps1.setString(1, item.getItemId());
 			ps1.setString(2, item.getItemName());
 			ps1.setInt(3, item.getCategoryId());
 			ps1.setInt(4, item.getSubCategoryId());
 			ps1.setDouble(5,item.getItemPrice());
 			ps1.setString(6,item.getItemDescription());
-
+			ps1.setString(8, item.getItemPictureString());
+			ps1.setString(9, item.getSeller().getSellerId());
+			
 			if(item.getItemAdvertisement().equals("Yes")){
 				boolean b=true;
 				ps1.setBoolean(7,b);
@@ -70,10 +72,13 @@ public class ItemDAOImplementation implements ItemDAO {
 			}
 			
 			System.out.println("Rohit:"+item.getCategoryId()+" "+item.getSubCategoryId());
-			if(!ps1.execute())
+
+			ps1.execute();
+			
+			/*if(!ps1.execute())
 			{
 				cs.disconnect();
-				
+				*/
 				System.out.println("First");
 				PreparedStatement ps = cs.connect().prepareStatement("SELECT items_id FROM items WHERE item_id = ?");
 				ps.setString(1, item.getItemId());
@@ -83,7 +88,7 @@ public class ItemDAOImplementation implements ItemDAO {
 				cs.disconnect();
 				ps.close();
 				rs.close();
-				
+				/*
 				System.out.println("First first");
 				ps = cs.connect().prepareStatement("INSERT INTO item_images(item_id, item_image) VALUES(?, ?)");
 				ps.setInt(1, item.getSurrogateItemId());
@@ -112,15 +117,15 @@ public class ItemDAOImplementation implements ItemDAO {
 				ps.execute();
 				cs.disconnect();
 				ps.close();
-				
-				System.out.println("Fourth " + item.getSurrogateItemId() + " " + seller.getSurrogateSellerId());
+			*/	
+				System.out.println("Fourth " + item.getSurrogateItemId() + " " + item.getSeller().getSellerId());
 				String logMessage = "Item with ID : " + item.getSurrogateItemId() + " is added";
-				ps = cs.connect().prepareStatement("INSERT INTO logs(log_message) VALUES (?)");
-				ps.setString(1, logMessage);
-				ps.execute();
+				ps1 = cs.connect().prepareStatement("INSERT INTO logs(log_message) VALUES (?)");
+				ps1.setString(1, logMessage);
+				ps1.execute();
 				cs.disconnect();
-				ps.close();
-			}
+				ps1.close();
+//			}
 			
 			
 		}
@@ -136,27 +141,28 @@ public class ItemDAOImplementation implements ItemDAO {
 	public boolean deleteItem(Item item) {
 		try {
 			
-			int surrogateItemId = 0;
+//			int surrogateItemId = 0;
 			
 		    DBConnection cs = new DBConnection();
-			PreparedStatement ps = cs.connect().prepareStatement("SELECT items_id FROM items WHERE item_id = ?");
-			ps.setString(1, item.getItemId());
-			ResultSet rs = ps.executeQuery();
-			if(rs.next())
-				surrogateItemId = rs.getInt(1);
-			
+			PreparedStatement ps;	// = cs.connect().prepareStatement("SELECT items_id FROM items WHERE item_id = ?");
+//			ps.setString(1, item.getItemId());
+//			ResultSet rs;	// = ps.executeQuery();
+//			if(rs.next())
+//				surrogateItemId = rs.getInt(1);
+			/*
 			ps = cs.connect().prepareStatement("DELETE FROM item_sellers WHERE item_id = ?");
 			ps.setInt(1, surrogateItemId);
 			ps.execute();
 			cs.disconnect();
-			ps.close();
+			ps.close();*/
 			
 			System.out.println("Hello");
 		    String sql =  "DELETE "
 						+ "FROM items "
-						+ "WHERE items_id = ?";
+						+ "WHERE item_id = ?";
+//						+ "WHERE items_id = ?";
 		    ps = cs.connect().prepareStatement(sql);
-			ps.setInt(1, surrogateItemId);
+			ps.setString(1, item.getItemId());	//surrogateItemId);
 			ps.execute();
 			cs.disconnect();
 			ps.close();
@@ -197,10 +203,13 @@ public class ItemDAOImplementation implements ItemDAO {
 				item.setItemName(rs.getString(3));
 				item.setItemDescription(rs.getString(4));
 				item.setItemPrice(rs.getDouble(5));
+				item.setItemPictureString(rs.getString(6));
+				System.out.println("---------" + item.getItemPictureString());
+				
 //				seller.setSellerName(rs.getString(7));
 //				item.setSeller(seller);
 				
-				String sql1 = "SELECT item_image FROM item_images WHERE item_id = ?";
+				/*String sql1 = "SELECT item_image FROM item_images WHERE item_id = ?";
 				DBConnection dbConnection2 = new DBConnection();
 				PreparedStatement ps1 = dbConnection2.connect().prepareStatement(sql1);
 				ps1.setInt(1, item.getSurrogateItemId());
@@ -208,7 +217,7 @@ public class ItemDAOImplementation implements ItemDAO {
 				while(rs1.next()) {
 					item.setItemPictureString(rs1.getString(1));
 					System.out.println("---------" + item.getItemPictureString());
-				}
+				}*/
 				items.add(item);
 			}
 			
@@ -229,7 +238,7 @@ public class ItemDAOImplementation implements ItemDAO {
 			Item item;
 		    DBConnection dbConnection = new DBConnection();
 		    String sql =  "SELECT * "
-						+ "FROM item_list "
+						+ "FROM items "
 						+ "WHERE item_price >= " + from + " "
 						+ "AND item_price <= " + to;
 						
@@ -238,11 +247,11 @@ public class ItemDAOImplementation implements ItemDAO {
 			while(rs.next())
 			{
 				item = new Item();
-				item.setItemId(rs.getString(1));
-				item.setSellerID(rs.getString(2));
-				item.setItemPrice(rs.getDouble(3));
-				item.setItemPictureString(rs.getString(4));
-				if(rs.getInt(5) == 1)
+				item.setItemId(rs.getString(2));
+				item.setSellerID(rs.getString(10));
+				item.setItemPrice(rs.getDouble(5));
+				item.setItemPictureString(rs.getString(6));
+				if(rs.getInt(7) == 1)
 					item.setItemAdvertisement("YES");
 				else
 					item.setItemAdvertisement("NO");

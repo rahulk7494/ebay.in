@@ -185,7 +185,7 @@
 	try {
 				   
 		DBConnection dbConnection = new DBConnection();
-		PreparedStatement ps = dbConnection.connect().prepareStatement("SELECT * FROM item_advertisement");
+		PreparedStatement ps = dbConnection.connect().prepareStatement("SELECT * FROM items");
 		ResultSet rs = ps.executeQuery();
 		ArrayList<String> itemId = new ArrayList<String>();
 		ArrayList<String> itemName = new ArrayList<String>();
@@ -208,30 +208,30 @@
 <%		
 		while(rs.next()) {
 			
-			itemId.add(rs.getString(1));
-			itemName.add(rs.getString(2));
-			itemPrice.add(rs.getDouble(3));
-			itemImage.add(rs.getString(4));
-			itemDesc.add(rs.getString(5));
-			itemSeller.add(rs.getString(6));
+			itemId.add(rs.getString(2));
+			itemName.add(rs.getString(3));
+			itemPrice.add(rs.getDouble(5));
+			itemImage.add(rs.getString(6));
+			itemDesc.add(rs.getString(4));
+			itemSeller.add(rs.getString(10));
 			
 %>
 	      	<div class="item">
 				<div class="thumbnail">
-		 		 	<a data-toggle="modal" data-target="#myModal<%=rs.getString(1) %>"><img src="showPicture.jsp?image=<%=rs.getString(4) %>" class="img-responsive"></a>
+		 		 	<a data-toggle="modal" data-target="#myModal<%=rs.getString(2) %>"><img src="showPicture.jsp?image=<%=rs.getString(6) %>" class="img-responsive"></a>
       				<div class="caption">
 						<table class="table" style="border-width : 0px; border-top-style: none;">
 	    				<tr>
 	    					<td>ID</td>
-	    					<td><strong><%=rs.getString(1) %></strong></td>
+	    					<td><strong><%=rs.getString(2) %></strong></td>
 	    				</tr>
 						<tr>
 							<td>NAME</td>
-							<td><strong><%=rs.getString(2) %></strong></td>
+							<td><strong><%=rs.getString(3) %></strong></td>
 						</tr>
 						<tr>
 							<td>Price</td>
-							<td><strong>$ <%=rs.getDouble(3) %></strong></td>
+							<td><strong>$ <%=rs.getDouble(5) %></strong></td>
 						</tr>
 						<tr class="success">
 							<td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary" role="button">Buy Now</a></td>

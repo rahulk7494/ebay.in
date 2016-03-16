@@ -257,7 +257,7 @@ public class AdminDAOImplementation implements AdminDAO{
 		    cs.disconnect();
 		    ps1.close();
 		    rs1.close();
-		    
+		    /*
 		    System.out.println("extraId " + extraId);
 		    int cat_subcat_id = 0;
 		    ps1 = cs.connect().prepareStatement("SELECT cat_subcat_id FROM categories_subcategories WHERE subcat_id = ?");
@@ -272,8 +272,8 @@ public class AdminDAOImplementation implements AdminDAO{
 			    ps1.close();
 			    rs1.close();
 			    
-			    
-		    cs = new DBConnection();
+			*/    
+		   /* cs = new DBConnection();
 			   ps1 = cs.connect().prepareStatement("DELETE FROM cat_subcat_options WHERE cat_subcat_id = ?");
 			   ps1.setInt(1, cat_subcat_id);
 			   ps1.executeUpdate();   
@@ -287,7 +287,7 @@ public class AdminDAOImplementation implements AdminDAO{
 			       ps1.executeUpdate();
 				    cs.disconnect();
 				    ps1.close();
-				    rs1.close();
+				    rs1.close();*/
 				    
 				    cs = new DBConnection();
 					   ps1 = cs.connect().prepareStatement("DELETE FROM categories_subcategories WHERE subcat_id = ?");
