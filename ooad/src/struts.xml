@@ -12,6 +12,10 @@
 			<result name="success">/home.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
+		<action name="header" class="action.LoadAction">
+			<result name="success">/navHeader.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
 	</package>
 	
 	<package name="register" namespace="/" extends="struts-default">

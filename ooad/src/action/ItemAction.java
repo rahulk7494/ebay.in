@@ -8,6 +8,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import dao.ItemDAO;
 import dao.implementaion.ItemDAOImplementation;
 import model.Item;
+import model.ItemDetails;
 
 @SuppressWarnings("serial")
 public class ItemAction extends ActionSupport implements ModelDriven<Item>{
@@ -26,7 +27,6 @@ public class ItemAction extends ActionSupport implements ModelDriven<Item>{
 	public void setFrom(double from) {
 		this.from = from;
 	}
-
 	
 	public String execute() {
 		
@@ -41,6 +41,13 @@ public class ItemAction extends ActionSupport implements ModelDriven<Item>{
 		if(itemDAO.deleteItem(item))
 			return SUCCESS;
 		return ERROR;
+	}
+	
+	public ItemDetails getItem(String itemId) {
+		ItemDAO itemDAO = new ItemDAOImplementation();
+		item.setItemId(itemId);
+		ItemDetails itemDetails = itemDAO.getItem(item);
+		return itemDetails;
 	}
 	
 	public ArrayList<Item> getItems(int subCategory) {

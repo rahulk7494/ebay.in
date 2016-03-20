@@ -40,6 +40,17 @@
 	padding-top: 10px;
 	color: #b2b2b2;
 }
+.header-nav li {
+	display: inline;	
+}
+.header-nav {
+	text-align: left;
+	list-style: none;
+}
+.header-nav li:not(:FIRST-CHILD):BEFORE {
+	content: '|';
+	padding: 0px 10px;
+}
 .footer-nav li {
 	display: inline;	
 }

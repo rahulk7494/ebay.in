@@ -10,11 +10,117 @@ import javax.imageio.ImageIO;
 
 import dao.DBConnection;
 import dao.ItemDAO;
+import model.AttributeList;
+import model.Category;
 import model.Item;
+import model.ItemDetails;
+import model.Seller;
 //import model.Seller;
 
 public class ItemDAOImplementation implements ItemDAO {
 
+	@Override
+	public ItemDetails getItem(Item item) {
+		
+		ItemDetails itemDetails = new ItemDetails();
+		itemDetails.setSeller(new Seller());
+		
+		try {
+			
+			DBConnection dbConnection = new DBConnection();
+		    String sql = "SELECT i.*, c.* "
+			    		+ "FROM items i, categories c "
+			    		+ "WHERE i.item_cat_id = c.category_id "
+			    		+ "AND i.item_id = '" + item.getItemId() + "'";
+			    
+		    PreparedStatement ps = dbConnection.connect().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				item.setSurrogateItemId(rs.getInt("items_id"));
+				item.setItemId(rs.getString("item_id"));
+				item.setItemName(rs.getString("item_name"));
+				item.setItemDescription(rs.getString("item_desc"));
+				item.setItemPrice(rs.getDouble("item_price"));
+				item.setItemPictureString(rs.getString("item_picture"));
+				item.setCategoryId(rs.getInt("item_cat_id"));
+				item.setSubCategoryId(rs.getInt("item_subcat_id"));
+				item.setItemDiscount(rs.getDouble("item_discount"));
+				item.setItemQuantityAvailable(rs.getInt("item_quantity_available"));
+				item.setItemSold(rs.getInt("item_sold"));
+				item.setItemWarrantyPeriod(rs.getString("item_warranty_period"));
+				item.setItemColor(rs.getString("item_color"));
+				item.setItemCondition(rs.getString("item_condition"));
+				item.setItemWeight(rs.getString("item_weight"));
+				item.setItemBrand(rs.getString("item_brand"));
+				item.setItemExpiryDate(rs.getDate("item_expiry_date"));
+				
+				itemDetails.getSeller().setSurrogateSellerId(rs.getInt("item_seller_id"));
+				itemDetails.setItem(item);
+				itemDetails.setCategory(new Category());
+				itemDetails.getCategory().setCategoryId(rs.getInt("category_id"));
+				itemDetails.getCategory().setCategoryName(rs.getString("category_name"));
+
+				
+				System.out.println("---------" + item.getItemPictureString());
+			}
+			ps.close();
+			rs.close();
+			dbConnection.disconnect();
+			
+		    dbConnection = new DBConnection();
+		    sql = "SELECT a.attribute_key, a.attribute_value "
+	    		+ "FROM items i,  attributes a "
+	    		+ "WHERE i.items_id = a.attribute_item_id "
+	    		+ "AND i.item_id = '" + item.getItemId() + "'";
+			    
+		    ps = dbConnection.connect().prepareStatement(sql);
+			rs = ps.executeQuery();
+			itemDetails.setAttributeLists(new ArrayList<>());
+			while(rs.next())
+			{
+				itemDetails.getAttributeLists()
+					.add(new AttributeList(
+							rs.getString("attribute_key"), 
+							rs.getString("attribute_value")));
+			}
+		
+			ps.close();
+			rs.close();
+			dbConnection.disconnect();
+			
+			dbConnection = new DBConnection();
+		    sql = "SELECT s.*, u.user_id "
+	    		+ "FROM sellers s, users u "
+	    		+ "WHERE s.seller_id = u.users_id "
+	    		+ "AND s.seller_category_id = " + itemDetails.getCategory().getCategoryId() + " "
+	    		+ "AND s.seller_id = '" + itemDetails.getSeller().getSurrogateSellerId() + "'";
+			    
+		    System.out.println(sql);
+		    ps = dbConnection.connect().prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next())
+			{
+				itemDetails.getSeller().setSellerId(rs.getString("user_id"));
+				itemDetails.getSeller().setSellerName(rs.getString("seller_name"));
+				itemDetails.getSeller().setSellerContactNo(rs.getString("seller_contact_no"));
+				itemDetails.getSeller().setSellerEmail(rs.getString("seller_email"));
+				itemDetails.getSeller().setSellerNOB(rs.getString("seller_nature_of_business"));
+				itemDetails.getSeller().setSellerRating(rs.getInt("seller_rating"));
+			}
+		
+			ps.close();
+			rs.close();
+			dbConnection.disconnect();
+		}
+		catch(Exception e) {
+			System.out.println("SQL Error");
+			e.printStackTrace();
+			return null;	//false;
+		}
+		return itemDetails;	//true;
+	}
+	
 	@Override
 	public boolean addItem(Item item) {
 		try {
@@ -29,7 +135,6 @@ public class ItemDAOImplementation implements ItemDAO {
 			 *
 			 */
 		
-			String fileName = "";
 			DBConnection cs = new DBConnection();
 			PreparedStatement ps1;	// = cs.connect().prepareStatement("SELECT MAX(item_images_id) FROM item_images");
 			//ResultSet rs1;	// = ps1.executeQuery();

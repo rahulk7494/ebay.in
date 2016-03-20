@@ -15,351 +15,81 @@
 	<meta name="viewport" content="width=device-width, initial-scaling=1.0">
 	<title>raps.in</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="fa/css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
-	<link href="owl-carousel/owl.carousel.css" rel="stylesheet">
- 	<link href="owl-carousel/owl.theme.css" rel="stylesheet">
-	<link href="owl-carousel/owl.transitions.css" rel="stylesheet">
- 	<script src="js/jquery-2.1.1.min.js"></script>
+	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="owl-carousel/owl.carousel.min.js"></script>
 	
 	<style type="text/css">
-	    #owl-demo .item{
-	      margin: 3px;
-	    }
-
-	    #owl-demo .item img{
-	      display: block;
-	      width: 100%;
-	      height: 300px;
-	    }
+	
+		.header {
+		    font-size: 12px;
+		    padding-top: 5px;
+		}
+		
+		.thumbnail {
+		    width: 260px;
+		    height: 300px;
+		    overflow: hidden; /* contain images within thumbnail boundaries */
+		    border: 0; /* removes Bootstrap's default border */
+		    box-shadow: 0 12px 12px -10px #c4c4c4;
+		    -webkit-box-shadow: 0 17px 22px -20px #c4c4c4;
+		    -moz-box-shadow: 0 12px 12px -10px #c4c4c4;
+		}
+		.thumbnail img { width:100%; height:auto; } /* to keep proportions */
+		.thumbnails p { text-align: center; padding: 10px; } /* captions can be styled with an inline element */
+		
 	</style>
-
+	
 	<script type="text/javascript">
-	    $(document).ready(function() {
-	     
-    		var owl = $("#owl-demo");
-	    	
-	      	owl.owlCarousel({
-	     
-	          autoPlay: 3000, //Set AutoPlay to 3 seconds
-	     
-	          /* items : 3,
-	          itemsDesktop : [1199,3],
-	          itemsDesktopSmall : [979,3] */
-	      
-		      items : 3, //10 items above 1000px browser width
-		      itemsDesktop : [1000,3], //5 items between 1000px and 901px
-		      itemsDesktopSmall : [900,3], // betweem 900px and 601px
-		      itemsTablet: [600,2], //2 items between 600 and 0
-		      itemsMobile : false, // itemsMobile disabled - inherit from itemsTablet option
-		      
-		      navigation:true,
-		      navigationText: [
-		        "<i class='icon-chevron-left icon-white'>Previous</i>",
-		        "<i class='icon-chevron-right icon-white'>Next</i>"
-		        ],
-		 
-	      });
-	     
-	      $(".next").click(function(){
-	    	    owl.trigger('owl.next');
-    	  })
-    	  
-    	  $(".prev").click(function(){
-    	    	owl.trigger('owl.prev');
-    	  })
-	    });
+	
+		$(function(){
+		    $("#header").load("header"); 
+		    $("#itemCarousel").load("itemCarousel.jsp"); 
+	    });	
+		
+		$(document).on('mouseenter', '[data-toggle="tab"]', function () {
+		  	$(this).tab('show');
+		});
+		
 	</script>
 </head>
 <body>
-		<nav class="navbar navbar-default navbar-static-top">
-  			<div class="container">
-    		<!-- Brand and toggle get grouped for better mobile display -->
-    			<div class="navbar-header">
-     				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
-      						data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				        <span class="sr-only">Toggle navigation</span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-			      	</button>
-      				<a class="navbar-brand active" href="index1">RApS.in</a>
-      				<!--  <a class="navbar-brand" href="#">
-                <img src="http://placehold.it/150x50&text=Logo" alt="">
-            </a> -->
-    			</div>
 
-			    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      		<ul class="nav navbar-nav">
-						<li><a href="registerPage1">Register</a></li>
-				    	<li><a href="listItemInPriceRange.jsp?from=0&to=0">Exam-01</a></li>
-				    	<li>
-				    		<a data-toggle="tab" href="#category">Shop By Category</a> 
-			    		</li>
-			    		<li>
-		    				<a data-toggle="tab" href="#empty">
-		    					<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-	    					</a>
-			    		</li>
-				   	</ul>
-				   	<ul class="nav navbar-nav navbar-right">
-				        <li class="dropdown">
-				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="addItemPage">Add Item</a></li>
-								<li><a href="deleteItemPage">Delete Item</a></li>
-							</ul>
-						</li>
-						<li><a href="login.html">Login</a></li>
-				   	</ul>
-			  	  	<div class="tab-content">
-				    	<div id="empty" class="tab-pane-fade">
-				    	</div>
-					    <div id="category" class="tab-pane fade">
-					      	<table class="table">
-								<tbody>
-									<tr>
-									<s:iterator>
-										<s:if test="categoryId % 3 == 1">
-										<td>
-											<h4><s:property value="categoryName"/></h4>
-											<ul>
-											  	<s:iterator value="subCategories">
-												  	<li style="list-style-type: none;">
-												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
-												  			<s:property value="subCategoryName"/>
-											  			</a>
-										  			</li>
-											  	</s:iterator>
-										  	</ul>	
-									  	</td>
-									  	</s:if>
-									</s:iterator>
-									</tr>
-									<tr>	
-					  				<s:iterator>
-										<s:if test="categoryId % 3 == 2">
-										<td>
-											<h4><s:property value="categoryName"/></h4>
-											<ul>
-											  	<s:iterator value="subCategories">
-												  	<li style="list-style-type: none;">
-												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
-												  			<s:property value="subCategoryName"/>
-											  			</a>
-										  			</li>
-											  	</s:iterator>
-										  	</ul>	
-									  	</td>
-										</s:if>
-									</s:iterator>
-									</tr>
-									<tr>
-									<s:iterator>
-										<s:if test="categoryId % 3 == 0">
-											<td>
-											<h4><s:property value="categoryName"/></h4>
-											<ul>
-											  	<s:iterator value="subCategories">
-												  	<li style="list-style-type: none;">
-												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
-												  			<s:property value="subCategoryName"/>
-											  			</a>
-										  			</li>
-											  	</s:iterator>
-										  	</ul>	
-									  	</td>
-										</s:if>
-									</s:iterator>
-									</tr>
-								</tbody>
-							</table>
-					    </div>
-				    </div>
-			  	</div><!-- /.navbar-collapse -->
-  			</div><!-- /.container -->
-		</nav>
-<%
-	try {
-				   
-		DBConnection dbConnection = new DBConnection();
-		PreparedStatement ps = dbConnection.connect().prepareStatement("SELECT * FROM items");
-		ResultSet rs = ps.executeQuery();
-		ArrayList<String> itemId = new ArrayList<String>();
-		ArrayList<String> itemName = new ArrayList<String>();
-		ArrayList<String> itemDesc = new ArrayList<String>();
-		ArrayList<Double> itemPrice = new ArrayList<Double>();
-		ArrayList<String> itemImage = new ArrayList<String>();
-		ArrayList<String> itemSeller = new ArrayList<String>();
-		
-%>
+	<div id="header">
+	</div>
+	<nav class="nav navbar-default" style="border-bottom: 1px solid #CBCCCA;">
+		<div class="container header">
+			<ul class="navbar-left header-nav" style="margin-bottom: 5px;">
+				<li><a href="#">Sign in</a></li>
+				<li><a href="#">Register</a></li>
+				<li><a href="#">Deals </a></li>
+				<li><a href="#" data-toggle="modal" data-target="#myModal">Sell </a></li>
+				<li><a href="#">Track My Order</a></li>
+			</ul>
+			<ul class="navbar-right header-nav" style="margin-bottom: 5px;">
+				<li><a href="#" data-toggle="modal" data-target="#myModal">My eBay </a></li>
+				<li><a href="#" data-toggle="modal" data-target="#myModal"> My PaisaPay </a></li>
+				<li><a href="#"><i class="fa fa-bell"></i> </a></li>
+				<li><a href="#"><i class="fa fa-search"></i></a></li>
+				<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+			</ul>
+		</div>
+	</nav>
+	
 
 <div class="row">
-	<div class="col-md-2">
-	
+	<div class="col-md-1">
 	</div>
-    <div class="col-md-8">
-		<div class="well text-center">
-			<h3>Advertisements</h3>
+    <div class="col-md-10">
+		<h3 class="text-center">Advertisements</h3>
+		<div class="row-fluid" id="itemCarousel">
 		</div>
-		<div id="owl-demo" class="owl-carousal">
-<%		
-		while(rs.next()) {
-			
-			itemId.add(rs.getString(2));
-			itemName.add(rs.getString(3));
-			itemPrice.add(rs.getDouble(5));
-			itemImage.add(rs.getString(6));
-			itemDesc.add(rs.getString(4));
-			itemSeller.add(rs.getString(10));
-			
-%>
-	      	<div class="item">
-				<div class="thumbnail">
-		 		 	<a data-toggle="modal" data-target="#myModal<%=rs.getString(2) %>"><img src="showPicture.jsp?image=<%=rs.getString(6) %>" class="img-responsive"></a>
-      				<div class="caption">
-						<table class="table" style="border-width : 0px; border-top-style: none;">
-	    				<tr>
-	    					<td>ID</td>
-	    					<td><strong><%=rs.getString(2) %></strong></td>
-	    				</tr>
-						<tr>
-							<td>NAME</td>
-							<td><strong><%=rs.getString(3) %></strong></td>
-						</tr>
-						<tr>
-							<td>Price</td>
-							<td><strong>$ <%=rs.getDouble(5) %></strong></td>
-						</tr>
-						<tr class="success">
-							<td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary" role="button">Buy Now</a></td>
-						</tr>
-	    				</table>
-      				</div>
-				</div>
-		 	</div>
-
-			
-<%		}
-%>
-		</div>
+	</div>	
 	</div>
-    <div class="col-md-2">
+    <div class="col-md-1">
 	
 	</div>
-    
-</div>
-<%
-
-		for(int i = 0; i < itemId.size(); i ++ ) {
-	
-%>		
-			<div class="modal fade" id="myModal<%=itemId.get(i) %>" tabindex="-1" role="dialog">
-				<div class="modal-dialog modal-lg">
-					<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4><%=itemName.get(i) %></h4>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-6">
-									<img src="showPicture.jsp?image=<%=itemImage.get(i) %>" class="img-responsive">		
-								</div>
-								<div class="col-md-6">
-									<table class="table" style="border-width : 0px; border-top-style: none;">
-					    				<tr>
-					    					<td>ID</td>
-					    					<td><strong><%=itemId.get(i) %></strong></td>
-					    				</tr>
-										<tr>
-											<td>Name</td>
-											<td><strong><%=itemName.get(i) %></strong></td>
-										</tr>
-										<tr>
-											<td>Description</td>
-											<td><strong><%=itemDesc.get(i) %></strong></td>
-										</tr>
-										<tr>
-											<td>Seller Name</td>
-											<td><strong><%=itemSeller.get(i) %></strong></td>
-										</tr>
-										<tr>
-											<td>Price</td>
-											<td><strong>$ <%=itemPrice.get(i) %></strong></td>
-										</tr>
-										<tr class="success">
-											<td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary" role="button">Buy Now</a></td>
-										</tr>
-				    				</table>	
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
-<%
-		}
-	} catch(Exception e) {
-		e.printStackTrace();
-	}
-%>	
- 		<!-- Display individual item -->
-		<%-- 	<div class="modal fade" id="myModalItem" role="dialog">
-				<div class="modal-dialog modal-lg">
-					<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4><%=rs.getString(2) %></h4>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-6">
-									<img src="showPicture.jsp?image=<%=rs.getString(4) %>" class="img-responsive">		
-								</div>
-								<div class="col-md-6">
-									<table class="table" style="border-width : 0px; border-top-style: none;">
-					    				<tr>
-					    					<td>ID</td>
-					    					<td><strong><%=rs.getString(1) %></strong></td>
-					    				</tr>
-										<tr>
-											<td>Name</td>
-											<td><strong><%=rs.getString(2) %></strong></td>
-										</tr>
-										<tr>
-											<td>Description</td>
-											<td><strong><%=rs.getString(5) %></strong></td>
-										</tr>
-										<tr>
-											<td>Seller Name</td>
-											<td><strong><%=rs.getString(6) %></strong></td>
-										</tr>
-										<tr>
-											<td>Price</td>
-											<td><strong>$ <%=rs.getDouble(3) %></strong></td>
-										</tr>
-										<tr class="success">
-											<td colspan="2" class="text-right"><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary" role="button">Buy Now</a></td>
-										</tr>
-				    				</table>	
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
-	 --%>
 
 <footer class="site-footer">
 	<div class="container">

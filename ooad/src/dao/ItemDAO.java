@@ -3,12 +3,15 @@ package dao;
 import java.util.ArrayList;
 
 import model.Item;
+import model.ItemDetails;
 
 public interface ItemDAO {
 
 	public boolean addItem(Item item);
 	
 	public boolean deleteItem(Item item);
+	
+	public ItemDetails getItem(Item item);
 	
 	public boolean getItems(ArrayList<Item> items, int subCategory);
 	

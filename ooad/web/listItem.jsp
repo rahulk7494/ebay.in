@@ -158,11 +158,12 @@
 								<table class="table" style="border-width : 0px; border-top-style: none;">
 				    				<tr>
 				    					<td>ID</td>
-				    					<td><strong><%=item.getItemId() %></strong></td>
+				    					<td>
+				    						<strong><%=item.getItemId() %></strong></td>
 				    				</tr>
 									<tr>
 										<td>Name</td>
-										<td><strong><%=item.getItemName() %></strong></td>
+										<td><strong><a href="item.jsp?itemId=<%=item.getItemId() %>"><%=item.getItemName() %></a></strong></td>
 									</tr>
 									<tr>
 										<td>Desc</td>

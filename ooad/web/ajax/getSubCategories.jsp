@@ -6,7 +6,7 @@
 
 <%
 	String result = "";
-System.out.println("test in ajaxgetsub:"+request.getParameter("categoryId"));
+	System.out.println("test in ajaxgetsub:"+request.getParameter("categoryId"));
 	if(!request.getParameter("categoryId").isEmpty())
 	{
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
