@@ -19,12 +19,20 @@
 	</package>
 	
 	<package name="register" namespace="/" extends="struts-default">
-		<action name="register" class="action.RegisterAction">
+		<action name="register" class="action.RegisterAction" method="registerUser">
 			<result name="success">/register.jsp?success=true</result>
+			<result name="error">/error.html</result>
+		</action>
+		<action name="registerSeller" class="action.RegisterAction">
+			<result name="success">addItemPage</result>
 			<result name="error">/error.html</result>
 		</action>
 		<action name="registerPage1">
 			<result>/register.jsp?success=none</result>
+		</action>
+		<action name="registerSellerPage" class="action.LoadAction">
+			<result name="success">/registerSeller.jsp?success=none</result>
+			<result name="error">/error.html</result>
 		</action>
 	</package>
 	
@@ -39,7 +47,7 @@
 			<result name="error">/error.html</result>
 		</action>
 		
-		<action name="addItem" class="action.ItemAction">
+		<action name="addItem" class="action.ItemDetailsAction">
 			<interceptor-ref name="fileUpload">
 		        <param name="maximumSize">2097152</param>
 		        <param name="allowedTypes">
@@ -69,6 +77,11 @@
 	<package name="login" namespace="/" extends="struts-default">
 		<action name="login" class="action.LoginAction">
 			<result name="success">/adminPage.jsp</result>
+			<result name="error">/error.html</result>
+		</action>
+		
+		<action name="payment" class="action.PaymentAction">
+			<result name="success">/home.jsp</result>
 			<result name="error">/error.html</result>
 		</action>
 	</package>

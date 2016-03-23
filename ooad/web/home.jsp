@@ -22,11 +22,6 @@
 	
 	<style type="text/css">
 	
-		.header {
-		    font-size: 12px;
-		    padding-top: 5px;
-		}
-		
 		.thumbnail {
 		    width: 260px;
 		    height: 300px;
@@ -55,16 +50,38 @@
 	</script>
 </head>
 <body>
-
+	<% 	 		String userid = (String) request.getSession().getAttribute("USERID");
+				String usertype = "3";
+				if((String) request.getSession().getAttribute("USERTYPE") != null)
+					usertype = (String) request.getSession().getAttribute("USERTYPE");
+	%>
 	<div id="header">
 	</div>
 	<nav class="nav navbar-default" style="border-bottom: 1px solid #CBCCCA;">
 		<div class="container header">
 			<ul class="navbar-left header-nav" style="margin-bottom: 5px;">
-				<li><a href="#">Sign in</a></li>
-				<li><a href="#">Register</a></li>
-				<li><a href="#">Deals </a></li>
-				<li><a href="#" data-toggle="modal" data-target="#myModal">Sell </a></li>
+				<li><a href="#" data-toggle="modal" data-target="#myModal">Sign in</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#myModal">Register</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#myModal">Deals </a></li>
+		<%	        
+				if (userid != null ) { 
+	            	System.out.println("user != null");
+	            	if( usertype == "1") {
+	     %>
+	     				<li><a href="registerSellerPage">Sell</a></li>
+	     <%			}
+	            	else if( usertype == "2") {
+	     %>
+	     				<li><a href="addItemPage">Sell</a></li>
+	     <%   		}
+	     	}
+	     	else    {
+	            System.out.println("user == null");
+	      %>
+						<li><a href="loginPage.jsp?v=s">Sell</a></li>
+	      <%      
+	        }
+    %>			<!-- <li><a href="#">Sell </a></li> -->
 				<li><a href="#">Track My Order</a></li>
 			</ul>
 			<ul class="navbar-right header-nav" style="margin-bottom: 5px;">
@@ -139,5 +156,6 @@
 		</div>
 	</div>
 
+	
 </body>
 </html>

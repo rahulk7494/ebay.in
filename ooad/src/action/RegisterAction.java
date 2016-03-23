@@ -20,6 +20,10 @@ public class RegisterAction extends ActionSupport implements ModelDriven<Seller>
 		return ERROR;
 	}
 	
+	public String registerUser() {
+		return SUCCESS;
+	}
+	
 	@Override
 	public Seller getModel() {
 		return seller;

@@ -14,6 +14,7 @@ import model.ItemDetails;
 public class ItemAction extends ActionSupport implements ModelDriven<Item>{
 
 	Item item = new Item();
+	
 	ArrayList<Item> items = new ArrayList<>();
 	
 	private double from;
@@ -26,14 +27,6 @@ public class ItemAction extends ActionSupport implements ModelDriven<Item>{
 
 	public void setFrom(double from) {
 		this.from = from;
-	}
-	
-	public String execute() {
-		
-		ItemDAO itemDAO = new ItemDAOImplementation();
-		if(itemDAO.addItem(item))
-			return SUCCESS;
-		return ERROR;
 	}
 	
 	public String delete() {
@@ -81,6 +74,4 @@ public class ItemAction extends ActionSupport implements ModelDriven<Item>{
 	public void setTo(double to) {
 		this.to = to;
 	}
-
-	
 }

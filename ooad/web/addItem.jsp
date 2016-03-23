@@ -11,9 +11,20 @@
 	<meta name="viewport" content="width=device-width, initial-scaling=1.0">
 	<title>Add Item</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="fa/css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 	<script src="js/jquery-2.1.1.min.js"></script>
-	
+	<link rel="stylesheet" href="css/jquery-ui.min.css">
+	<script src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+		    $("#header").load("header");
+		    $(".datepicker").datepicker();
+		});	
+		$(document).on('mouseenter', '[data-toggle="tab"]', function () {
+		  	$(this).tab('show');
+		});
+	</script>
 </head>
 <body>
 <%! 
@@ -21,7 +32,7 @@
  %>
 <%
 	String result = request.getParameter("success");
-	
+	String userid = (String) request.getSession().getAttribute("USERID");
 	try {
 		DBConnection dbConnection = new DBConnection();
 		PreparedStatement ps = dbConnection.connect().prepareStatement("SELECT log_message FROM logs WHERE logs_id = (SELECT MAX(logs_id) FROM logs)");
@@ -78,103 +89,10 @@
 				});
 			</script>
 
-		<nav class="navbar navbar-default navbar-static-top">
-  			<div class="container">
-    		<!-- Brand and toggle get grouped for better mobile display -->
-    			<div class="navbar-header">
-     				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
-      						data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				        <span class="sr-only">Toggle navigation</span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-			      	</button>
-      				<a class="navbar-brand active" href="index1">RApS.in</a>
-    			</div>
-
-			    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      		<ul class="nav navbar-nav">
-		      			<li><a href="registerPage1">Register</a></li>
-			    	</ul>
-				   	<ul class="nav navbar-nav navbar-right">
-				        <li class="dropdown active">
-				      		<a href="#" class="dropdown-toggle active" data-toggle="dropdown">Item Management <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="addItemPage">Add Item</a></li>
-								<li><a href="deleteItemPage">Delete Item</a></li>
-							</ul>
-						</li>					        
-			    		<li><a href="login.html">Login</a></li>
-			   	  	</ul>
-			  	  	<div class="tab-content">
-				    	<div id="empty" class="tab-pane-fade">
-				    	</div>
-					    <div id="shopByCategory" class="tab-pane fade">
-					      	<table class="table">
-								<tbody>
-									<tr>
-									<s:iterator>
-										<s:if test="categoryId % 3 == 1">
-										<td>
-											<h4><s:property value="categoryName"/></h4>
-											<ul>
-											  	<s:iterator value="subCategories">
-												  	<li style="list-style-type: none;">
-												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
-												  			<s:property value="subCategoryName"/>
-											  			</a>
-										  			</li>
-											  	</s:iterator>
-										  	</ul>	
-									  	</td>
-									  	</s:if>
-									</s:iterator>
-									</tr>
-									<tr>	
-					  				<s:iterator>
-										<s:if test="categoryId % 3 == 2">
-										<td>
-											<h4><s:property value="categoryName"/></h4>
-											<ul>
-											  	<s:iterator value="subCategories">
-												  	<li style="list-style-type: none;">
-												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
-												  			<s:property value="subCategoryName"/>
-											  			</a>
-										  			</li>
-											  	</s:iterator>
-										  	</ul>	
-									  	</td>
-										</s:if>
-									</s:iterator>
-									</tr>
-									<tr>
-									<s:iterator>
-										<s:if test="categoryId % 3 == 0">
-											<td>
-											<h4><s:property value="categoryName"/></h4>
-											<ul>
-											  	<s:iterator value="subCategories">
-												  	<li style="list-style-type: none;">
-												  		<a href="listItem.jsp?subCategoryId=<s:property value='subCategoryId'/>">
-												  			<s:property value="subCategoryName"/>
-											  			</a>
-										  			</li>
-											  	</s:iterator>
-										  	</ul>	
-									  	</td>
-										</s:if>
-									</s:iterator>
-									</tr>
-								</tbody>
-							</table>
-					    </div>
-				    </div>
-			  	</div><!-- /.navbar-collapse -->
-  			</div><!-- /.container -->
-		</nav>
-
+	<div id="header">
+	</div>
+	<br>
+	<br>
 	<nav>
 		<ul class="pager pull-left" style="margin: 0px; padding-left: 20px;">
 			<li><a href="index1">Back</a></li>
@@ -193,16 +111,17 @@
 				<s:form name="itemForm" action="addItem" method="post" namespace="/" enctype="multipart/form-data" class="form-horizontal">
   					<div class="panel-body">
 						<div class="form-group">
-						    <label for="name" class="col-sm-3 control-label">Seller Id</label>
+						    <label class="col-sm-3 control-label">Seller Id</label>
 					    	<div class="col-sm-8">
-						    	<input type="text" class="form-control" id="sellerId" hidden="" name="seller.sellerId" placeholder="Seller ID" onkeyup="verifySeller()">
+						    	<input type="hidden" class="form-control" name="seller.sellerId" value="<%=userid %>">
+						    	<input type="text" class="form-control" disabled="disabled" id="sellerId" value="<%=userid %>" placeholder="Seller ID">	<!--  onkeyup="verifySeller()" -->
 						    	<span id="err"> </span>
 						    </div>
 					  	</div>
 						<div class="form-group">
-						    <label for="name" class="col-sm-3 control-label">Category Name</label>
+						    <label class="col-sm-3 control-label">Category Name</label>
 					    	<div class="col-sm-8">
-						    	<select class="form-control" id="category" name="categoryId" onchange="getSubCategory()">
+						    	<select class="form-control" id="category" name="item.categoryId" onchange="getSubCategory()">
 									<option value='0'>None</option>
 									<s:iterator>
 										<option value='<s:property value="categoryId"/>'><s:property value="categoryName"/></option>
@@ -211,7 +130,7 @@
 						    </div>
 					  	</div>
 						<div class="form-group">
-						    <label for="name" class="col-sm-3 control-label">Sub-Category Name</label>
+						    <label class="col-sm-3 control-label">Sub-Category Name</label>
 					    	<div id="getSubCategory" class="col-sm-8">
 					    		<select class="form-control" id="subCategory">
 									<option>None</option>
@@ -219,13 +138,13 @@
 						    </div>
 					  	</div>
 					  	<div class="form-group">
-   							<label for="id" class="col-sm-3 control-label">Item Id</label>
+   							<label class="col-sm-3 control-label">Item Id</label>
    							<div class="col-sm-8">
      								<div class="input-group">
-									  	<span class="input-group-addon" id="sId">SID</span>
+									  	<span class="input-group-addon" id="sId"><%=userid %></span>
 									  	<span class="input-group-addon" id="catId">CatId</span>
 									  	<span class="input-group-addon" id="subCatId">SubCatID</span>
-									  	<input type="text" class="form-control" id="itemId" name="itemId" placeholder="Item ID"  onkeyup="verifyItem()">
+									  	<input type="text" class="form-control" id="itemId" name="item.itemId" placeholder="Item ID"  onkeyup="verifyItem()">
 									</div>
 									<span id="err1"></span>
 							</div>
@@ -233,41 +152,150 @@
 					  	<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Item Name</label>
 					    	<div class="col-sm-8">
-						    	<input type="text" class="form-control" id="itemName" name="itemName" placeholder="Item Name">
+						    	<input type="text" class="form-control" id="itemName" name="item.itemName" placeholder="Item Name">
 						    </div>
 					  	</div>
 					  	<div class="form-group">
 						    <label for="address" class="col-sm-3 control-label">Description</label>
 					    	<div class="col-sm-8">
-						          <textarea rows="2" class="form-control" id="itemDescription" name="itemDescription"></textarea>
+						          <textarea rows="2" class="form-control" id="itemDescription" name="item.itemDescription"></textarea>
 						    </div>
 						</div>
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Picture</label>
 					    	<div class="col-sm-8">
-						    	<input type="file" name="itemPicture" id="itemPicture" >
+						    	<input type="file" name="item.itemPicture" id="itemPicture" >
 						    </div>
 					  	</div>
 						<div class="form-group">
 						    <label for="name" class="col-sm-3 control-label">Price</label>
 					    	<div class="col-sm-8">
-						    	<input type="text" class="form-control" id="itemPrice" name="itemPrice" />
+						    	<input type="text" class="form-control" id="itemPrice" name="item.itemPrice" onkeyup="setAdvtCost()"/>
 						    </div>
+					  	</div>
+					  	<div class="form-group">
+						    <label class="col-sm-3 control-label">Discount</label>
+					    	<div class="col-sm-8">
+						    	<input type="text" class="form-control" id="itemDiscount" name="item.itemDiscount" value="0" />
+						    </div>
+					  	</div>
+					  	<div class="form-group">
+						    <label class="col-sm-3 control-label">Quantity Available</label>
+					    	<div class="col-sm-8">
+						    	<input type="text" class="form-control" id="itemQuantityAvailable" name="item.itemQuantityAvailable" value="1" />
+						    </div>
+					  	</div>
+						<div class="form-group">
+						    <label class="col-sm-3 control-label">Warranty Period</label>
+					    	<div class="col-sm-8">
+								<div class="input-group">
+									<input type="text" class="form-control" style="z-index: 0;" id="itemWarrantyPeriod" name="item.itemWarrantyPeriod">
+									<%-- <div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+											Period <span class="caret"></span>
+										</button>
+										<!-- <ul class="dropdown-menu dropdown-menu-right">
+											<li>Year(s)</li>
+											<li>Month(s)</li>
+										</ul> -->
+									</div> --%>
+								</div>
+							</div>
 					  	</div>
 					  	<div class="form-group">
 					  		<label for="name" class="col-sm-3 control-label">Advertising Item</label>
 					    	<div class="col-sm-8">
 						    	<div class="radio">
 						  		 	<label>
-								    	<input type="radio" name="itemAdvertisement" id="itemAdvertisement" value="Yes"> Yes
+								    	<input type="radio" name="item.itemAdvertisement" id="itemAdvertisement" value="Yes" onclick="show(1)"> Yes
 								  	</label>
 								  	&emsp;
 							  	 	<label>
-								    	<input type="radio" name="itemAdvertisement" id="itemAdvertisement" value="No"> No
+								    	<input type="radio" name="item.itemAdvertisement" id="itemAdvertisement" value="No" onclick="show(0)"> No
 								  	</label>
 							  	</div>
 						    </div>
 					  	</div>
+					  	<div id="advt-detail" class="hidden">
+					  		<div class="form-group">
+							    <label class="col-sm-3 control-label">Advertisement From</label>
+						    	<div class="col-sm-8">
+							    	<input type="text" class="form-control datepicker" id="itemAdvtFrom" name="item.itemAdvtFrom" />
+							    </div>
+						  	</div>
+						  	<div class="form-group">
+							    <label class="col-sm-3 control-label">Advertisement To</label>
+						    	<div class="col-sm-8">
+							    	<input type="text" class="form-control datepicker" id="itemAdvtTo" name="item.itemAdvtTo" />
+							    </div>
+						  	</div>
+						  	<div class="form-group">
+							    <label class="col-sm-3 control-label">Advertisement Cost</label>
+						    	<div class="col-sm-8">
+							    	<input type="text" class="form-control" disabled="disabled" id="itemAdvtCost" name="item.itemAdvtCost" />
+							    </div>
+						  	</div>
+						</div> 
+						<hr>
+						<div class="text-center">
+							<h4><strong>Item specifics</strong></h4>
+						</div>
+						<div id="item-specifics">
+							<div class="form-group">
+							    <label class="col-sm-3 control-label">Color</label>
+						    	<div class="col-sm-8">
+							    	<input type="text" class="form-control" id="itemColor" name="item.itemColor" />
+							    </div>
+						  	</div>
+						  	<div class="form-group">
+							    <label class="col-sm-3 control-label">Condition</label>
+						    	<div class="col-sm-8">
+						    		<select class="form-control" id="itemCondition" name="item.itemCondition">
+										<option value="">None</option>
+										<option>New</option>
+										<option>Old</option>
+									</select>
+							    </div>
+						  	</div>
+						  	<div class="form-group">
+							    <label class="col-sm-3 control-label">Weight</label>
+						    	<div class="col-sm-8">
+									<div class="input-group">
+										<input type="text" class="form-control" style="z-index: 0;" id="itemWeight" name="item.itemWeight">
+										<%-- <div class="input-group-btn">
+											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+												Unit <span class="caret"></span>
+											</button>
+											<!-- <ul class="dropdown-menu dropdown-menu-right">
+												<li><a href="#">Kg (s)</a></li>
+												<li><a href="#">g (s)</a></li>
+												<li><a href="#">lb (s)</a></li>
+											</ul> -->
+										</div> --%>
+									</div>
+								</div>
+						  	</div>
+						  	<div class="form-group">
+							    <label class="col-sm-3 control-label">Brand</label>
+						    	<div class="col-sm-8">
+							    	<input type="text" class="form-control" id="itemBrand" name="item.itemBrand" />
+							    </div>
+						  	</div>
+							<div class="form-group">
+							    <label class="col-sm-3 control-label">Expiry Date</label>
+						    	<div class="col-sm-8">
+							    	<input type="text" class="form-control datepicker" id="itemExpiryDate" name="item.itemExpiryDate" />
+							    </div>
+						  	</div>
+							<div class="form-group" id="add">
+							    <label class="col-sm-3 control-label sr-only"></label>
+						    	<div class="col-sm-8">
+							    	<button type="button" id="addMore" onclick="add()" class="btn btn-primary col-md-3 text-right">Add More ...</button>
+							    </div>
+						  	</div>
+						  	<span id="err3"></span>
+						</div>
+										  	
 					</div>
 					<div class="panel-footer">
 						<div class="row">
@@ -308,6 +336,66 @@
 
 		<script>
 	
+		var days = 1;
+		
+		$("#itemAdvtFrom").datepicker({
+		    minDate: 0,
+		    maxDate: '+1Y+6M',
+		    onSelect: function (dateStr) {
+		        var min = $(this).datepicker('getDate'); // Get selected date
+		        $("#itemAdvtFrom").datepicker('option', 'minDate', min || '0'); // Set other min, default to today
+		        setAdvtCost();
+		    }
+		});
+
+		$("#itemAdvtTo").datepicker({
+		    minDate: '0',
+		    maxDate: '+1Y+6M',
+		    onSelect: function (dateStr) {
+		        var max = $(this).datepicker('getDate'); // Get selected date
+		        $('.datepicker').datepicker('option', 'maxDate', max || '+1Y+6M'); // Set other max, default to +18 months
+		        var start = $("#itemAdvtFrom").datepicker("getDate");
+		        var end = $("#itemAdvtTo").datepicker("getDate");
+		        days = (end - start) / (1000 * 60 * 60 * 24);
+		        setAdvtCost();
+		    }
+		});
+
+		var count = 0;
+		
+		function add() {
+			count ++;
+			if(count == 5) {
+				$('#err3').html('<font color="red">You Cant Add More Attributes !!!</font>');
+				$('#add').addClass('hidden');
+			}
+			else {
+				var field = '<div class="form-group">' + 
+								'<div class="col-sm-3">' + 
+									'<input type="text" class="form-control text-right" id="key' + count + '" name="attributeLists[' + (count-1) + '].attributeKey" />' +
+								'</div>' +
+								'<div class="col-sm-8">' + 
+									'<input type="text" class="form-control" id="value' + count + '" name="attributeLists[' + (count-1) + '].attributeValue" />' + 
+								'</div>' + 
+							'</div>'; 
+				$(field).insertBefore('#add');
+			}
+		}
+		
+		function show(c) {
+			if(c == 1) {
+				$('#advt-detail').removeClass("hidden");
+			}
+			else {
+				$('#advt-detail').addClass("hidden");
+			}
+		}
+		
+		function setAdvtCost() {
+			var val = $('#itemPrice').val() * 0.05 * days;
+			$('#itemAdvtCost').val(val);
+		}
+		
 		function validateText(id)
 		{
 			if($("#"+id).val() == null || $("#"+id).val() == "")
@@ -336,7 +424,7 @@
 				{
 					$("#addItemButton").click(function()
 						{
-							if(!validateText("sellerId")) {
+						/* 	if(!validateText("sellerId")) {
 								return false;
 							}
 							if(!validateText("res1"))
@@ -364,7 +452,7 @@
 							}
 							if(!validateText("itemAdvertisement")) {
 								return false;
-							}	
+							}  */	
 							$("form#itemForm").submit();
 						});
 				}
@@ -425,7 +513,7 @@
 			var key = y[x].index + 1;
 		*/	
 			var e = document.getElementById("category");
-			var key = e.options[e.selectedIndex].value;
+			var key = $('select[name="item.categoryId"]').val();		//e.options[e.selectedIndex].value;
 			
 			var urls = "ajax/getSubCategories.jsp?categoryId=" + key
 			

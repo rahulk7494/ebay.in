@@ -2,6 +2,7 @@ package dao.implementaion;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import model.Category;
 import model.Item;
 import model.ItemDetails;
 import model.Seller;
+import model.SubCategory;
 //import model.Seller;
 
 public class ItemDAOImplementation implements ItemDAO {
@@ -24,13 +26,15 @@ public class ItemDAOImplementation implements ItemDAO {
 		
 		ItemDetails itemDetails = new ItemDetails();
 		itemDetails.setSeller(new Seller());
-		
+		itemDetails.setCategory(new Category());
+		itemDetails.setSubCategory(new SubCategory());
 		try {
 			
 			DBConnection dbConnection = new DBConnection();
-		    String sql = "SELECT i.*, c.* "
-			    		+ "FROM items i, categories c "
+		    String sql = "SELECT i.*, c.*, s.* "
+			    		+ "FROM items i, categories c, subcategories s "
 			    		+ "WHERE i.item_cat_id = c.category_id "
+			    		+ "AND i.item_subcat_id = s.subcategory_id "
 			    		+ "AND i.item_id = '" + item.getItemId() + "'";
 			    
 		    PreparedStatement ps = dbConnection.connect().prepareStatement(sql);
@@ -57,12 +61,12 @@ public class ItemDAOImplementation implements ItemDAO {
 				
 				itemDetails.getSeller().setSurrogateSellerId(rs.getInt("item_seller_id"));
 				itemDetails.setItem(item);
-				itemDetails.setCategory(new Category());
 				itemDetails.getCategory().setCategoryId(rs.getInt("category_id"));
 				itemDetails.getCategory().setCategoryName(rs.getString("category_name"));
-
+				itemDetails.getSubCategory().setSubCategoryId(rs.getInt("subcategory_id"));
+				itemDetails.getSubCategory().setSubCategoryName(rs.getString("subcategory_name"));
 				
-				System.out.println("---------" + item.getItemPictureString());
+				
 			}
 			ps.close();
 			rs.close();
@@ -93,9 +97,9 @@ public class ItemDAOImplementation implements ItemDAO {
 		    sql = "SELECT s.*, u.user_id "
 	    		+ "FROM sellers s, users u "
 	    		+ "WHERE s.seller_id = u.users_id "
-	    		+ "AND s.seller_category_id = " + itemDetails.getCategory().getCategoryId() + " "
-	    		+ "AND s.seller_id = '" + itemDetails.getSeller().getSurrogateSellerId() + "'";
-			    
+	    		+ "AND s.seller_id = " + itemDetails.getSeller().getSurrogateSellerId();	// + " "
+//		    	+ "OR s.seller_category_id = " + itemDetails.getCategory().getCategoryId();
+    		
 		    System.out.println(sql);
 		    ps = dbConnection.connect().prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -121,127 +125,6 @@ public class ItemDAOImplementation implements ItemDAO {
 		return itemDetails;	//true;
 	}
 	
-	@Override
-	public boolean addItem(Item item) {
-		try {
-			
-			String workingDir = System.getProperty("user.dir");		// get current working directory
-			System.out.println(workingDir);
-			System.out.println(item.getItemPictureString());
-			/*
-			 *	File currentDirFile = new File(".");
-			 *	String helper = currentDirFile.getAbsolutePath();
-			 *	String currentDir = helper.substring(0, helper.length - currentDirFile.getCanonicalPath().length); 
-			 *
-			 */
-		
-			DBConnection cs = new DBConnection();
-			PreparedStatement ps1;	// = cs.connect().prepareStatement("SELECT MAX(item_images_id) FROM item_images");
-			//ResultSet rs1;	// = ps1.executeQuery();
-			/*
-			if(rs1.next()) {
-				fileName = (rs1.getInt(1) + 1) + "";
-			}
-			
-			cs.disconnect();
-			ps1.close();
-			rs1.close();
-			*/
-			BufferedImage bi = ImageIO.read(item.getItemPicture());
-			File saveFile = new File(workingDir + item.getItemId() + ".png");
-			ImageIO.write(bi, "png", saveFile);
-			
-			item.setItemPictureString("eclipse" + item.getItemId() + ".png");
-			
-			System.out.println("new " + item.getItemPictureString());
-			
-            cs = new DBConnection();
-			ps1 = cs.connect().prepareStatement("INSERT INTO items(item_id, item_name, item_cat_id, item_subcat_id, item_price, item_desc, item_adv, item_picture, item_seller_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-			ps1.setString(1, item.getItemId());
-			ps1.setString(2, item.getItemName());
-			ps1.setInt(3, item.getCategoryId());
-			ps1.setInt(4, item.getSubCategoryId());
-			ps1.setDouble(5,item.getItemPrice());
-			ps1.setString(6,item.getItemDescription());
-			ps1.setString(8, item.getItemPictureString());
-			ps1.setString(9, item.getSeller().getSellerId());
-			
-			if(item.getItemAdvertisement().equals("Yes")){
-				boolean b=true;
-				ps1.setBoolean(7,b);
-			}
-			
-			else if(item.getItemAdvertisement().equals("No")){
-				boolean b=false;
-				ps1.setBoolean(7,b);
-			}
-			
-			System.out.println("Rohit:"+item.getCategoryId()+" "+item.getSubCategoryId());
-
-			ps1.execute();
-			
-			/*if(!ps1.execute())
-			{
-				cs.disconnect();
-				*/
-				System.out.println("First");
-				PreparedStatement ps = cs.connect().prepareStatement("SELECT items_id FROM items WHERE item_id = ?");
-				ps.setString(1, item.getItemId());
-				ResultSet rs = ps.executeQuery();
-				if(rs.next())
-					item.setSurrogateItemId(rs.getInt(1));
-				cs.disconnect();
-				ps.close();
-				rs.close();
-				/*
-				System.out.println("First first");
-				ps = cs.connect().prepareStatement("INSERT INTO item_images(item_id, item_image) VALUES(?, ?)");
-				ps.setInt(1, item.getSurrogateItemId());
-				ps.setString(2, item.getItemPictureString());
-				ps.execute();
-				cs.disconnect();
-				ps.close();
-				
-				System.out.println("Second " + item.getSurrogateItemId());
-				ps = cs.connect().prepareStatement("SELECT users_id FROM users WHERE user_id = ?");
-				ps.setString(1, item.getSeller().getSellerId());
-				rs = ps.executeQuery();
-				Seller seller = new Seller();
-				if(rs.next())
-				{
-					seller.setSurrogateSellerId(rs.getInt(1));
-				}
-				cs.disconnect();
-				ps.close();
-				rs.close();
-				
-				System.out.println("Third " + item.getSurrogateItemId() + " " + seller.getSurrogateSellerId());
-				ps = cs.connect().prepareStatement("INSERT INTO item_sellers(item_id, seller_id) VALUES (?, ?)");
-				ps.setInt(1, item.getSurrogateItemId());
-				ps.setInt(2, seller.getSurrogateSellerId());
-				ps.execute();
-				cs.disconnect();
-				ps.close();
-			*/	
-				System.out.println("Fourth " + item.getSurrogateItemId() + " " + item.getSeller().getSellerId());
-				String logMessage = "Item with ID : " + item.getSurrogateItemId() + " is added";
-				ps1 = cs.connect().prepareStatement("INSERT INTO logs(log_message) VALUES (?)");
-				ps1.setString(1, logMessage);
-				ps1.execute();
-				cs.disconnect();
-				ps1.close();
-//			}
-			
-			
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		
-		return true;
-	}
-
 	@Override
 	public boolean deleteItem(Item item) {
 		try {
@@ -370,6 +253,163 @@ public class ItemDAOImplementation implements ItemDAO {
 			e.printStackTrace();
 			return false;
 		}
+		return true;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean addItem(ItemDetails itemDetails) {
+		try {
+			
+			String workingDir = System.getProperty("user.dir");		// get current working directory
+			System.out.println(workingDir);
+			Item item = itemDetails.getItem();
+			System.out.println(item.getItemPictureString());
+			/*
+			 *	File currentDirFile = new File(".");
+			 *	String helper = currentDirFile.getAbsolutePath();
+			 *	String currentDir = helper.substring(0, helper.length - currentDirFile.getCanonicalPath().length); 
+			 *
+			 */
+		
+			DBConnection cs = new DBConnection();
+			PreparedStatement ps1;	// = cs.connect().prepareStatement("SELECT MAX(item_images_id) FROM item_images");
+			ResultSet rs1;	// = ps1.executeQuery();
+			/*
+			if(rs1.next()) {
+				fileName = (rs1.getInt(1) + 1) + "";
+			}
+			
+			cs.disconnect();
+			ps1.close();
+			rs1.close();
+			*/
+			BufferedImage bi = ImageIO.read(item.getItemPicture());
+			File saveFile = new File(workingDir + item.getItemId() + ".png");
+			ImageIO.write(bi, "png", saveFile);
+			
+			item.setItemPictureString("eclipse" + item.getItemId() + ".png");
+			
+			System.out.println("new " + item.getItemPictureString());
+			
+			ps1 = cs.connect().prepareStatement("SELECT users_id FROM users WHERE user_id = ?");
+			ps1.setString(1, itemDetails.getSeller().getSellerId());
+			rs1 = ps1.executeQuery();
+			if(rs1.next())
+			{
+				itemDetails.getSeller().setSurrogateSellerId(rs1.getInt(1));
+			}
+			cs.disconnect();
+			ps1.close();
+			rs1.close();
+			
+			
+            cs = new DBConnection();
+            String sql = "INSERT INTO items"
+        			+ "(item_id, item_name, item_cat_id, item_subcat_id, "
+        			+ "item_price, item_desc, item_adv, item_picture, "
+        			+ "item_seller_id, item_discount, item_quantity_available, "
+        			+ "item_warranty_period"
+        			+ ", item_color, item_condition, item_weight, item_brand"
+        			+ ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?"
+        			+ ", ?, ?, ?, ?)";
+            ps1 = cs.connect().prepareStatement(sql);
+			ps1.setString(1, item.getItemId());
+			ps1.setString(2, item.getItemName());
+			ps1.setInt(3, item.getCategoryId());
+			ps1.setInt(4, item.getSubCategoryId());
+			ps1.setDouble(5,item.getItemPrice());
+			ps1.setString(6,item.getItemDescription());
+			ps1.setString(8, item.getItemPictureString());
+			ps1.setInt(9, itemDetails.getSeller().getSurrogateSellerId());
+			ps1.setDouble(10, item.getItemDiscount());
+			ps1.setInt(11, item.getItemQuantityAvailable());
+			ps1.setString(12, item.getItemWarrantyPeriod());
+			ps1.setString(13, item.getItemColor());
+			ps1.setString(14, item.getItemCondition());
+			ps1.setString(15, item.getItemWeight());
+			ps1.setString(16, item.getItemBrand());
+//			int year = item.getItemExpiryDate().getYear();
+//			int month = item.getItemExpiryDate().getMonth();
+//			int day = item.getItemExpiryDate().getDay();
+//			
+//			Date date = new Date(year, month, day);
+//			ps1.setDate(17, date);
+
+			if(item.getItemAdvertisement().equals("Yes")){
+				boolean b=true;
+				ps1.setBoolean(7,b);
+			}
+			
+			else if(item.getItemAdvertisement().equals("No")){
+				boolean b=false;
+				ps1.setBoolean(7,b);
+			}
+			
+			//System.out.println("Rohit:"+item.getCategoryId()+" "+item.getSubCategoryId());
+
+			ps1.execute();
+			
+			/*if(!ps1.execute())
+			{
+				cs.disconnect();
+				*/
+				System.out.println("First");
+				PreparedStatement ps = cs.connect().prepareStatement("SELECT items_id FROM items WHERE item_id = ?");
+				ps.setString(1, item.getItemId());
+				ResultSet rs = ps.executeQuery();
+				if(rs.next())
+					item.setSurrogateItemId(rs.getInt(1));
+				cs.disconnect();
+				ps.close();
+				rs.close();
+				
+				sql = "";
+				System.out.println("First first");
+				if(itemDetails.getAttributeLists() != null) {
+					for (AttributeList attributeList : itemDetails.getAttributeLists()) {
+						sql = "INSERT INTO attributes(attribute_item_id, attribute_key, attribute_value) "
+								+ "VALUES (" + item.getSurrogateItemId() + ", "
+										+ "'" + attributeList.getAttributeKey() + "', "
+										+ "'" + attributeList.getAttributeValue() + "');";
+						ps = cs.connect().prepareStatement(sql);
+						ps.execute();
+						cs.disconnect();
+						ps.close();
+						
+						System.out.println(attributeList.getAttributeKey() + " => " + attributeList.getAttributeValue());
+						System.out.println(sql);
+					}
+				}
+				
+				/*
+				System.out.println("Second " + item.getSurrogateItemId());
+				
+				Seller seller = itemDetails.getSeller();
+				System.out.println("Third " + item.getSurrogateItemId() + " " + seller.getSurrogateSellerId());
+				ps = cs.connect().prepareStatement("INSERT INTO sellers(item_id, seller_id) VALUES (?, ?)");
+				ps.setInt(1, item.getSurrogateItemId());
+				ps.setInt(2, seller.getSurrogateSellerId());
+				ps.execute();
+				cs.disconnect();
+				ps.close();
+			*/
+				//System.out.println("Fourth " + item.getSurrogateItemId() + " " + itemDetails.getSeller().getSellerId());
+				String logMessage = "Item with ID : " + item.getSurrogateItemId() + " is added";
+				ps1 = cs.connect().prepareStatement("INSERT INTO logs(log_message) VALUES (?)");
+				ps1.setString(1, logMessage);
+				ps1.execute();
+				cs.disconnect();
+				ps1.close();
+//			}
+			
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 		return true;
 	}
 

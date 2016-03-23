@@ -25,7 +25,7 @@
 			PreparedStatement ps = conn.connect().prepareStatement(sql);
 		    ResultSet rs = ps.executeQuery();
 		
-		    result = "<select class='form-control' id='subCategory' name='subCategoryId' onchange='fillDetails()'>"; 
+		    result = "<select class='form-control' id='subCategory' name='item.subCategoryId' onchange='fillDetails()'>"; 
 		    result = result + "<option value='0'>None</option>";
 		    
 		    while(rs.next())

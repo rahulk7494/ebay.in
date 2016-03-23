@@ -7,7 +7,7 @@ import model.ItemDetails;
 
 public interface ItemDAO {
 
-	public boolean addItem(Item item);
+	public boolean addItem(ItemDetails itemDetails);
 	
 	public boolean deleteItem(Item item);
 	

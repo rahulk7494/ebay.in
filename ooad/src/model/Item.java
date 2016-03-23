@@ -30,6 +30,11 @@ public class Item {
 	private Date itemExpiryDate;
 	private List<AttributeList> attributeList;
 	
+	private int surrogateAdvtDetailId;
+	private double itemAdvtCost;
+	private Date itemAdvtFrom;
+	private Date itemAdvtTo;
+	
 	private String sellerID;
 
 	public double getItemDiscount() {
@@ -223,4 +228,37 @@ public class Item {
 	public void setAttributeList(List<AttributeList> attributeList) {
 		this.attributeList = attributeList;
 	}
+	
+	public int getSurrogateAdvtDetailId() {
+		return surrogateAdvtDetailId;
+	}
+
+	public void setSurrogateAdvtDetailId(int surrogateAdvtDetailId) {
+		this.surrogateAdvtDetailId = surrogateAdvtDetailId;
+	}
+
+	public double getItemAdvtCost() {
+		return itemAdvtCost;
+	}
+
+	public void setItemAdvtCost(double itemAdvtCost) {
+		this.itemAdvtCost = itemAdvtCost;
+	}
+
+	public Date getItemAdvtFrom() {
+		return itemAdvtFrom;
+	}
+
+	public void setItemAdvtFrom(Date itemAdvtFrom) {
+		this.itemAdvtFrom = itemAdvtFrom;
+	}
+
+	public Date getItemAdvtTo() {
+		return itemAdvtTo;
+	}
+
+	public void setItemAdvtTo(Date itemAdvtTo) {
+		this.itemAdvtTo = itemAdvtTo;
+	}
+
 }

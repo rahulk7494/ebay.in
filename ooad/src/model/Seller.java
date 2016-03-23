@@ -8,9 +8,11 @@ public class Seller {
 	private String sellerAddress;
 	private String sellerContactNo;
 	private String sellerEmail;
+	private String sellerPassword;
 	private String sellerNOB;	//	Nature of Business
 	private int sellerRating;
-	private String sellerCategoryId;
+	private int sellerCategoryId;
+	private double sellerBalance;
 	
 	public String getSellerContactNo() {
 		return sellerContactNo;
@@ -34,14 +36,6 @@ public class Seller {
 
 	public void setSellerNOB(String sellerNOB) {
 		this.sellerNOB = sellerNOB;
-	}
-
-	public String getSellerCategoryId() {
-		return sellerCategoryId;
-	}
-
-	public void setSellerCategoryId(String sellerCategoryId) {
-		this.sellerCategoryId = sellerCategoryId;
 	}
 
 	public int getSurrogateSellerId() {
@@ -82,6 +76,30 @@ public class Seller {
 
 	public void setSellerRating(int sellerRating) {
 		this.sellerRating = sellerRating;
+	}
+
+	public int getSellerCategoryId() {
+		return sellerCategoryId;
+	}
+
+	public void setSellerCategoryId(int sellerCategoryId) {
+		this.sellerCategoryId = sellerCategoryId;
+	}
+
+	public double getSellerBalance() {
+		return sellerBalance;
+	}
+
+	public void setSellerBalance(double sellerBalance) {
+		this.sellerBalance = sellerBalance;
+	}
+
+	public String getSellerPassword() {
+		return sellerPassword;
+	}
+
+	public void setSellerPassword(String sellerPassword) {
+		this.sellerPassword = sellerPassword;
 	}
 	
 }
